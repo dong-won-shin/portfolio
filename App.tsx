@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Mail,
-  Github,
-  Phone,
+  Linkedin,
   ChevronRight,
   Cpu,
   Menu,
@@ -364,8 +363,7 @@ const App: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-x-8 gap-y-4 items-center text-sm text-slate-600">
                 <a href="mailto:celinachild@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Mail className="w-4 h-4" /> celinachild@gmail.com</a>
-                <span className="flex items-center gap-2"><Phone className="w-4 h-4" /> 010-5548-5776</span>
-                <a href="https://github.com/JustWon" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Github className="w-4 h-4" /> github.com/JustWon</a>
+                <a href="https://www.linkedin.com/in/dong-won-shin-7a11b2240/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Linkedin className="w-4 h-4" /> LinkedIn</a>
               </div>
             </div>
           </div>
@@ -628,7 +626,7 @@ const App: React.FC = () => {
           <p className="text-slate-500 font-bold text-lg mb-2">Dong-Won Shin</p>
           <p className="text-slate-400 text-sm mb-8 font-medium">SLAM & Perception Software Engineer</p>
           <div className="flex justify-center gap-10">
-            <a href="https://github.com/JustWon" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Github className="w-6 h-6" /></a>
+            <a href="https://www.linkedin.com/in/dong-won-shin-7a11b2240/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Linkedin className="w-6 h-6" /></a>
             <a href="mailto:celinachild@gmail.com" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Mail className="w-6 h-6" /></a>
           </div>
           <p className="mt-12 text-[10px] text-slate-300 font-bold uppercase tracking-[0.3em]">© 2024 Dong-Won Shin Portfolio</p>
