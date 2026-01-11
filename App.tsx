@@ -1,0 +1,523 @@
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Mail, 
+  Github, 
+  Phone, 
+  ChevronRight, 
+  Cpu, 
+  Menu,
+  X,
+  Calendar,
+  Building2,
+  ExternalLink,
+  CheckCircle2,
+  ArrowLeft,
+  FileText,
+  Globe,
+  FileCheck2,
+  Play,
+  GraduationCap
+} from 'lucide-react';
+import { 
+  CAREER_DATA, 
+  EDUCATION_DATA, 
+  INTERESTS, 
+  TECHNICAL_SKILLS, 
+  PROJECTS, 
+  SIDE_PROJECTS,
+  PATENTS,
+  MEDIA
+} from './data';
+import { ProjectItem } from './types';
+
+const Section: React.FC<{ title: string; id: string; children: React.ReactNode }> = ({ title, id, children }) => (
+  <section id={id} className="scroll-mt-20 py-16 border-b border-slate-100 last:border-0">
+    <h2 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-2 group">
+      <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
+      {title}
+      <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-40 transition-opacity" />
+    </h2>
+    <div className="space-y-6">
+      {children}
+    </div>
+  </section>
+);
+
+const ProjectModal: React.FC<{ project: ProjectItem; onClose: () => void }> = ({ project, onClose }) => {
+  if (!project.details) return null;
+
+  const getEmbedUrl = (url: string) => {
+    if (!url) return '';
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}?rel=0&modestbranding=1&autoplay=0`;
+    }
+    return url;
+  };
+
+  const isYouTube = project.details.videoUrl?.includes('youtube.com') || project.details.videoUrl?.includes('youtu.be');
+  const finalVideoUrl = project.details.videoUrl ? getEmbedUrl(project.details.videoUrl) : '';
+
+  return (
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-300 slide-in-from-bottom-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative h-48 sm:h-64 shrink-0">
+          <img 
+            src={project.thumbnail} 
+            alt={project.title} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <button 
+            onClick={onClose}
+            className="absolute top-6 left-6 p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div className="absolute bottom-6 left-8 right-8">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-0.5 bg-blue-600 text-[10px] font-black text-white rounded uppercase tracking-widest">
+                Project Detail
+              </span>
+              <span className="text-white/60 text-xs font-bold tracking-tight">
+                {project.organization}
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-3xl font-black text-white leading-tight">
+              {project.title}
+            </h2>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-8 sm:p-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2 space-y-10">
+              {project.details.videoUrl && (
+                <section>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Project Demo</h4>
+                  <div className="rounded-2xl overflow-hidden bg-black aspect-video shadow-lg border border-slate-100">
+                    {isYouTube ? (
+                      <iframe
+                        className="w-full h-full"
+                        src={finalVideoUrl}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      ></iframe>
+                    ) : (
+                      <video 
+                        controls 
+                        className="w-full h-full"
+                        poster={project.thumbnail}
+                      >
+                        <source src={project.details.videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </div>
+                </section>
+              )}
+
+              <section>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Project Overview</h4>
+                <p className="text-slate-700 leading-relaxed text-lg">
+                  {project.details.overview}
+                </p>
+              </section>
+
+              <section>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Key Features</h4>
+                <ul className="space-y-4">
+                  {project.details.keyFeatures.map((feature, i) => (
+                    <li key={i} className="flex gap-3 text-slate-700 font-medium">
+                      <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              {project.details.achievements && (
+                <section>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Achievements & Results</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.details.achievements.map((achievement, i) => (
+                      <div key={i} className="p-4 bg-blue-50/50 border border-blue-100 rounded-xl text-slate-700 text-sm font-semibold">
+                        {achievement}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
+
+            <div className="space-y-8">
+              <div>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Timeline</h4>
+                <div className="flex items-center gap-2 text-slate-900 font-bold">
+                  <Calendar className="w-4 h-4 text-slate-400" />
+                  {project.period}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Tech Stack</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.details.techStack.map((tech, i) => (
+                    <span key={i} className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-black rounded-lg">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-8 border-t border-slate-100">
+                <button 
+                  onClick={onClose}
+                  className="w-full py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+                >
+                  Close Detail
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const App: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-80px 0px -40% 0px', threshold: [0, 0.2, 0.5] }
+    );
+    document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedProject(null);
+    };
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleEsc);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [selectedProject]);
+
+  const navLinks = [
+    { name: 'Career', id: 'career' },
+    { name: 'Education', id: 'education' },
+    { name: 'Interests', id: 'interests' },
+    { name: 'Skills', id: 'skills' },
+    { name: 'Projects', id: 'projects' },
+    { name: 'Side Projects', id: 'side-projects' },
+    { name: 'Patents', id: 'patents' },
+    { name: 'Media', id: 'media' },
+  ];
+
+  const handleLinkClick = (id: string) => {
+    setIsMenuOpen(false);
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const PROFILE_IMAGE_URL = "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F135be76d-2517-4b00-8a7c-c87d839a4cfe%2FKakaoTalk_Photo_2021-12-20-23-26-06.jpeg&blockId=529bcfaa-e02b-4288-91e4-3a5d4f80dfb4&width=256";
+  const RESEARCH_IMAGE_URL = "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2f9ef1d1-eef4-48a3-a375-1d370d221812%2Fcarrobot.png&blockId=12ca2f6e-9b49-40d7-a4b4-d0f01d697d10";
+  const SKILLS_IMAGE_URL = "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F3a6157a8-91bf-4e19-92fc-e8fa4b1ea0e5%2FUntitled.png&blockId=e94bbaf7-b905-4255-9aaf-3c3b0d78b4f3";
+
+  return (
+    <div className="min-h-screen bg-white">
+      {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
+
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
+        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+          <a href="#home" onClick={(e) => { e.preventDefault(); handleLinkClick('home'); }} className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">D</div>
+            <span className="font-bold text-slate-900 tracking-tight hidden sm:block">Dong-Won Shin</span>
+          </a>
+          <div className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
+                className={`text-sm font-medium transition-colors ${
+                  activeSection === link.id ? 'text-blue-600' : 'text-slate-500 hover:text-slate-900'
+                }`}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+          <button className="md:hidden p-2 text-slate-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </nav>
+
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-white z-40 md:hidden pt-20 px-6">
+          <div className="flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={(e) => { e.preventDefault(); handleLinkClick(link.id); }}
+                className={`text-2xl font-semibold transition-colors ${activeSection === link.id ? 'text-blue-600' : 'text-slate-900'}`}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <main className="max-w-5xl mx-auto px-6 pt-32 pb-20">
+        <section id="home" className="mb-24 scroll-mt-32">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+            <div className="shrink-0 group relative">
+              <div className="absolute inset-0 bg-blue-600 rounded-2xl rotate-3 scale-[1.02] opacity-10 group-hover:rotate-6 transition-transform"></div>
+              <img 
+                src={PROFILE_IMAGE_URL} 
+                alt="Dong-Won Shin Profile" 
+                className="w-32 h-32 md:w-48 md:h-48 rounded-2xl object-cover shadow-2xl border-4 border-white relative z-10 transition-transform hover:-translate-y-1"
+              />
+            </div>
+            <div className="flex-1">
+              <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6">Dong-Won Shin</h1>
+              <p className="text-xl md:text-2xl text-slate-600 mb-10 font-medium leading-relaxed max-w-2xl">
+                SLAM & Perception Software Engineer specializing in 3D mapping, autonomous navigation, and LiDAR application development.
+              </p>
+              <div className="flex flex-wrap gap-x-8 gap-y-4 items-center text-sm text-slate-600">
+                <a href="mailto:celinachild@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Mail className="w-4 h-4" /> celinachild@gmail.com</a>
+                <span className="flex items-center gap-2"><Phone className="w-4 h-4" /> 010-5548-5776</span>
+                <a href="https://github.com/JustWon" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Github className="w-4 h-4" /> github.com/JustWon</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Section title="Career" id="career">
+          <div className="space-y-12">
+            {CAREER_DATA.map((item, idx) => (
+              <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
+                <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">{item.company}</h3>
+                  <p className="text-blue-600 font-bold text-lg">{item.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Education" id="education">
+          <div className="space-y-12">
+            {EDUCATION_DATA.map((item, idx) => (
+              <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
+                <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">{item.school}</h3>
+                  <p className="text-slate-800 font-bold text-lg leading-snug">
+                    {item.degree.split(' in ')[0]} <span className="font-medium text-slate-600 text-base">in {item.degree.split(' in ')[1]}</span>
+                  </p>
+                  {item.description && (
+                    <p className="text-sm text-slate-500 mt-2 font-medium italic">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Research Interest" id="interests">
+          <div className="flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <ul className="space-y-4">
+                {INTERESTS.map((interest, idx) => (
+                  <li key={idx} className="flex items-center gap-3 text-slate-700 font-medium text-lg">
+                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                    {interest}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="shrink-0">
+              <img src={RESEARCH_IMAGE_URL} alt="Research Icons" className="max-w-[300px] h-auto transition-all" />
+            </div>
+          </div>
+        </Section>
+
+        <Section title="Technical Skills & Experience" id="skills">
+          <div className="flex flex-col md:flex-row gap-12 items-start">
+            <div className="flex-1 space-y-6">
+              {TECHNICAL_SKILLS.map((skill, idx) => (
+                <div key={idx} className="flex flex-col">
+                  <span className="text-slate-800 font-bold text-lg flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                    {skill.label}: <span className="font-medium text-slate-600 ml-1">{skill.value}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="shrink-0">
+              <img src={SKILLS_IMAGE_URL} alt="Tech Logos" className="max-w-[400px] h-auto shadow-sm rounded-xl" />
+            </div>
+          </div>
+        </Section>
+
+        <Section title="Main Projects" id="projects">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PROJECTS.map((project, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => project.details && setSelectedProject(project)}
+                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
+                  <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
+                  <div className="mt-auto flex flex-col gap-1">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Side Projects" id="side-projects">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SIDE_PROJECTS.map((project, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => project.details && setSelectedProject(project)}
+                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-90'}`}
+              >
+                <div className="relative aspect-video overflow-hidden bg-slate-100">
+                  {project.thumbnail ? (
+                    <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-slate-300">
+                      <FileText className="w-12 h-12" />
+                    </div>
+                  )}
+                  <div className="absolute top-3 left-3">
+                    <div className="p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-sm">
+                      <FileText className="w-4 h-4 text-slate-600" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
+                  <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
+                  <div className="mt-auto flex flex-col gap-1">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Patents" id="patents">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {PATENTS.map((patent, idx) => (
+              <div key={idx} className="p-6 border border-slate-100 rounded-2xl bg-white flex items-start gap-4">
+                <div className="p-3 bg-slate-50 rounded-xl text-slate-400">
+                  <FileCheck2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter ${patent.status === 'Registered' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+                      {patent.status}
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{patent.country}</span>
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900 mb-1 leading-tight">{patent.title}</h3>
+                  <p className="text-xs font-mono text-slate-400">{patent.number}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Media Coverage" id="media">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {MEDIA.map((item, idx) => (
+              <a key={idx} href={item.link} className="flex flex-col border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all group bg-white">
+                <div className="relative aspect-video overflow-hidden">
+                  <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
+                      <Play className="w-5 h-5 text-blue-600 fill-current ml-1" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h4 className="text-base font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{item.title}</h4>
+                  <div className="mt-auto flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                    <span>{item.source}</span>
+                    <span>{item.date}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </Section>
+
+        <footer className="mt-32 py-16 border-t border-slate-100 text-center">
+          <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-xl mx-auto mb-8 shadow-xl shadow-blue-200">D</div>
+          <p className="text-slate-500 font-bold text-lg mb-2">Dong-Won Shin</p>
+          <p className="text-slate-400 text-sm mb-8 font-medium">SLAM & Perception Software Engineer</p>
+          <div className="flex justify-center gap-10">
+            <a href="https://github.com/JustWon" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Github className="w-6 h-6" /></a>
+            <a href="mailto:celinachild@gmail.com" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Mail className="w-6 h-6" /></a>
+          </div>
+          <p className="mt-12 text-[10px] text-slate-300 font-bold uppercase tracking-[0.3em]">© 2024 Dong-Won Shin Portfolio</p>
+        </footer>
+      </main>
+
+      <a href="mailto:celinachild@gmail.com" className="fixed bottom-8 right-8 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-2xl flex items-center justify-center hover:bg-blue-700 hover:scale-110 active:scale-95 transition-all z-50 group">
+        <Mail className="w-6 h-6" />
+        <span className="absolute right-16 bg-slate-900 text-white px-3 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-black uppercase tracking-widest">Get in Touch</span>
+      </a>
+    </div>
+  );
+};
+
+export default App;
