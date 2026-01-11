@@ -17,7 +17,8 @@ import {
   FileCheck2,
   Play,
   GraduationCap,
-  Award
+  Award,
+  Download
 } from 'lucide-react';
 import {
   CAREER_DATA,
@@ -109,6 +110,19 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
         <div className="flex-1 overflow-y-auto p-8 sm:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-10">
+              {project.details.pdfUrl && (
+                <section>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">E-book Preview</h4>
+                  <div className="rounded-2xl overflow-hidden bg-slate-50 shadow-lg border border-slate-200" style={{ height: '600px' }}>
+                    <iframe
+                      src={project.details.pdfUrl}
+                      className="w-full h-full"
+                      title="PDF Viewer"
+                    />
+                  </div>
+                </section>
+              )}
+
               {project.details.videoUrl && (
                 <section>
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Project Demo</h4>
@@ -124,8 +138,8 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                         allowFullScreen
                       ></iframe>
                     ) : (
-                      <video 
-                        controls 
+                      <video
+                        controls
                         className="w-full h-full"
                         poster={project.thumbnail}
                       >
@@ -215,6 +229,24 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
               </div>
 
               <div className="pt-8 border-t border-slate-100 space-y-3">
+                {project.details.pdfUrl && (
+                  <div className="space-y-3">
+                    <a
+                      href="https://www.dropbox.com/scl/fi/9h6c2lgkw3ugyj6jvna3u/SLAM.pdf?rlkey=2oqxqib0rw0buxi99meozk5jh&e=1&dl=0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-4 bg-green-600 text-white font-black rounded-xl hover:bg-green-700 transition-all flex items-center justify-center gap-2"
+                    >
+                      <Download className="w-5 h-5" />
+                      Download E-book
+                    </a>
+                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                      <p className="text-xs text-amber-800 font-bold text-center">
+                        Password: <span className="font-mono bg-amber-100 px-2 py-0.5 rounded">slamkr</span>
+                      </p>
+                    </div>
+                  </div>
+                )}
                 {'link' in project && project.link && project.link !== '#' && (
                   <a
                     href={project.link}
@@ -280,7 +312,6 @@ const App: React.FC = () => {
     { name: 'Interests', id: 'interests' },
     { name: 'Skills', id: 'skills' },
     { name: 'Projects', id: 'projects' },
-    { name: 'Side Projects', id: 'side-projects' },
     { name: 'Media', id: 'media' },
     { name: 'Patents', id: 'patents' },
     { name: 'Lectures', id: 'lectures' },
@@ -448,61 +479,67 @@ const App: React.FC = () => {
           </div>
         </Section>
 
-        <Section title="Main Projects" id="projects">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PROJECTS.map((project, idx) => (
-              <div 
-                key={idx} 
-                onClick={() => project.details && setSelectedProject(project)}
-                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
-              >
-                <div className="relative aspect-video overflow-hidden">
-                  <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
-                  <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
-                  <div className="mt-auto flex flex-col gap-1">
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
+        <Section title="Projects" id="projects">
+          <div className="space-y-12">
+            {/* Main Projects */}
+            <div>
+              <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
+                <span className="w-1 h-5 bg-blue-500 rounded-full"></span>
+                Main Projects
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {PROJECTS.map((project, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => project.details && setSelectedProject(project)}
+                    className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
+                  >
+                    <div className="relative aspect-video overflow-hidden">
+                      <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    </div>
+                    <div className="p-5 flex flex-col flex-1">
+                      <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
+                      <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
+                      <div className="mt-auto flex flex-col gap-1">
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Section>
+            </div>
 
-        <Section title="Side Projects" id="side-projects">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SIDE_PROJECTS.map((project, idx) => (
-              <div 
-                key={idx} 
-                onClick={() => project.details && setSelectedProject(project)}
-                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-90'}`}
-              >
-                <div className="relative aspect-video overflow-hidden bg-slate-100">
-                  {project.thumbnail ? (
-                    <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-slate-300">
-                      <FileText className="w-12 h-12" />
+            {/* Side Projects */}
+            <div>
+              <h3 className="text-base font-bold text-slate-600 mb-4 flex items-center gap-2">
+                <span className="w-0.5 h-4 bg-slate-400 rounded-full"></span>
+                Side Projects
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {SIDE_PROJECTS.map((project, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => project.details && setSelectedProject(project)}
+                    className={`flex flex-col h-full border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-90'}`}
+                  >
+                    <div className="relative aspect-video overflow-hidden bg-slate-100">
+                      {project.thumbnail ? (
+                        <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-slate-300">
+                          <FileText className="w-10 h-10" />
+                        </div>
+                      )}
                     </div>
-                  )}
-                  <div className="absolute top-3 left-3">
-                    <div className="p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-sm">
-                      <FileText className="w-4 h-4 text-slate-600" />
+                    <div className="p-4 flex flex-col flex-1">
+                      <h4 className="text-sm font-bold text-slate-900 mb-1 leading-tight group-hover:text-blue-600">{project.title}</h4>
+                      <p className="text-slate-600 text-xs leading-relaxed line-clamp-2">{project.subtitle}</p>
                     </div>
                   </div>
-                </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
-                  <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
-                  <div className="mt-auto flex flex-col gap-1">
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </Section>
 

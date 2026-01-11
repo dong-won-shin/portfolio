@@ -210,6 +210,25 @@ export const PROJECTS: ProjectItem[] = [
 
 export const SIDE_PROJECTS: ProjectItem[] = [
   {
+    id: "jetson-slam-ebook",
+    title: "[E-book] NVIDIA Jetson Nano와 함께하는 SLAM의 이해와 구현",
+    subtitle: "Comprehensive guide to understanding and implementing SLAM with NVIDIA Jetson Nano",
+    organization: "Educational Content",
+    period: "2024",
+    thumbnail: "/images/projects/jetson-slam-ebook.webp",
+    details: {
+      overview: "An educational e-book that provides a comprehensive introduction to SLAM (Simultaneous Localization and Mapping) technology using NVIDIA Jetson Nano. The book covers fundamental concepts, practical implementation techniques, and hands-on examples for embedded robotics applications.",
+      keyFeatures: [
+        "Step-by-step guide to SLAM fundamentals and theory",
+        "Practical implementation examples using NVIDIA Jetson Nano",
+        "Real-world robotics applications and use cases",
+        "Optimized algorithms for embedded platforms"
+      ],
+      techStack: ["SLAM", "NVIDIA Jetson Nano", "ROS", "Computer Vision", "Embedded Systems"],
+      pdfUrl: "/pdfs/slam-understanding-implementation.pdf"
+    }
+  },
+  {
     id: "nerf-art",
     title: "NeRF Art Gallery",
     subtitle: "Visualizing neural radiance fields as interactive art",

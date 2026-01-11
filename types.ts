@@ -21,6 +21,7 @@ export interface ProjectDetail {
   achievements?: string[];
   videoUrl?: string;
   images?: string[];
+  pdfUrl?: string;
 }
 
 export interface ProjectItem {
