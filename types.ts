@@ -4,6 +4,7 @@ export interface CareerItem {
   company: string;
   role: string;
   description?: string;
+  badge?: string;
 }
 
 export interface EducationItem {
@@ -44,4 +45,5 @@ export interface MediaItem {
   date: string;
   link: string;
   thumbnail?: string;
+  details?: ProjectDetail;
 }

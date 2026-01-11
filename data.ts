@@ -16,7 +16,8 @@ export const CAREER_DATA: CareerItem[] = [
   {
     period: "Aug. 2019 – Feb. 2022",
     company: "SOSLAB (Smart Optics Sensor LAB)",
-    role: "Research Engineer in LiDAR Application Team"
+    role: "Research Engineer in LiDAR Application Team",
+    badge: "IPO approved"
   }
 ];
 
@@ -305,34 +306,59 @@ export const MEDIA: MediaItem[] = [
     source: "Educational Portal",
     date: "2023",
     link: "#",
-    thumbnail: "/images/media/media1.jpg"
+    thumbnail: "/images/media/media1.webp",
+    details: {
+      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
+      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      techStack: ["Docker", "Github Actions", "ROS 2"]
+    }
   },
   {
     title: "Rising C++ Applications: SLAM Expert Interview with Dr. Shin",
     source: "HongLab / Tech Interview",
     date: "2023",
     link: "#",
-    thumbnail: "/images/media/media2.jpg"
+    thumbnail: "/images/media/media2.webp",
+    details: {
+      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
+      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      techStack: ["Docker", "Github Actions", "ROS 2"]
+    }
   },
   {
     title: "2023 SLAM KR Offline Event Successfully Completed with 140 Participants",
     source: "SLAM KR Community",
     date: "2023",
     link: "#",
-    thumbnail: "/images/media/media3.jpg"
+    thumbnail: "/images/media/media3.webp",
+    details: {
+      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
+      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      techStack: ["Docker", "Github Actions", "ROS 2"]
+    }
   },
   {
     title: "Autonomous Driving Era 'LiDAR' Leads - SOSLAB",
     source: "Industry News",
     date: "2021",
     link: "#",
-    thumbnail: "/images/media/media5.jpg"
+    thumbnail: "/images/media/media1.webp",
+    details: {
+      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
+      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      techStack: ["Docker", "Github Actions", "ROS 2"]
+    }
   },
   {
     title: "[SOSLAB] KES 2020 Exhibition Participation!",
     source: "Company Channel",
     date: "2020",
     link: "#",
-    thumbnail: "/images/media/media5.jpg"
+    thumbnail: "/images/media/media1.webp",
+    details: {
+      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
+      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      techStack: ["Docker", "Github Actions", "ROS 2"]
+    }
   }
 ];

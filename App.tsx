@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Mail, 
-  Github, 
-  Phone, 
-  ChevronRight, 
-  Cpu, 
+import {
+  Mail,
+  Github,
+  Phone,
+  ChevronRight,
+  Cpu,
   Menu,
   X,
   Calendar,
@@ -17,7 +17,8 @@ import {
   Globe,
   FileCheck2,
   Play,
-  GraduationCap
+  GraduationCap,
+  Award
 } from 'lucide-react';
 import { 
   CAREER_DATA, 
@@ -29,7 +30,7 @@ import {
   PATENTS,
   MEDIA
 } from './data';
-import { ProjectItem } from './types';
+import { ProjectItem, MediaItem } from './types';
 
 const Section: React.FC<{ title: string; id: string; children: React.ReactNode }> = ({ title, id, children }) => (
   <section id={id} className="scroll-mt-20 py-16 border-b border-slate-100 last:border-0">
@@ -44,7 +45,7 @@ const Section: React.FC<{ title: string; id: string; children: React.ReactNode }
   </section>
 );
 
-const ProjectModal: React.FC<{ project: ProjectItem; onClose: () => void }> = ({ project, onClose }) => {
+const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => void }> = ({ project, onClose }) => {
   if (!project.details) return null;
 
   const getEmbedUrl = (url: string) => {
@@ -85,11 +86,18 @@ const ProjectModal: React.FC<{ project: ProjectItem; onClose: () => void }> = ({
           <div className="absolute bottom-6 left-8 right-8">
             <div className="flex items-center gap-2 mb-2">
               <span className="px-2 py-0.5 bg-blue-600 text-[10px] font-black text-white rounded uppercase tracking-widest">
-                Project Detail
+                {'organization' in project ? 'Project Detail' : 'Media Detail'}
               </span>
-              <span className="text-white/60 text-xs font-bold tracking-tight">
-                {project.organization}
-              </span>
+              {'organization' in project && (
+                <span className="text-white/60 text-xs font-bold tracking-tight">
+                  {project.organization}
+                </span>
+              )}
+              {'source' in project && (
+                <span className="text-white/60 text-xs font-bold tracking-tight">
+                  {project.source}
+                </span>
+              )}
             </div>
             <h2 className="text-xl sm:text-3xl font-black text-white leading-tight">
               {project.title}
@@ -162,13 +170,24 @@ const ProjectModal: React.FC<{ project: ProjectItem; onClose: () => void }> = ({
             </div>
 
             <div className="space-y-8">
-              <div>
-                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Timeline</h4>
-                <div className="flex items-center gap-2 text-slate-900 font-bold">
-                  <Calendar className="w-4 h-4 text-slate-400" />
-                  {project.period}
+              {'period' in project && (
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Timeline</h4>
+                  <div className="flex items-center gap-2 text-slate-900 font-bold">
+                    <Calendar className="w-4 h-4 text-slate-400" />
+                    {project.period}
+                  </div>
                 </div>
-              </div>
+              )}
+              {'date' in project && (
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Date</h4>
+                  <div className="flex items-center gap-2 text-slate-900 font-bold">
+                    <Calendar className="w-4 h-4 text-slate-400" />
+                    {project.date}
+                  </div>
+                </div>
+              )}
 
               <div>
                 <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Tech Stack</h4>
@@ -200,7 +219,7 @@ const ProjectModal: React.FC<{ project: ProjectItem; onClose: () => void }> = ({
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | MediaItem | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -237,8 +256,8 @@ const App: React.FC = () => {
     { name: 'Skills', id: 'skills' },
     { name: 'Projects', id: 'projects' },
     { name: 'Side Projects', id: 'side-projects' },
-    { name: 'Patents', id: 'patents' },
     { name: 'Media', id: 'media' },
+    { name: 'Patents', id: 'patents' },
   ];
 
   const handleLinkClick = (id: string) => {
@@ -248,9 +267,9 @@ const App: React.FC = () => {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const PROFILE_IMAGE_URL = "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F135be76d-2517-4b00-8a7c-c87d839a4cfe%2FKakaoTalk_Photo_2021-12-20-23-26-06.jpeg&blockId=529bcfaa-e02b-4288-91e4-3a5d4f80dfb4&width=256";
-  const RESEARCH_IMAGE_URL = "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2f9ef1d1-eef4-48a3-a375-1d370d221812%2Fcarrobot.png&blockId=12ca2f6e-9b49-40d7-a4b4-d0f01d697d10";
-  const SKILLS_IMAGE_URL = "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F3a6157a8-91bf-4e19-92fc-e8fa4b1ea0e5%2FUntitled.png&blockId=e94bbaf7-b905-4255-9aaf-3c3b0d78b4f3";
+  const PROFILE_IMAGE_URL = "/images/profile.jpg";
+  const RESEARCH_IMAGE_URL = "/images/research.png";
+  const SKILLS_IMAGE_URL = "/images/skills.png";
 
   return (
     <div className="min-h-screen bg-white">
@@ -330,7 +349,15 @@ const App: React.FC = () => {
               <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
                 <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-slate-900 mb-1">{item.company}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-3">
+                    {item.company}
+                    {item.badge && (
+                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-[10px] font-black rounded-lg uppercase tracking-tighter border border-amber-200 flex items-center gap-1.5 shadow-sm">
+                        <Award className="w-3 h-3 text-amber-500 fill-amber-100" />
+                        {item.badge}
+                      </span>
+                    )}
+                  </h3>
                   <p className="text-blue-600 font-bold text-lg">{item.role}</p>
                 </div>
               </div>
@@ -453,6 +480,37 @@ const App: React.FC = () => {
           </div>
         </Section>
 
+        <Section title="Media Coverage" id="media">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {MEDIA.map((item, idx) => (
+              <div
+                key={idx}
+                onClick={() => item.details && setSelectedProject(item)}
+                className={`flex flex-col border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all group bg-white ${item.details ? 'cursor-pointer' : 'cursor-default'}`}
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                  {item.details && (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
+                        <Play className="w-5 h-5 text-blue-600 fill-current ml-1" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h4 className="text-base font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{item.title}</h4>
+                  <div className="mt-auto flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                    <span>{item.source}</span>
+                    <span>{item.date}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
         <Section title="Patents" id="patents">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {PATENTS.map((patent, idx) => (
@@ -471,31 +529,6 @@ const App: React.FC = () => {
                   <p className="text-xs font-mono text-slate-400">{patent.number}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section title="Media Coverage" id="media">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {MEDIA.map((item, idx) => (
-              <a key={idx} href={item.link} className="flex flex-col border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all group bg-white">
-                <div className="relative aspect-video overflow-hidden">
-                  <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
-                      <Play className="w-5 h-5 text-blue-600 fill-current ml-1" />
-                    </div>
-                  </div>
-                </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h4 className="text-base font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{item.title}</h4>
-                  <div className="mt-auto flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                    <span>{item.source}</span>
-                    <span>{item.date}</span>
-                  </div>
-                </div>
-              </a>
             ))}
           </div>
         </Section>
