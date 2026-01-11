@@ -293,12 +293,18 @@ export const MEDIA: MediaItem[] = [
     title: "Rising C++ Applications: SLAM Expert Interview with Dr. Shin",
     source: "HongLab / Tech Interview",
     date: "2023",
-    link: "#",
+    link: "https://youtu.be/G6HV9kXwQQE",
     thumbnail: "/images/media/media2.webp",
     details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
+      overview: "An in-depth interview discussing the practical applications of C++ in SLAM (Simultaneous Localization and Mapping) technology. Dr. Shin shares insights on modern C++ development practices, real-time performance optimization, and the evolution of SLAM algorithms in autonomous systems.",
+      videoUrl: "https://youtu.be/G6HV9kXwQQE",
+      keyFeatures: [
+        "Deep dive into C++ performance optimization techniques for real-time SLAM",
+        "Discussion on modern C++ standards (C++17/20) and their impact on robotics software",
+        "Practical insights from developing production-grade SLAM systems",
+        "Career path and experiences in the autonomous driving industry"
+      ],
+      techStack: ["C++", "SLAM", "ROS", "Real-time Systems", "Autonomous Driving"]
     }
   },
   {
@@ -308,9 +314,28 @@ export const MEDIA: MediaItem[] = [
     link: "#",
     thumbnail: "/images/media/media3.webp",
     details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
+      overview: "A successful offline gathering of the SLAM KR community bringing together 140 participants including researchers, engineers, and students passionate about SLAM technology. The event featured technical presentations, networking sessions, and discussions on the latest developments in SLAM research and applications.",
+      keyFeatures: [
+        "Technical presentations covering cutting-edge SLAM research and industrial applications",
+        "Networking opportunities with SLAM experts from academia and industry",
+        "Hands-on demonstrations and live Q&A sessions",
+        "Community collaboration and knowledge sharing among 140+ SLAM enthusiasts"
+      ],
+      techStack: ["SLAM", "Computer Vision", "Robotics", "Autonomous Driving", "LiDAR"],
+      images: [
+        "/images/media/slam-kr-2023/slam-kr-1.webp",
+        "/images/media/slam-kr-2023/slam-kr-2.webp",
+        "/images/media/slam-kr-2023/slam-kr-3.webp",
+        "/images/media/slam-kr-2023/slam-kr-4.webp",
+        "/images/media/slam-kr-2023/slam-kr-5.webp",
+        "/images/media/slam-kr-2023/slam-kr-6.webp",
+        "/images/media/slam-kr-2023/slam-kr-7.webp",
+        "/images/media/slam-kr-2023/slam-kr-8.webp",
+        "/images/media/slam-kr-2023/slam-kr-9.webp",
+        "/images/media/slam-kr-2023/slam-kr-10.webp",
+        "/images/media/slam-kr-2023/slam-kr-11.webp",
+        "/images/media/slam-kr-2023/slam-kr-12.webp"
+      ]
     }
   },
 ];
