@@ -20,6 +20,7 @@ export interface ProjectDetail {
   techStack: string[];
   achievements?: string[];
   videoUrl?: string;
+  images?: string[];
 }
 
 export interface ProjectItem {
@@ -46,4 +47,16 @@ export interface MediaItem {
   link: string;
   thumbnail?: string;
   details?: ProjectDetail;
+}
+
+export interface PresentationItem {
+  title: string;
+  tags: string[];
+  date: string;
+  organization: string;
+}
+
+export interface StudyClubItem {
+  title: string;
+  tags: string[];
 }

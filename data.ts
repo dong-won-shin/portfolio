@@ -1,10 +1,12 @@
 
-import { 
-  CareerItem, 
-  EducationItem, 
-  ProjectItem, 
-  PatentItem, 
-  MediaItem
+import {
+  CareerItem,
+  EducationItem,
+  ProjectItem,
+  PatentItem,
+  MediaItem,
+  PresentationItem,
+  StudyClubItem
 } from './types';
 
 export const CAREER_DATA: CareerItem[] = [
@@ -71,7 +73,7 @@ export const PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/visual-loc.png",
     details: {
       overview: "Developed a robust method for learning environment maps and accurately estimating vehicle location for autonomous parking scenarios. The project emphasizes deployment on resource-constrained automotive embedded platforms.",
-      videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      videoUrl: "/videos/visual-localization.mp4",
       keyFeatures: [
         "Environment map training mode for autonomous parking readiness",
         "High-accuracy localization mode based on pre-trained environmental maps",
@@ -119,6 +121,7 @@ export const PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/ultra-lightweight-vslam.png",
     details: {
       overview: "Developed an ultra-lightweight visual SLAM algorithm for autonomous parking software, designed to provide accurate position estimation and mapping while running in real-time on automotive embedded platforms with limited computational resources.",
+      videoUrl: "/videos/auto-valet-parking.mp4",
       keyFeatures: [
         "Map training mode: Driver learns the map of the parking environment through manual driving",
         "Localization mode: Fully automatic parking at specified locations based on learned maps",
@@ -141,6 +144,7 @@ export const PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/solid-state-lidar-slam.png",
     details: {
       overview: "Developed a handheld SLAM mapping device utilizing three-dimensional fixed solid-state LiDAR sensors. The project aimed to create a technical foothold for future sales of 3D fixed LiDAR and SLAM application software.",
+      videoUrl: "https://youtu.be/gy468T0mFZs",
       keyFeatures: [
         "Development of handheld SLAM device with 3D fixed solid-state LiDAR",
         "Hardware and software module selection and integration",
@@ -206,32 +210,6 @@ export const PROJECTS: ProjectItem[] = [
 
 export const SIDE_PROJECTS: ProjectItem[] = [
   {
-    id: "eval-auto",
-    title: "Evaluation Automation Tool for Visual SLAM",
-    subtitle: "Automated benchmarking and analysis pipeline for VSLAM algorithms",
-    organization: "Personal Project",
-    period: "2024",
-    thumbnail: "/images/projects/naverlabs-challenge.jpg",
-    details: {
-      overview: "Developed a Python-based tool to automate the evaluation of various VSLAM algorithms on standard datasets.",
-      keyFeatures: ["Automated dataset preparation", "Multiple metrics (ATE, RPE) calculation", "Automatic report generation"],
-      techStack: ["Python", "Pytest", "Numpy", "Matplotlib"]
-    }
-  },
-  {
-    id: "hparam-tune",
-    title: "Hyper Parameter Tuning Tool for Visual SLAM",
-    subtitle: "A GUI-based tool for real-time parameter optimization",
-    organization: "Personal Project",
-    period: "2023",
-    thumbnail: "/images/projects/slam-book.jpg",
-    details: {
-      overview: "Created a desktop application to visualize and tune SLAM parameters on the fly.",
-      keyFeatures: ["Real-time slider-based tuning", "Performance graphing", "Configuration export"],
-      techStack: ["Python", "PyQt", "OpenCV"]
-    }
-  },
-  {
     id: "nerf-art",
     title: "NeRF Art Gallery",
     subtitle: "Visualizing neural radiance fields as interactive art",
@@ -242,19 +220,6 @@ export const SIDE_PROJECTS: ProjectItem[] = [
       overview: "Experimenting with NeRF architectures to generate high-fidelity 3D representations of artistic scenes.",
       keyFeatures: ["Instant-NGP implementation", "Custom scene dataset creation", "Interactive web viewer"],
       techStack: ["PyTorch", "CUDA", "WebGL"]
-    }
-  },
-  {
-    id: "slamops",
-    title: "SLAMOps: SLAM as an MLOps",
-    subtitle: "Building DevOps pipelines for robotics and SLAM modules",
-    organization: "Personal Project",
-    period: "Nov. 2021 - on going",
-    thumbnail: "/images/projects/robust-3d-slam-harsh.png",
-    details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
     }
   },
   {
@@ -305,12 +270,23 @@ export const MEDIA: MediaItem[] = [
     title: "National Strategic Technology: Advanced Mobility Online Course",
     source: "Educational Portal",
     date: "2023",
-    link: "#",
+    link: "https://alpha-campus.kr/explore/8775cdf0-cf00-4376-902a-66c185a6a6a8?sequenceId=cf0fedfa-7f8d-4a8c-bb42-7c099b55c958&tab=ALL",
     thumbnail: "/images/media/media1.webp",
     details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
+      overview: "A comprehensive online course designed to enhance the mobility technology capabilities of cutting-edge cities. The program focuses on multirotary vehicle platform development, SLAM fundamentals, and practical skills for autonomous mobility systems, helping participants understand the latest trends in advanced mobility technology.",
+      keyFeatures: [
+        "Development and operational methods of multirotary vehicle platforms",
+        "Understanding SLAM fundamentals and practical implementation",
+        "Exploring cutting-edge mobility trends and future applications",
+        "Hands-on experience with autonomous driving technology components"
+      ],
+      techStack: ["SLAM", "Autonomous Driving", "Sensor Fusion", "Computer Vision", "Robotics"],
+      images: [
+        "/images/media/advanced-mobility-1.webp",
+        "/images/media/advanced-mobility-2.webp",
+        "/images/media/advanced-mobility-3.webp",
+        "/images/media/advanced-mobility-4.webp"
+      ]
     }
   },
   {
@@ -337,28 +313,40 @@ export const MEDIA: MediaItem[] = [
       techStack: ["Docker", "Github Actions", "ROS 2"]
     }
   },
-  {
-    title: "Autonomous Driving Era 'LiDAR' Leads - SOSLAB",
-    source: "Industry News",
-    date: "2021",
-    link: "#",
-    thumbnail: "/images/media/media1.webp",
-    details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
-    }
-  },
-  {
-    title: "[SOSLAB] KES 2020 Exhibition Participation!",
-    source: "Company Channel",
-    date: "2020",
-    link: "#",
-    thumbnail: "/images/media/media1.webp",
-    details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
-    }
-  }
+];
+
+export const PRESENTATIONS: PresentationItem[] = [
+  { title: "2023년 SLAM 초청 강의", tags: ["교육정보"], date: "Sep. 2023", organization: "고려대학교" },
+  { title: "2023년 NeRF 초청 강의", tags: ["교육정보", "발표영상"], date: "Aug. 2023", organization: "서강대학교" },
+  { title: "2022 PseudoCon Conference", tags: ["사전"], date: "Nov. 2022", organization: "PseudoLab" },
+  { title: "2022년 하반기 RGBD SLAM 강의", tags: [], date: "Sep. 2022", organization: "대전정보문화산업진흥원" },
+  { title: "2022년 하반기 Visual SLAM 강의", tags: [], date: "Aug. 2022", organization: "대전정보문화산업진흥원" },
+  { title: "AR/VR을 위한 SLAM 기술 특강", tags: ["교육정보", "포스터"], date: "July. 2022", organization: "KAIST UVR Lab" },
+  { title: "2022년 상반기 Visual SLAM 강의", tags: ["사전", "교육정보"], date: "Apr. 2022", organization: "대전정보문화산업진흥원" },
+  { title: "2022년 상반기 RGB-D SLAM 강의", tags: ["사전", "교육정보"], date: "May. 2022", organization: "대전정보문화산업진흥원" },
+  { title: "인공지능 학습용 라이다 데이터 라벨링 지침 개발", tags: ["사전", "교육정보"], date: "Oct. - Dec. 2021", organization: "한국지능정보사회진흥원" },
+  { title: "Visual SLAM Workshop", tags: ["포스터", "사전", "참가소감"], date: "April 2021 - May 2021", organization: "대전정보문화산업진흥원" },
+  { title: "RGBD SLAM Workshop", tags: ["포스터", "참가소감"], date: "May 2021 - June 2021", organization: "대전정보문화산업진흥원" },
+  { title: "ModuCon 2019", tags: ["발표영상", "사전"], date: "Dec. 2019", organization: "모두의연구소" },
+  { title: "LiDAR Institute", tags: ["사전"], date: "Nov. 2019", organization: "WizGene" },
+  { title: "Introduction to SLAM Technology and Applications", tags: ["포스터", "사전"], date: "June 2019", organization: "KAIST UVR Lab" },
+  { title: "Science SLAM D", tags: ["발표영상", "사전"], date: "May. 2019", organization: "기초과학연구원" },
+  { title: "2019 SLAM KR Offline Seminar", tags: ["사전", "플레이리스트"], date: "Apr. 2019", organization: "SLAM KR" },
+  { title: "ROS, SLAM Workshop", tags: [], date: "Apr. 2019", organization: "패스트캠퍼스" },
+  { title: "LiDAR SLAM Seminar", tags: [], date: "Mar. 2019", organization: "한국전력연구원" },
+  { title: "Introductory Level of SLAM Seminar", tags: ["사전"], date: "Jan. 2019", organization: "PCL Research Group KR" },
+  { title: "SLAM Seminar", tags: [], date: "Oct. 2018", organization: "VIRNECT" },
+  { title: "ROS, SLAM Workshop", tags: ["교육정보"], date: "Aug. 2018", organization: "패스트캠퍼스" }
+];
+
+export const STUDY_CLUBS: StudyClubItem[] = [
+  { title: "2023 SLAM KR Offline Event", tags: ["플레이리스트", "컨퍼런스"] },
+  { title: "2022 NeRF Study: Nerd's NeRF", tags: ["플레이리스트", "스터디"] },
+  { title: "2021 SLAM Study Club", tags: ["플레이리스트", "스터디"] },
+  { title: "2021 SLAM DUNK Season 2", tags: ["플레이리스트", "스터디"] },
+  { title: "2020 SLAM DUNK Season 1", tags: ["플레이리스트", "스터디"] },
+  { title: "SLAM Night Live! (SNL) Season 2", tags: ["플레이리스트", "라이브방송"] },
+  { title: "2019 Autonomous Driving Online Study", tags: ["플레이리스트", "스터디"] },
+  { title: "SLAM Night Live! (SNL) Season 1", tags: ["플레이리스트", "라이브방송"] },
+  { title: "2019 SLAM Online Study", tags: ["플레이리스트", "스터디"] }
 ];

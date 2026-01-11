@@ -20,15 +20,17 @@ import {
   GraduationCap,
   Award
 } from 'lucide-react';
-import { 
-  CAREER_DATA, 
-  EDUCATION_DATA, 
-  INTERESTS, 
-  TECHNICAL_SKILLS, 
-  PROJECTS, 
+import {
+  CAREER_DATA,
+  EDUCATION_DATA,
+  INTERESTS,
+  TECHNICAL_SKILLS,
+  PROJECTS,
   SIDE_PROJECTS,
   PATENTS,
-  MEDIA
+  MEDIA,
+  PRESENTATIONS,
+  STUDY_CLUBS
 } from './data';
 import { ProjectItem, MediaItem } from './types';
 
@@ -167,6 +169,19 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                   </div>
                 </section>
               )}
+
+              {project.details.images && project.details.images.length > 0 && (
+                <section>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Gallery</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.details.images.map((image: string, i: number) => (
+                      <div key={i} className="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                        <img src={image} alt={`${project.title} - ${i + 1}`} className="w-full h-auto object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
 
             <div className="space-y-8">
@@ -200,8 +215,19 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-slate-100">
-                <button 
+              <div className="pt-8 border-t border-slate-100 space-y-3">
+                {'link' in project && project.link && project.link !== '#' && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    Visit Course
+                  </a>
+                )}
+                <button
                   onClick={onClose}
                   className="w-full py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
                 >
@@ -258,6 +284,8 @@ const App: React.FC = () => {
     { name: 'Side Projects', id: 'side-projects' },
     { name: 'Media', id: 'media' },
     { name: 'Patents', id: 'patents' },
+    { name: 'Presentations', id: 'presentations' },
+    { name: 'Study Club', id: 'study-club' },
   ];
 
   const handleLinkClick = (id: string) => {
@@ -530,6 +558,68 @@ const App: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </Section>
+
+        <Section title="Presentations" id="presentations">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b-2 border-slate-200">
+                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Title</th>
+                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Tag</th>
+                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Date</th>
+                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Organization</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PRESENTATIONS.map((item, idx) => (
+                  <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
+                    <td className="py-4 px-4">
+                      <div className="flex flex-wrap gap-1">
+                        {item.tags.map((tag, i) => (
+                          <span key={i} className="px-2 py-0.5 bg-blue-50 text-blue-700 text-xs rounded border border-blue-200">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-slate-600 text-sm">{item.date}</td>
+                    <td className="py-4 px-4 text-slate-600 text-sm">{item.organization}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section title="Study Club" id="study-club">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b-2 border-slate-200">
+                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Title</th>
+                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Tag</th>
+                </tr>
+              </thead>
+              <tbody>
+                {STUDY_CLUBS.map((item, idx) => (
+                  <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
+                    <td className="py-4 px-4">
+                      <div className="flex flex-wrap gap-1">
+                        {item.tags.map((tag, i) => (
+                          <span key={i} className="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs rounded border border-purple-200">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Section>
 
