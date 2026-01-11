@@ -29,7 +29,7 @@ import {
   SIDE_PROJECTS,
   PATENTS,
   MEDIA,
-  PRESENTATIONS,
+  LECTURES,
   STUDY_CLUBS
 } from './data';
 import { ProjectItem, MediaItem } from './types';
@@ -284,7 +284,7 @@ const App: React.FC = () => {
     { name: 'Side Projects', id: 'side-projects' },
     { name: 'Media', id: 'media' },
     { name: 'Patents', id: 'patents' },
-    { name: 'Presentations', id: 'presentations' },
+    { name: 'Lectures', id: 'lectures' },
     { name: 'Study Club', id: 'study-club' },
   ];
 
@@ -561,7 +561,7 @@ const App: React.FC = () => {
           </div>
         </Section>
 
-        <Section title="Presentations" id="presentations">
+        <Section title="Lectures" id="lectures">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
@@ -573,7 +573,7 @@ const App: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {PRESENTATIONS.map((item, idx) => (
+                {LECTURES.map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                     <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
                     <td className="py-4 px-4">

@@ -49,7 +49,7 @@ export interface MediaItem {
   details?: ProjectDetail;
 }
 
-export interface PresentationItem {
+export interface LectureItem {
   title: string;
   tags: string[];
   date: string;

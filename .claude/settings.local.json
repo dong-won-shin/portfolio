@@ -8,7 +8,8 @@
       "Bash(npm ci:*)",
       "Bash(curl:*)",
       "Bash(file:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }

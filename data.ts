@@ -5,7 +5,7 @@ import {
   ProjectItem,
   PatentItem,
   MediaItem,
-  PresentationItem,
+  LectureItem,
   StudyClubItem
 } from './types';
 
@@ -340,7 +340,7 @@ export const MEDIA: MediaItem[] = [
   },
 ];
 
-export const PRESENTATIONS: PresentationItem[] = [
+export const LECTURES: LectureItem[] = [
   { title: "2023년 SLAM 초청 강의", tags: ["교육정보"], date: "Sep. 2023", organization: "고려대학교" },
   { title: "2023년 NeRF 초청 강의", tags: ["교육정보", "발표영상"], date: "Aug. 2023", organization: "서강대학교" },
   { title: "2022 PseudoCon Conference", tags: ["사전"], date: "Nov. 2022", organization: "PseudoLab" },
