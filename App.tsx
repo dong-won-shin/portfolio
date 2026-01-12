@@ -47,7 +47,46 @@ const Section: React.FC<{ title: string; id: string; children: React.ReactNode }
   </section>
 );
 
+const ImageLightbox: React.FC<{ imageUrl: string; onClose: () => void }> = ({ imageUrl, onClose }) => {
+  return (
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white transition-colors z-10"
+      >
+        <X className="w-6 h-6" />
+      </button>
+      <img
+        src={imageUrl}
+        alt="Full size view"
+        className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>
+  );
+};
+
 const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => void }> = ({ project, onClose }) => {
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (lightboxImage) {
+          event.stopPropagation();
+          setLightboxImage(null);
+        } else {
+          onClose();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleEsc, true);
+    return () => window.removeEventListener('keydown', handleEsc, true);
+  }, [lightboxImage, onClose]);
+
   if (!project.details) return null;
 
   const getEmbedUrl = (url: string) => {
@@ -64,15 +103,17 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
   const finalVideoUrl = project.details.videoUrl ? getEmbedUrl(project.details.videoUrl) : '';
 
   return (
-    <div 
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200"
-      onClick={onClose}
-    >
-      <div 
-        className="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-300 slide-in-from-bottom-4"
-        onClick={(e) => e.stopPropagation()}
+    <>
+      {lightboxImage && <ImageLightbox imageUrl={lightboxImage} onClose={() => setLightboxImage(null)} />}
+      <div
+        className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200"
+        onClick={onClose}
       >
-        <div className="relative h-48 sm:h-64 shrink-0">
+        <div
+          className="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-300 slide-in-from-bottom-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="relative h-48 sm:h-64 shrink-0">
           <img 
             src={project.thumbnail} 
             alt={project.title} 
@@ -105,9 +146,9 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
               {project.title}
             </h2>
           </div>
-        </div>
+          </div>
 
-        <div className="flex-1 overflow-y-auto p-8 sm:p-12">
+          <div className="flex-1 overflow-y-auto p-8 sm:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-10">
               {project.details.pdfUrl && (
@@ -191,8 +232,16 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Gallery</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {project.details.images.map((image: string, i: number) => (
-                      <div key={i} className="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <img src={image} alt={`${project.title} - ${i + 1}`} className="w-full h-auto object-cover" />
+                      <div
+                        key={i}
+                        className="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all cursor-pointer group"
+                        onClick={() => setLightboxImage(image)}
+                      >
+                        <img
+                          src={image}
+                          alt={`${project.title} - ${i + 1}`}
+                          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
                     ))}
                   </div>
@@ -283,7 +332,8 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
@@ -308,16 +358,11 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedProject(null);
-    };
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleEsc);
     } else {
       document.body.style.overflow = 'unset';
     }
-    return () => window.removeEventListener('keydown', handleEsc);
   }, [selectedProject]);
 
   const navLinks = [

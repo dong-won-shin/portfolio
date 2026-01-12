@@ -68,7 +68,7 @@ export const PROJECTS: ProjectItem[] = [
     id: "amd-vek385-multivision",
     title: "Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge VEK385",
     subtitle: "Converting and optimizing VSLAM neural networks for AMD's automotive SoC platform",
-    organization: "StradVision & AMD",
+    organization: "StradVision",
     period: "2024 – 2025",
     thumbnail: "/images/projects/amd-vek385.png",
     details: {
