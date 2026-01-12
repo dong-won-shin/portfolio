@@ -69,7 +69,7 @@ export const PROJECTS: ProjectItem[] = [
     title: "Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge VEK385",
     subtitle: "Converting and optimizing VSLAM neural networks for AMD's automotive SoC platform",
     organization: "StradVision",
-    period: "2024 – 2025",
+    period: "2025",
     thumbnail: "/images/projects/amd-vek385.png",
     details: {
       overview: "Led the neural network conversion, optimization, and porting effort for StradVision's MultiVision VSLAM perception software on AMD Versal™ AI Edge Gen 2 VEK385 platform. Focused on adapting deep learning models for AMD's AIE-ML v2 architecture, implementing quantization techniques, and ensuring real-time performance for automotive applications. The collaboration resulted in a successful demonstration at CES 2026, showcasing scalable AI perception from Level 2 to Level 3 autonomy.",
