@@ -17,7 +17,7 @@ export const CAREER_DATA: CareerItem[] = [
   },
   {
     period: "Aug. 2019 – Feb. 2022",
-    company: "SOSLAB (Smart Optics Sensor LAB)",
+    company: "SOSLAB",
     role: "Research Engineer in LiDAR Application Team",
     badge: "IPO approved"
   }

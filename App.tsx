@@ -14,7 +14,6 @@ import {
   ArrowLeft,
   FileText,
   Globe,
-  FileCheck2,
   Play,
   GraduationCap,
   Award,
@@ -27,7 +26,6 @@ import {
   TECHNICAL_SKILLS,
   PROJECTS,
   SIDE_PROJECTS,
-  PATENTS,
   MEDIA,
   LECTURES,
   STUDY_CLUBS
@@ -374,7 +372,6 @@ const App: React.FC = () => {
     { name: 'Skills', id: 'skills' },
     { name: 'Projects', id: 'projects' },
     { name: 'Media', id: 'media' },
-    { name: 'Patents', id: 'patents' },
     { name: 'Lectures', id: 'lectures' },
     { name: 'Study Club', id: 'study-club' },
   ];
@@ -463,23 +460,42 @@ const App: React.FC = () => {
 
         <Section title="Career" id="career">
           <div className="space-y-8">
-            {CAREER_DATA.map((item, idx) => (
-              <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
-                <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-3">
-                    {item.company}
-                    {item.badge && (
-                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-[10px] font-black rounded-lg uppercase tracking-tighter border border-amber-200 flex items-center gap-1.5 shadow-sm">
-                        <Award className="w-3 h-3 text-amber-500 fill-amber-100" />
-                        {item.badge}
-                      </span>
-                    )}
-                  </h3>
-                  <p className="text-blue-600 font-bold text-lg">{item.role}</p>
+            {CAREER_DATA.map((item, idx) => {
+              const companyLinks: { [key: string]: string } = {
+                'StradVision': 'https://stradvision.com/_ENG/',
+                'SOSLAB': 'https://soslab.co/en/'
+              };
+              const companyUrl = companyLinks[item.company];
+
+              return (
+                <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
+                  <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-3">
+                      {companyUrl ? (
+                        <a
+                          href={companyUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="hover:text-blue-600 transition-colors cursor-pointer"
+                        >
+                          {item.company}
+                        </a>
+                      ) : (
+                        item.company
+                      )}
+                      {item.badge && (
+                        <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-[10px] font-black rounded-lg uppercase tracking-tighter border border-amber-200 flex items-center gap-1.5 shadow-sm">
+                          <Award className="w-3 h-3 text-amber-500 fill-amber-100" />
+                          {item.badge}
+                        </span>
+                      )}
+                    </h3>
+                    <p className="text-blue-600 font-bold text-lg">{item.role}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Section>
 
@@ -629,28 +645,6 @@ const App: React.FC = () => {
                     <span>{item.source}</span>
                     <span>{item.date}</span>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section title="Patents" id="patents">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {PATENTS.map((patent, idx) => (
-              <div key={idx} className="p-6 border border-slate-100 rounded-2xl bg-white flex items-start gap-4">
-                <div className="p-3 bg-slate-50 rounded-xl text-slate-400">
-                  <FileCheck2 className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter ${patent.status === 'Registered' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
-                      {patent.status}
-                    </span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{patent.country}</span>
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1 leading-tight">{patent.title}</h3>
-                  <p className="text-xs font-mono text-slate-400">{patent.number}</p>
                 </div>
               </div>
             ))}
