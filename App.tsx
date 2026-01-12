@@ -341,6 +341,8 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | MediaItem | null>(null);
+  const [showAllLectures, setShowAllLectures] = useState(false);
+  const [showAllStudyClubs, setShowAllStudyClubs] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -667,7 +669,7 @@ const App: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {LECTURES.map((item, idx) => (
+                {(showAllLectures ? LECTURES : LECTURES.slice(0, 5)).map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                     <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
                     <td className="py-4 px-4">
@@ -686,6 +688,26 @@ const App: React.FC = () => {
               </tbody>
             </table>
           </div>
+          {LECTURES.length > 5 && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setShowAllLectures(!showAllLectures)}
+                className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors inline-flex items-center gap-2"
+              >
+                {showAllLectures ? (
+                  <>
+                    <ChevronRight className="w-4 h-4 rotate-90" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronRight className="w-4 h-4 -rotate-90" />
+                    Show More ({LECTURES.length - 5} more)
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </Section>
 
         <Section title="Study Club" id="study-club">
@@ -698,7 +720,7 @@ const App: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {STUDY_CLUBS.map((item, idx) => (
+                {(showAllStudyClubs ? STUDY_CLUBS : STUDY_CLUBS.slice(0, 5)).map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                     <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
                     <td className="py-4 px-4">
@@ -715,6 +737,26 @@ const App: React.FC = () => {
               </tbody>
             </table>
           </div>
+          {STUDY_CLUBS.length > 5 && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setShowAllStudyClubs(!showAllStudyClubs)}
+                className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors inline-flex items-center gap-2"
+              >
+                {showAllStudyClubs ? (
+                  <>
+                    <ChevronRight className="w-4 h-4 rotate-90" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronRight className="w-4 h-4 -rotate-90" />
+                    Show More ({STUDY_CLUBS.length - 5} more)
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </Section>
 
         <footer className="mt-32 py-16 border-t border-slate-100 text-center">

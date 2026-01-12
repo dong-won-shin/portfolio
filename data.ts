@@ -95,6 +95,29 @@ export const PROJECTS: ProjectItem[] = [
     }
   },
   {
+    id: "visual-inertial-odometry",
+    title: "Visual-Inertial Odometry for Robust Localization",
+    subtitle: "Tightly-coupled VIO system for accurate pose estimation in dynamic environments",
+    organization: "StradVision",
+    period: "2025",
+    thumbnail: "/images/projects/visual-loc.png",
+    details: {
+      overview: "Developing a visual-inertial odometry system that fuses camera and IMU data for robust and accurate pose estimation. The system uses tightly-coupled optimization to achieve high-precision localization even in challenging scenarios with rapid motion and varying lighting conditions.",
+      keyFeatures: [
+        "Tightly-coupled fusion of visual and inertial measurements",
+        "Real-time pose estimation with sub-centimeter accuracy",
+        "Robust feature tracking and outlier rejection",
+        "Efficient sliding-window optimization for computational efficiency"
+      ],
+      techStack: ["C++", "OpenCV", "Ceres Solver", "IMU Calibration", "Nonlinear Optimization", "SLAM"],
+      achievements: [
+        "Implemented tightly-coupled VIO with sliding-window optimization",
+        "Achieved real-time performance on embedded platforms",
+        "Demonstrated robustness in challenging lighting and motion conditions"
+      ]
+    }
+  },
+  {
     id: "visual-loc",
     title: "Deep learning based visual localization for automotive embedded platform",
     subtitle: "Embedded visual positioning for autonomous parking with real-time pose estimation",
@@ -220,6 +243,7 @@ export const PROJECTS: ProjectItem[] = [
     organization: "SOSLAB",
     period: "Mar. 2020 – Feb. 2022",
     thumbnail: "/images/projects/robust-3d-slam-harsh.png",
+    hidden: true,
     details: {
       overview: "Developed real-time position estimation and 3D map generation algorithms for unmanned vehicles traveling in wilderness environments. The system integrates LiDAR, camera, and IMU sensor data to ensure robustness in challenging conditions.",
       keyFeatures: [
