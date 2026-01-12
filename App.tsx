@@ -151,6 +151,27 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
           <div className="flex-1 overflow-y-auto p-8 sm:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-10">
+              {project.details.images && project.details.images.length > 0 && (
+                <section>
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Gallery</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.details.images.map((image: string, i: number) => (
+                      <div
+                        key={i}
+                        className="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all cursor-pointer group"
+                        onClick={() => setLightboxImage(image)}
+                      >
+                        <img
+                          src={image}
+                          alt={`${project.title} - ${i + 1}`}
+                          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {project.details.pdfUrl && (
                 <section>
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">E-book Preview</h4>
@@ -221,27 +242,6 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                     {project.details.achievements.map((achievement, i) => (
                       <div key={i} className="p-4 bg-blue-50/50 border border-blue-100 rounded-xl text-slate-700 text-sm font-semibold">
                         {achievement}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {project.details.images && project.details.images.length > 0 && (
-                <section>
-                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Gallery</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {project.details.images.map((image: string, i: number) => (
-                      <div
-                        key={i}
-                        className="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all cursor-pointer group"
-                        onClick={() => setLightboxImage(image)}
-                      >
-                        <img
-                          src={image}
-                          alt={`${project.title} - ${i + 1}`}
-                          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
                       </div>
                     ))}
                   </div>
