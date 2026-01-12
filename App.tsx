@@ -35,8 +35,8 @@ import {
 import { ProjectItem, MediaItem } from './types';
 
 const Section: React.FC<{ title: string; id: string; children: React.ReactNode }> = ({ title, id, children }) => (
-  <section id={id} className="scroll-mt-20 py-16 border-b border-slate-100 last:border-0">
-    <h2 className="text-2xl font-bold text-slate-900 mb-10 flex items-center gap-2 group">
+  <section id={id} className="scroll-mt-20 py-10 border-b border-slate-100 last:border-0">
+    <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2 group">
       <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
       {title}
       <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-40 transition-opacity" />
@@ -55,7 +55,7 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
     if (match && match[2].length === 11) {
-      return `https://www.youtube.com/embed/${match[2]}?rel=0&modestbranding=1&autoplay=0`;
+      return `https://www.youtube.com/embed/${match[2]}?rel=0&modestbranding=1&autoplay=1&mute=1`;
     }
     return url;
   };
@@ -140,6 +140,9 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                     ) : (
                       <video
                         controls
+                        autoPlay
+                        muted
+                        loop
                         className="w-full h-full"
                         poster={project.thumbnail}
                       >
@@ -376,8 +379,8 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <main className="max-w-5xl mx-auto px-6 pt-32 pb-20">
-        <section id="home" className="mb-24 scroll-mt-32">
+      <main className="max-w-5xl mx-auto px-6 pt-24 pb-20">
+        <section id="home" className="mb-16 scroll-mt-32">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             <div className="shrink-0 group relative">
               <div className="absolute inset-0 bg-blue-600 rounded-2xl rotate-3 scale-[1.02] opacity-10 group-hover:rotate-6 transition-transform"></div>
@@ -388,8 +391,8 @@ const App: React.FC = () => {
               />
             </div>
             <div className="flex-1">
-              <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6">Dong-Won Shin</h1>
-              <p className="text-xl md:text-2xl text-slate-600 mb-10 font-medium leading-relaxed max-w-2xl">
+              <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">Dong-Won Shin</h1>
+              <p className="text-xl md:text-2xl text-slate-600 mb-6 font-medium leading-snug max-w-2xl">
                 SLAM & Perception Software Engineer specializing in 3D mapping, autonomous navigation, and LiDAR application development.
               </p>
               <div className="flex flex-wrap gap-x-8 gap-y-4 items-center text-sm text-slate-600">
@@ -401,7 +404,7 @@ const App: React.FC = () => {
         </section>
 
         <Section title="Career" id="career">
-          <div className="space-y-12">
+          <div className="space-y-8">
             {CAREER_DATA.map((item, idx) => (
               <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
                 <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
@@ -423,7 +426,7 @@ const App: React.FC = () => {
         </Section>
 
         <Section title="Education" id="education">
-          <div className="space-y-12">
+          <div className="space-y-8">
             {EDUCATION_DATA.map((item, idx) => (
               <div key={idx} className="flex flex-col md:flex-row md:gap-12 group">
                 <div className="w-48 shrink-0 text-slate-400 font-bold text-sm tracking-widest pt-1 uppercase mb-2 md:mb-0">{item.period}</div>
@@ -444,9 +447,9 @@ const App: React.FC = () => {
         </Section>
 
         <Section title="Research Interest" id="interests">
-          <div className="flex flex-col md:flex-row gap-12 items-center">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
             <div className="flex-1">
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {INTERESTS.map((interest, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-slate-700 font-medium text-lg">
                     <div className="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
@@ -462,8 +465,8 @@ const App: React.FC = () => {
         </Section>
 
         <Section title="Technical Skills & Experience" id="skills">
-          <div className="flex flex-col md:flex-row gap-12 items-start">
-            <div className="flex-1 space-y-6">
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex-1 space-y-4">
               {TECHNICAL_SKILLS.map((skill, idx) => (
                 <div key={idx} className="flex flex-col">
                   <span className="text-slate-800 font-bold text-lg flex items-center gap-3">
