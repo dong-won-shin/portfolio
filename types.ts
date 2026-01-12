@@ -22,6 +22,7 @@ export interface ProjectDetail {
   videoUrl?: string;
   images?: string[];
   pdfUrl?: string;
+  link?: string;
 }
 
 export interface ProjectItem {
@@ -32,6 +33,7 @@ export interface ProjectItem {
   period: string;
   thumbnail?: string;
   details?: ProjectDetail;
+  hidden?: boolean;
 }
 
 export interface PatentItem {

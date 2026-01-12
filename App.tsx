@@ -250,6 +250,17 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                     </div>
                   </div>
                 )}
+                {project.details.link && (
+                  <a
+                    href={project.details.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    Read Article
+                  </a>
+                )}
                 {'link' in project && project.link && project.link !== '#' && (
                   <a
                     href={project.link}
@@ -491,7 +502,7 @@ const App: React.FC = () => {
                 Main Projects
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {PROJECTS.map((project, idx) => (
+                {PROJECTS.filter(p => !p.hidden).map((project, idx) => (
                   <div
                     key={idx}
                     onClick={() => project.details && setSelectedProject(project)}

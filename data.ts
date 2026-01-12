@@ -65,6 +65,36 @@ export const TECHNICAL_SKILLS = [
 
 export const PROJECTS: ProjectItem[] = [
   {
+    id: "amd-vek385-multivision",
+    title: "Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge VEK385",
+    subtitle: "Converting and optimizing VSLAM neural networks for AMD's automotive SoC platform",
+    organization: "StradVision & AMD",
+    period: "2024 – 2025",
+    thumbnail: "/images/projects/amd-vek385.png",
+    details: {
+      overview: "Led the neural network conversion, optimization, and porting effort for StradVision's MultiVision VSLAM perception software on AMD Versal™ AI Edge Gen 2 VEK385 platform. Focused on adapting deep learning models for AMD's AIE-ML v2 architecture, implementing quantization techniques, and ensuring real-time performance for automotive applications. The collaboration resulted in a successful demonstration at CES 2026, showcasing scalable AI perception from Level 2 to Level 3 autonomy.",
+      keyFeatures: [
+        "Neural network model conversion and adaptation for AMD Versal AI Edge Gen 2 VEK385 SoC",
+        "Quantization implementation for AIE-ML v2 engines achieving near-FP16 accuracy with reduced power",
+        "Performance optimization for real-time VSLAM inference on automotive embedded platform",
+        "Integration and validation of neural network components within MultiVision perception pipeline"
+      ],
+      techStack: ["AMD Versal AI Edge Gen 2", "VEK385", "AIE-ML v2", "Neural Network Quantization", "Model Conversion", "VSLAM", "C++"],
+      achievements: [
+        "Successfully ported and optimized VSLAM neural networks for AMD VEK385 platform",
+        "Achieved near-FP16 accuracy with quantized inference while meeting automotive real-time requirements",
+        "Demonstrated at CES 2026 as part of AMD-StradVision collaboration showcase",
+        "Enabled production-ready AI perception deployment on AMD's automotive SoC architecture"
+      ],
+      link: "https://www.amd.com/en/blogs/2025/amd-and-stradvision-collaboration.html",
+      images: [
+        "/images/projects/amd-vek385-1.jpg",
+        "/images/projects/amd-vek385-2.jpg",
+        "/images/projects/amd-vek385-3.webp"
+      ]
+    }
+  },
+  {
     id: "visual-loc",
     title: "Deep learning based visual localization for automotive embedded platform",
     subtitle: "Embedded visual positioning for autonomous parking with real-time pose estimation",
@@ -167,6 +197,7 @@ export const PROJECTS: ProjectItem[] = [
     organization: "SOSLAB",
     period: "Feb. 2021 – Aug. 2021",
     thumbnail: "/images/projects/solid-state-lidar-object-detection.png",
+    hidden: true,
     details: {
       overview: "Focused on developing an object recognition model tailored for fixed 3D LiDAR sensors for mobility applications. The project aimed to establish real-time operation in embedded environments while building a perception software pipeline for future commercialization.",
       keyFeatures: [
