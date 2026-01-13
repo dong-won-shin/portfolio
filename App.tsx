@@ -17,7 +17,8 @@ import {
   Play,
   GraduationCap,
   Award,
-  Download
+  Download,
+  Gift
 } from 'lucide-react';
 import {
   CAREER_DATA,
@@ -438,6 +439,7 @@ const App: React.FC = () => {
                 SLAM & Perception Software Engineer specializing in 3D mapping, autonomous navigation, and LiDAR application development.
               </p>
               <div className="flex flex-wrap gap-x-8 gap-y-4 items-center text-sm text-slate-600">
+                <a href="/resume.pdf" download="Resume_DongWonShin.pdf" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Gift className="w-4 h-4" /> Resume</a>
                 <a href="mailto:celinachild@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Mail className="w-4 h-4" /> celinachild@gmail.com</a>
                 <a href="https://www.linkedin.com/in/dong-won-shin-7a11b2240/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Linkedin className="w-4 h-4" /> LinkedIn</a>
               </div>
