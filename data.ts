@@ -99,7 +99,6 @@ export const PROJECTS: ProjectItem[] = [
     subtitle: "Tightly-coupled VIO system for accurate pose estimation in dynamic environments",
     organization: "StradVision",
     period: "2025",
-    thumbnail: "/images/projects/visual-loc.png",
     details: {
       overview: "Developing a visual-inertial odometry system that fuses camera and IMU data for robust and accurate pose estimation. The system uses tightly-coupled optimization to achieve high-precision localization even in challenging scenarios with rapid motion and varying lighting conditions.",
       contributions: [
@@ -122,7 +121,7 @@ export const PROJECTS: ProjectItem[] = [
     subtitle: "Embedded visual positioning for autonomous parking with real-time pose estimation",
     organization: "StradVision",
     period: "Jan. 2024 – Dec. 2024",
-    thumbnail: "/images/projects/visual-loc.png",
+    thumbnail: "/images/projects/visual-loc-new.png",
     details: {
       overview: "Developed a robust method for learning environment maps and accurately estimating vehicle location for autonomous parking scenarios. The project emphasizes deployment on resource-constrained automotive embedded platforms.",
       videoUrl: "/videos/visual-localization.mp4",
@@ -149,14 +148,8 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed a system to create global parking lot maps by fusing vehicle location information from Visual SLAM with semantic parking slot detection. This ensures robust positioning and mapping in dynamic environments like supermarket and airport parking lots.",
       videoUrl: "https://youtu.be/p5tfm--gxg4",
-      contributions: [
-        "Fusing vehicle trajectory with parking slot detection for global map consistency",
-        "Comparison and visualization of generated maps with satellite imagery",
-        "3D visualization of dense parking slot mapping",
-        "Robustness to frequent environmental changes in urban parking structures"
-      ],
       techStack: ["C++", "Visual SLAM", "Factor Graphs", "Nonlinear Optimization", "OpenCV"],
-      achievements: [
+      contributions: [
         "Developed the overall algorithm for semantic parking slot mapping",
         "Implemented custom factor formulas for backend nonlinear optimization",
         "Created a loop closure detection algorithm specifically for semantic parking features",
@@ -174,13 +167,8 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed an ultra-lightweight visual SLAM algorithm for autonomous parking software, designed to provide accurate position estimation and mapping while running in real-time on automotive embedded platforms with limited computational resources.",
       videoUrl: "/videos/auto-valet-parking.mp4",
-      contributions: [
-        "Map training mode: Driver learns the map of the parking environment through manual driving",
-        "Localization mode: Fully automatic parking at specified locations based on learned maps",
-        "Optimized for real-time performance on low-spec embedded hardware"
-      ],
       techStack: ["C++", "Non-linear Optimization", "Embedded SoC", "LiDAR", "Visual Odometry"],
-      achievements: [
+      contributions: [
         "Lightweighted non-linear optimization for both frontend and backend and ported to embedded platforms",
         "Developed a LiDAR-based Ground Truth (GT) data generation algorithm for precise VSLAM evaluation",
         "Built an automated pipeline for VSLAM algorithm evaluation and created analytical tools for result mapping"
@@ -197,13 +185,8 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed a handheld SLAM mapping device utilizing three-dimensional fixed solid-state LiDAR sensors. The project aimed to create a technical foothold for future sales of 3D fixed LiDAR and SLAM application software.",
       videoUrl: "https://youtu.be/gy468T0mFZs",
-      contributions: [
-        "Development of handheld SLAM device with 3D fixed solid-state LiDAR",
-        "Hardware and software module selection and integration",
-        "Visualization of LiDAR reflectance values on generated 3D maps"
-      ],
       techStack: ["C++", "Solid-state LiDAR", "SLAM", "Flask", "Docker", "Embedded Linux"],
-      achievements: [
+      contributions: [
         "Researched and experimented with open-source SLAM software optimized for 3D fixed LiDAR characteristics",
         "Tuned SLAM hyper-parameters to achieve high-quality mapping results",
         "Developed a simple 3D point cloud viewer using Flask on an embedded board",
