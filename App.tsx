@@ -533,7 +533,7 @@ const App: React.FC = () => {
               </ul>
             </div>
             <div className="shrink-0">
-              <img src={RESEARCH_IMAGE_URL} alt="Research Icons" className="max-w-[300px] h-auto transition-all" />
+              <img src={RESEARCH_IMAGE_URL} alt="Research Icons" className="max-w-[300px] h-auto transition-transform duration-300 hover:scale-110" />
             </div>
           </div>
         </Section>
@@ -551,7 +551,7 @@ const App: React.FC = () => {
               ))}
             </div>
             <div className="shrink-0">
-              <img src={SKILLS_IMAGE_URL} alt="Tech Logos" className="max-w-[400px] h-auto shadow-sm rounded-xl" />
+              <img src={SKILLS_IMAGE_URL} alt="Tech Logos" className="max-w-[400px] h-auto shadow-sm rounded-xl transition-transform duration-300 hover:scale-110" />
             </div>
           </div>
         </Section>
