@@ -66,18 +66,18 @@ export const TECHNICAL_SKILLS = [
 export const PROJECTS: ProjectItem[] = [
   {
     id: "amd-vek385-multivision",
-    title: "Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge VEK385",
+    title: "[CES 2026] Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge",
     subtitle: "Converting and optimizing VSLAM neural networks for AMD's automotive SoC platform",
     organization: "StradVision",
     period: "2025",
     thumbnail: "/images/projects/amd-vek385.png",
     details: {
-      overview: "Led the neural network conversion, optimization, and porting effort for StradVision's MultiVision VSLAM perception software on AMD Versal™ AI Edge Gen 2 VEK385 platform. Focused on adapting deep learning models for AMD's AIE-ML v2 architecture, implementing quantization techniques, and ensuring real-time performance for automotive applications. The collaboration resulted in a successful demonstration at CES 2026, showcasing scalable AI perception from Level 2 to Level 3 autonomy.",
-      keyFeatures: [
+      overview: "Contributed to the neural network conversion, optimization, and porting effort for StradVision's VSLAM perception software on AMD Versal™ AI Edge Gen 2 VEK385 platform. Focused on adapting deep learning models for AMD's AIE-ML v2 architecture, applying quantization techniques, and ensuring real-time performance for automotive applications. The collaboration resulted in a successful demonstration at CES 2026, showcasing scalable AI perception from Level 2 to Level 3 autonomy.",
+      contributions: [
         "Neural network model conversion and adaptation for AMD Versal AI Edge Gen 2 VEK385 SoC",
-        "Quantization implementation for AIE-ML v2 engines achieving near-FP16 accuracy with reduced power",
-        "Performance optimization for real-time VSLAM inference on automotive embedded platform",
-        "Integration and validation of neural network components within MultiVision perception pipeline"
+        "Applied Quantization for AIE-ML v2 engines achieving accuracy with reduced power",
+        "Performance optimization for real-time VSLAM applications on automotive embedded platform",
+        "Integration and validation of neural network components within SurroundVision perception pipeline"
       ],
       techStack: ["AMD Versal AI Edge Gen 2", "VEK385", "AIE-ML v2", "Neural Network Quantization", "Model Conversion", "VSLAM", "C++"],
       achievements: [
@@ -88,7 +88,6 @@ export const PROJECTS: ProjectItem[] = [
       ],
       link: "https://www.amd.com/en/blogs/2025/amd-and-stradvision-collaboration.html",
       images: [
-        "/images/projects/amd-vek385-1.jpg",
         "/images/projects/amd-vek385-2.jpg",
         "/images/projects/amd-vek385-3.webp"
       ]
@@ -103,7 +102,7 @@ export const PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/visual-loc.png",
     details: {
       overview: "Developing a visual-inertial odometry system that fuses camera and IMU data for robust and accurate pose estimation. The system uses tightly-coupled optimization to achieve high-precision localization even in challenging scenarios with rapid motion and varying lighting conditions.",
-      keyFeatures: [
+      contributions: [
         "Tightly-coupled fusion of visual and inertial measurements",
         "Real-time pose estimation with sub-centimeter accuracy",
         "Robust feature tracking and outlier rejection",
@@ -127,7 +126,7 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed a robust method for learning environment maps and accurately estimating vehicle location for autonomous parking scenarios. The project emphasizes deployment on resource-constrained automotive embedded platforms.",
       videoUrl: "/videos/visual-localization.mp4",
-      keyFeatures: [
+      contributions: [
         "Environment map training mode for autonomous parking readiness",
         "High-accuracy localization mode based on pre-trained environmental maps",
         "Real-time operation on embedded automotive SoCs"
@@ -150,7 +149,7 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed a system to create global parking lot maps by fusing vehicle location information from Visual SLAM with semantic parking slot detection. This ensures robust positioning and mapping in dynamic environments like supermarket and airport parking lots.",
       videoUrl: "https://youtu.be/p5tfm--gxg4",
-      keyFeatures: [
+      contributions: [
         "Fusing vehicle trajectory with parking slot detection for global map consistency",
         "Comparison and visualization of generated maps with satellite imagery",
         "3D visualization of dense parking slot mapping",
@@ -175,7 +174,7 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed an ultra-lightweight visual SLAM algorithm for autonomous parking software, designed to provide accurate position estimation and mapping while running in real-time on automotive embedded platforms with limited computational resources.",
       videoUrl: "/videos/auto-valet-parking.mp4",
-      keyFeatures: [
+      contributions: [
         "Map training mode: Driver learns the map of the parking environment through manual driving",
         "Localization mode: Fully automatic parking at specified locations based on learned maps",
         "Optimized for real-time performance on low-spec embedded hardware"
@@ -198,7 +197,7 @@ export const PROJECTS: ProjectItem[] = [
     details: {
       overview: "Developed a handheld SLAM mapping device utilizing three-dimensional fixed solid-state LiDAR sensors. The project aimed to create a technical foothold for future sales of 3D fixed LiDAR and SLAM application software.",
       videoUrl: "https://youtu.be/gy468T0mFZs",
-      keyFeatures: [
+      contributions: [
         "Development of handheld SLAM device with 3D fixed solid-state LiDAR",
         "Hardware and software module selection and integration",
         "Visualization of LiDAR reflectance values on generated 3D maps"
@@ -223,7 +222,7 @@ export const PROJECTS: ProjectItem[] = [
     hidden: true,
     details: {
       overview: "Focused on developing an object recognition model tailored for fixed 3D LiDAR sensors for mobility applications. The project aimed to establish real-time operation in embedded environments while building a perception software pipeline for future commercialization.",
-      keyFeatures: [
+      contributions: [
         "Developed object recognition models suitable for fixed 3D solid-state LiDAR",
         "Optimized for real-time performance on embedded hardware (Raspberry Pi 4)",
         "Established a perception software pathway for future 3D solid-state LiDAR products"
@@ -246,7 +245,7 @@ export const PROJECTS: ProjectItem[] = [
     hidden: true,
     details: {
       overview: "Developed real-time position estimation and 3D map generation algorithms for unmanned vehicles traveling in wilderness environments. The system integrates LiDAR, camera, and IMU sensor data to ensure robustness in challenging conditions.",
-      keyFeatures: [
+      contributions: [
         "Real-time sensor fusion (LiDAR, Camera, IMU) for 3D mapping and localization",
         "Object recognition and classification using deep learning on multi-environment datasets",
         "Cross-calibration between LiDAR and camera for precise 3D object localization",
@@ -273,7 +272,7 @@ export const SIDE_PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/jetson-slam-ebook.webp",
     details: {
       overview: "An educational e-book that provides a comprehensive introduction to SLAM (Simultaneous Localization and Mapping) technology using NVIDIA Jetson Nano. The book covers fundamental concepts, practical implementation techniques, and hands-on examples for embedded robotics applications.",
-      keyFeatures: [
+      contributions: [
         "Step-by-step guide to SLAM fundamentals and theory",
         "Practical implementation examples using NVIDIA Jetson Nano",
         "Real-world robotics applications and use cases",
@@ -292,7 +291,7 @@ export const SIDE_PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/nerf-art.jpg",
     details: {
       overview: "Experimenting with NeRF architectures to generate high-fidelity 3D representations of artistic scenes.",
-      keyFeatures: ["Instant-NGP implementation", "Custom scene dataset creation", "Interactive web viewer"],
+      contributions: ["Instant-NGP implementation", "Custom scene dataset creation", "Interactive web viewer"],
       techStack: ["PyTorch", "CUDA", "WebGL"]
     }
   },
@@ -305,7 +304,7 @@ export const SIDE_PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/visual-loc.png",
     details: {
       overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      contributions: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
       techStack: ["Docker", "Github Actions", "ROS 2"]
     }
   },
@@ -318,7 +317,7 @@ export const SIDE_PROJECTS: ProjectItem[] = [
     thumbnail: "/images/projects/slam-book.jpg",
     details: {
       overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      keyFeatures: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
+      contributions: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
       techStack: ["Docker", "Github Actions", "ROS 2"]
     }
   }
@@ -348,7 +347,7 @@ export const MEDIA: MediaItem[] = [
     thumbnail: "/images/media/media1.webp",
     details: {
       overview: "A comprehensive online course designed to enhance the mobility technology capabilities of cutting-edge cities. The program focuses on multirotary vehicle platform development, SLAM fundamentals, and practical skills for autonomous mobility systems, helping participants understand the latest trends in advanced mobility technology.",
-      keyFeatures: [
+      contributions: [
         "Development and operational methods of multirotary vehicle platforms",
         "Understanding SLAM fundamentals and practical implementation",
         "Exploring cutting-edge mobility trends and future applications",
@@ -372,7 +371,7 @@ export const MEDIA: MediaItem[] = [
     details: {
       overview: "An in-depth interview discussing the practical applications of C++ in SLAM (Simultaneous Localization and Mapping) technology. Dr. Shin shares insights on modern C++ development practices, real-time performance optimization, and the evolution of SLAM algorithms in autonomous systems.",
       videoUrl: "https://youtu.be/G6HV9kXwQQE",
-      keyFeatures: [
+      contributions: [
         "Deep dive into C++ performance optimization techniques for real-time SLAM",
         "Discussion on modern C++ standards (C++17/20) and their impact on robotics software",
         "Practical insights from developing production-grade SLAM systems",
@@ -389,7 +388,7 @@ export const MEDIA: MediaItem[] = [
     thumbnail: "/images/media/media3.webp",
     details: {
       overview: "A successful offline gathering of the SLAM KR community bringing together 140 participants including researchers, engineers, and students passionate about SLAM technology. The event featured technical presentations, networking sessions, and discussions on the latest developments in SLAM research and applications.",
-      keyFeatures: [
+      contributions: [
         "Technical presentations covering cutting-edge SLAM research and industrial applications",
         "Networking opportunities with SLAM experts from academia and industry",
         "Hands-on demonstrations and live Q&A sessions",

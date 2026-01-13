@@ -16,7 +16,7 @@ export interface EducationItem {
 
 export interface ProjectDetail {
   overview: string;
-  keyFeatures: string[];
+  contributions: string[];
   techStack: string[];
   achievements?: string[];
   videoUrl?: string;

@@ -222,9 +222,9 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
               </section>
 
               <section>
-                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Key Features</h4>
+                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Contributions</h4>
                 <ul className="space-y-4">
-                  {project.details.keyFeatures.map((feature, i) => (
+                  {project.details.contributions.map((feature, i) => (
                     <li key={i} className="flex gap-3 text-slate-700 font-medium">
                       <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
                       {feature}
@@ -232,19 +232,6 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
                   ))}
                 </ul>
               </section>
-
-              {project.details.achievements && (
-                <section>
-                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Achievements & Results</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {project.details.achievements.map((achievement, i) => (
-                      <div key={i} className="p-4 bg-blue-50/50 border border-blue-100 rounded-xl text-slate-700 text-sm font-semibold">
-                        {achievement}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
             </div>
 
             <div className="space-y-8">
