@@ -28,7 +28,10 @@ import {
   TECHNICAL_WRITING,
   MEDIA,
   LECTURES,
-  STUDY_CLUBS
+  STUDY_CLUBS,
+  PUBLICATIONS,
+  PATENTS,
+  COMMUNITY
 } from './data';
 import { ProjectItem, MediaItem } from './types';
 
@@ -328,6 +331,7 @@ const App: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | MediaItem | null>(null);
   const [showAllLectures, setShowAllLectures] = useState(false);
   const [showAllStudyClubs, setShowAllStudyClubs] = useState(false);
+  const [showAllPublications, setShowAllPublications] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -360,8 +364,6 @@ const App: React.FC = () => {
     { name: 'Projects', id: 'projects' },
     { name: 'Technical Writing', id: 'technical-writing' },
     { name: 'Media', id: 'media' },
-    { name: 'Lectures', id: 'lectures' },
-    { name: 'Study Club', id: 'study-club' },
   ];
 
   const handleLinkClick = (id: string) => {
@@ -593,7 +595,32 @@ const App: React.FC = () => {
           </div>
         </Section>
 
-        <Section title="Media Coverage" id="media">
+        <Section title="Community & Leadership" id="community">
+          <div className="space-y-6">
+            {COMMUNITY.map((item, idx) => (
+              <div key={idx} className="border border-slate-100 rounded-xl p-6 bg-white hover:shadow-lg transition-all">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
+                    <p className="text-sm font-semibold text-blue-600">{item.role}</p>
+                  </div>
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{item.period}</span>
+                </div>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">{item.description}</p>
+                <div className="space-y-2">
+                  {item.achievements.map((achievement, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                      <span className="text-xs text-slate-700">{achievement}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Media" id="media">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {MEDIA.map((item, idx) => (
               <div
@@ -613,7 +640,7 @@ const App: React.FC = () => {
                   )}
                 </div>
                 <div className="p-5 flex flex-col flex-1">
-                  <h4 className="text-base font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{item.title}</h4>
+                  <h4 className="text-base font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 t ransition-colors line-clamp-2">{item.title}</h4>
                   <div className="mt-auto flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                     <span>{item.source}</span>
                     <span>{item.date}</span>
@@ -624,51 +651,128 @@ const App: React.FC = () => {
           </div>
         </Section>
 
+
+        <Section title="Publications" id="publications">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200">
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Title</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-800 text-xs">Type</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Venue</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(showAllPublications ? PUBLICATIONS : PUBLICATIONS.slice(0, 5)).map((item, idx) => (
+                  <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td className="py-2 px-3 text-slate-800 text-xs">{item.title}</td>
+                    <td className="py-2 px-3">
+                      <span className="px-1.5 py-0.5 bg-green-50 text-green-600 text-[10px] rounded border border-green-200">
+                        {item.type}
+                      </span>
+                    </td>
+                    <td className="py-2 px-3 text-slate-500 text-xs">{item.venue}</td>
+                    <td className="py-2 px-3 text-slate-500 text-xs">{item.year}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {PUBLICATIONS.length > 5 && (
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setShowAllPublications(!showAllPublications)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-lg transition-colors inline-flex items-center gap-2"
+              >
+                {showAllPublications ? (
+                  <>
+                    <ChevronRight className="w-3 h-3 rotate-90" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronRight className="w-3 h-3 -rotate-90" />
+                    Show More ({PUBLICATIONS.length - 5} more)
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+        </Section>
+
+        <Section title="Patents" id="patents">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200">
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Title</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Number</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">DOI</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PATENTS.map((item, idx) => (
+                  <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td className="py-2 px-3 text-slate-800 text-xs">{item.title}</td>
+                    <td className="py-2 px-3 text-slate-500 text-xs">{item.number}</td>
+                    <td className="py-2 px-3 text-xs">
+                      <a href={item.doi} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">
+                        {item.doi}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
         <Section title="Lectures" id="lectures">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="border-b-2 border-slate-200">
-                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Title</th>
-                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Tag</th>
-                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Date</th>
-                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Organization</th>
+                <tr className="border-b border-slate-200">
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Title</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Tag</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Date</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Organization</th>
                 </tr>
               </thead>
               <tbody>
                 {(showAllLectures ? LECTURES : LECTURES.slice(0, 5)).map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                    <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
-                    <td className="py-4 px-4">
+                    <td className="py-2 px-3 text-slate-800 text-xs">{item.title}</td>
+                    <td className="py-2 px-3">
                       <div className="flex flex-wrap gap-1">
                         {item.tags.map((tag, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-blue-50 text-blue-700 text-xs rounded border border-blue-200">
+                          <span key={i} className="px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] rounded border border-blue-200">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </td>
-                    <td className="py-4 px-4 text-slate-600 text-sm">{item.date}</td>
-                    <td className="py-4 px-4 text-slate-600 text-sm">{item.organization}</td>
+                    <td className="py-2 px-3 text-slate-500 text-xs">{item.date}</td>
+                    <td className="py-2 px-3 text-slate-500 text-xs">{item.organization}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           {LECTURES.length > 5 && (
-            <div className="mt-6 text-center">
+            <div className="mt-4 text-center">
               <button
                 onClick={() => setShowAllLectures(!showAllLectures)}
-                className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors inline-flex items-center gap-2"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-lg transition-colors inline-flex items-center gap-2"
               >
                 {showAllLectures ? (
                   <>
-                    <ChevronRight className="w-4 h-4 rotate-90" />
+                    <ChevronRight className="w-3 h-3 rotate-90" />
                     Show Less
                   </>
                 ) : (
                   <>
-                    <ChevronRight className="w-4 h-4 -rotate-90" />
+                    <ChevronRight className="w-3 h-3 -rotate-90" />
                     Show More ({LECTURES.length - 5} more)
                   </>
                 )}
@@ -681,19 +785,19 @@ const App: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="border-b-2 border-slate-200">
-                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Title</th>
-                  <th className="text-left py-4 px-4 font-bold text-slate-700 text-sm">Tag</th>
+                <tr className="border-b border-slate-200">
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Title</th>
+                  <th className="text-left py-2 px-3 font-semibold text-slate-600 text-xs">Tag</th>
                 </tr>
               </thead>
               <tbody>
                 {(showAllStudyClubs ? STUDY_CLUBS : STUDY_CLUBS.slice(0, 5)).map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                    <td className="py-4 px-4 text-slate-900 font-medium">{item.title}</td>
-                    <td className="py-4 px-4">
+                    <td className="py-2 px-3 text-slate-800 text-xs">{item.title}</td>
+                    <td className="py-2 px-3">
                       <div className="flex flex-wrap gap-1">
                         {item.tags.map((tag, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs rounded border border-purple-200">
+                          <span key={i} className="px-1.5 py-0.5 bg-purple-50 text-purple-600 text-[10px] rounded border border-purple-200">
                             {tag}
                           </span>
                         ))}
@@ -705,19 +809,19 @@ const App: React.FC = () => {
             </table>
           </div>
           {STUDY_CLUBS.length > 5 && (
-            <div className="mt-6 text-center">
+            <div className="mt-4 text-center">
               <button
                 onClick={() => setShowAllStudyClubs(!showAllStudyClubs)}
-                className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors inline-flex items-center gap-2"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-lg transition-colors inline-flex items-center gap-2"
               >
                 {showAllStudyClubs ? (
                   <>
-                    <ChevronRight className="w-4 h-4 rotate-90" />
+                    <ChevronRight className="w-3 h-3 rotate-90" />
                     Show Less
                   </>
                 ) : (
                   <>
-                    <ChevronRight className="w-4 h-4 -rotate-90" />
+                    <ChevronRight className="w-3 h-3 -rotate-90" />
                     Show More ({STUDY_CLUBS.length - 5} more)
                   </>
                 )}

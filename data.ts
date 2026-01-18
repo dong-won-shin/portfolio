@@ -6,7 +6,9 @@ import {
   PatentItem,
   MediaItem,
   LectureItem,
-  StudyClubItem
+  StudyClubItem,
+  PublicationItem,
+  CommunityItem
 } from './types';
 
 export const CAREER_DATA: CareerItem[] = [
@@ -223,16 +225,22 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
 
 export const PATENTS: PatentItem[] = [
   {
-    title: "Method and apparatus for generating 3D map using LiDAR sensors",
-    number: "KR10202200XXXXX",
-    status: "Registered",
+    title: "A Method of Processing Lidar Data",
+    number: "KR 10-2021-0155397",
+    doi: "https://doi.org/10.8080/1020210155397",
     country: "Korea"
   },
   {
-    title: "Device for detecting loop closure in SLAM using neural network",
-    number: "US17/XXXXXXX",
-    status: "Pending",
-    country: "USA"
+    title: "A Method of generating an intensity information with extended expression range by reflecting a geometric characteristic of object and a LiDAR device",
+    number: "KR 10-2021-0083129",
+    doi: "https://doi.org/10.8080/1020210083129",
+    country: "Korea"
+  },
+  {
+    title: "Method of Depth Image Generation",
+    number: "KR 10-2015-0120746",
+    doi: "https://doi.org/10.8080/1020150120746",
+    country: "Korea"
   }
 ];
 
@@ -345,4 +353,249 @@ export const STUDY_CLUBS: StudyClubItem[] = [
   { title: "2019 Autonomous Driving Online Study", tags: ["플레이리스트", "스터디"] },
   { title: "SLAM Night Live! (SNL) Season 1", tags: ["플레이리스트", "라이브방송"] },
   { title: "2019 SLAM Online Study", tags: ["플레이리스트", "스터디"] }
+];
+
+export const PUBLICATIONS: PublicationItem[] = [
+  // PhD Dissertation
+  {
+    title: "Local and Global Correspondence Establishing Techniques for Simultaneous Localization and Mapping",
+    authors: "Dong-Won Shin (advised by Prof. Moongu Jeon)",
+    venue: "Gwangju Institute of Science and Technology",
+    year: "2019",
+    type: "PhD Dissertation"
+  },
+
+  // Master Thesis
+  {
+    title: "3D Object Reconstruction Using Multiple Kinect Cameras",
+    authors: "Dong-Won Shin (advised by Prof. Yo-Sung Ho)",
+    venue: "Gwangju Institute of Science and Technology",
+    year: "2015",
+    type: "Master Thesis"
+  },
+
+  // International Journal
+  {
+    title: "Loop Closure Detection in Simultaneous Localization and Mapping Using Descriptor from Generative Adversarial Network",
+    authors: "Dong-Won Shin, Yo-Sung Ho, and Eun-Soo Kim",
+    venue: "Journal of Electronic Imaging, vol. 28, issue 1",
+    year: "2019",
+    type: "International Journal"
+  },
+  {
+    title: "3D Scene Reconstruction Using Colorimetric and Geometric Constraints on Iterative Closest Point Method",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Multimedia Tools and Applications, vol. 77, issue 11",
+    year: "2017",
+    type: "International Journal"
+  },
+
+  // Domestic Journal
+  {
+    title: "3-Dimensional Calibration and Performance Evaluation Method for Pupil-labs Mobile Pupil Tracking Device",
+    authors: "Dong-Won Shin, Ji-Hun Mun, and Yo-Sung Ho",
+    venue: "Smart Media Journal, vol. 7, no. 2, pp. 15-22",
+    year: "2018",
+    type: "Domestic Journal"
+  },
+  {
+    title: "Robust Semi-auto Calibration Method for Various Cameras and Illumination Changes",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Journal of Broadcast Engineering, vol. 21, no.1, pp. 36-42",
+    year: "2016",
+    type: "Domestic Journal"
+  },
+  {
+    title: "Implementation of 3D Object Reconstruction Using Multiple Kinect Cameras",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Smart Media Journal, vol. 3, no. 4, pp. 22-27",
+    year: "2015",
+    type: "Domestic Journal"
+  },
+  {
+    title: "Temporally-Consistent High-Resolution Depth Video Generation in Background Region",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Journal of Broadcast Engineering, vol. 20, no. 3, pp. 414-420",
+    year: "2015",
+    type: "Domestic Journal"
+  },
+  {
+    title: "Real-time Depth Map Refinement using Hierarchical Joint Bilateral Filter",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Journal of Broadcast Engineering, vol. 19, no. 2, pp. 140-147",
+    year: "2014",
+    type: "Domestic Journal"
+  },
+
+  // International Conference
+  {
+    title: "Exploring Variants of Fully Convolutional Networks with Local and Global Contexts in Semantic Segmentation Problem",
+    authors: "Dong-Won Shin, Jun-Yeong Park, Chan-Yeong Son, and Yo-Sung Ho",
+    venue: "Electronic Imaging (EI), IRIACV-457, pp. 457.1-457.8, San Francisco, USA",
+    year: "2019",
+    type: "International Conference"
+  },
+  {
+    title: "Loop Closure Detection in Simultaneous Localization and Mapping Using Learning Based Local Patch Descriptor",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Electronic Imaging (EI), AVM-284, pp. 1-4, San Francisco, USA",
+    year: "2018",
+    type: "International Conference"
+  },
+  {
+    title: "Local Patch Descriptor Using Deep Convolutional Generative Adversarial Network for Loop Closure Detection in SLAM",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Asia-Pacific Signal and Information Processing Association (APSIPA), pp. 1-4, Kuala Lumpur, Malaysia",
+    year: "2017",
+    type: "International Conference"
+  },
+  {
+    title: "Multiple View Depth Generation Based on 3D Scene Reconstruction Using Heterogeneous Cameras",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Electronic Imaging (EI), COIMG-444, pp. 179-184, San Francisco, USA",
+    year: "2017",
+    type: "International Conference"
+  },
+  {
+    title: "Iterative Closest Points Method based on Photometric Weight for 3D Object Reconstruction",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Asia-Pacific Signal and Information Processing Association (APSIPA), pp. 145.1-145.4, Jeju, South Korea",
+    year: "2016",
+    type: "International Conference"
+  },
+  {
+    title: "Pattern Feature Detection for Camera Calibration Using Circular Sample",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Pacific-Rim Conference on Multimedia (PCM), Part II, LNCS 9315, pp. 608-615, Gwangju, South Korea",
+    year: "2015",
+    type: "International Conference"
+  },
+  {
+    title: "Color Correction Using 3D Multiview Geometry",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Electronic Imaging (EI), pp. 9395-24 (1-8), San Francisco, USA",
+    year: "2015",
+    type: "International Conference"
+  },
+  {
+    title: "Elimination of Background Flickering in Depth Video",
+    authors: "Dongwon Shin and Yo-Sung Ho",
+    venue: "International Workshop on Advanced Image Technology (IWAIT), pp. 73(1-4), Tainan, Taiwan",
+    year: "2015",
+    type: "International Conference"
+  },
+  {
+    title: "Implementation of 3D Object Reconstruction Using a Pair of Kinect Cameras",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Asia-Pacific Signal and Information Processing Association (APSIPA), pp. FA1-5.5(1-4), Siem Reap, Cambodia",
+    year: "2014",
+    type: "International Conference"
+  },
+  {
+    title: "Real-time Depth Image Refinement Using Hierarchical Joint Bilateral Filter",
+    authors: "Dong-Won Shin, Sang-Beom Lee, and Yo-Sung Ho",
+    venue: "International Conference on Embedded Systems and Intelligent Technology (ICESIT), pp. 123-126, Gwangju, South Korea",
+    year: "2014",
+    type: "International Conference"
+  },
+  {
+    title: "Joint Bilateral Filter for Warped Depth Data in Real-time",
+    authors: "Dong-Won Shin, Yun-Seok Song, and Yo-Sung Ho",
+    venue: "US-Korea Conference (UKC), EEC16, pp. 1-2, San Francisco, USA",
+    year: "2014",
+    type: "International Conference"
+  },
+
+  // Domestic Conference
+  {
+    title: "야지환경에 강인한 다중 주행 거리계 융합 기반 3차원 동시적 위치추정 및 지도 작성",
+    authors: "신동원, 최준호, 이규만, 김동원, 김일한, 김석환",
+    venue: "제32회 영상처리 및 이해에 관한 워크샵, pp. 474-477",
+    year: "2021",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Evaluation Dataset Generation for Loop Closure Detection Experiment",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Smart Media, Fall Conference, pp. 79-82",
+    year: "2017",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Loop Closure Detection Using Variational Autoencoder in Simultaneous Localization and Mapping",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Broadcast and Media Engineers, Summer Conference, pp. 250-253",
+    year: "2017",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Multiview Depth Image Generation Using Heterogeneous Cameras",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "29th Workshop on Image Processing and Image Understanding (IPIU), pp. 474-477",
+    year: "2017",
+    type: "Domestic Conference"
+  },
+  {
+    title: "3D Scene Reconstruction Using Robust Surface Normal Vector Acquisition Method",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Broadcast and Media Engineers, Fall Conference, pp. 4-5",
+    year: "2016",
+    type: "Domestic Conference"
+  },
+  {
+    title: "SIFT Weighting Based Iterative Closest Points Method in 3D Object Reconstruction",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Broadcast and Media Engineers, Summer Conference, pp. 309-312",
+    year: "2016",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Semi-auto Calibration Method Using Circular Sample Pixel and Homography Estimation",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Broadcast and Media Engineers, Fall Conference, pp. 1-4",
+    year: "2015",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Elimination Method of Flickering Effect on Background Region of Depth Image",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Institute of Electronics and Information Engineers, Fall Conference, pp. 407-410",
+    year: "2014",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Multi-view Camera Color Correction using 3D Geometric Information",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Signal Processing Conference, pp. K14-01(1-4)",
+    year: "2014",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Implementation of 3D Reconstruction using a Pair of Kinect Cameras",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Broadcast and Media Engineers, Summer Conference, T2.2-2, pp. 1-4",
+    year: "2014",
+    type: "Domestic Conference"
+  },
+  {
+    title: "Real-time Depth Image Refinement Using Joint Bilateral Filter",
+    authors: "Dong-Won Shin and Yo-Sung Ho",
+    venue: "Korean Institute of Broadcast and Media Engineers, Fall Conference, pp. A3-2(3~6)",
+    year: "2013",
+    type: "Domestic Conference"
+  }
+];
+
+export const COMMUNITY: CommunityItem[] = [
+  {
+    title: "Physical AI KR (formerly SLAM KR)",
+    role: "Community Leader",
+    period: "2019 - Present",
+    description: "Physical AI KR is a technical community bringing together practitioners and researchers to share knowledge on Physical AI, engage in constructive discussions, and grow through real-world problem solving.",
+    achievements: [
+      "Led and grew a KakaoTalk-based technical community with over 2,000 active members",
+      "Organized and hosted large-scale offline technical meetups with up to 140 attendees",
+      "Facilitated in-depth discussions on SLAM, robotics, and physical AI systems"
+    ]
+  }
 ];

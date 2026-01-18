@@ -39,7 +39,7 @@ export interface ProjectItem {
 export interface PatentItem {
   title: string;
   number: string;
-  status: 'Registered' | 'Pending';
+  doi: string;
   country: string;
 }
 
@@ -62,4 +62,20 @@ export interface LectureItem {
 export interface StudyClubItem {
   title: string;
   tags: string[];
+}
+
+export interface PublicationItem {
+  title: string;
+  authors: string;
+  venue: string;
+  year: string;
+  type: 'PhD Dissertation' | 'Master Thesis' | 'International Journal' | 'Domestic Journal' | 'International Conference' | 'Domestic Conference';
+}
+
+export interface CommunityItem {
+  title: string;
+  role: string;
+  period: string;
+  description: string;
+  achievements: string[];
 }
