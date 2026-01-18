@@ -45,13 +45,13 @@ export const EDUCATION_DATA: EducationItem[] = [
 ];
 
 export const INTERESTS = [
+  "Computer Vision and Deep Learning",
+  "Autonomous Driving & Mobile Robotics",
   "Simultaneous Localization and Mapping",
-  "Multi View Geometry",
   "Visual Localization",
-  "Computer Vision and Image Processing",
-  "Machine Learning and Deep Learning",
-  "Autonomous Driving System",
-  "Mobile Robotics"
+  "Multi View Geometry",
+  "Transformers",
+  "Neural Rendering & Gaussian Splatting"
 ];
 
 export const TECHNICAL_SKILLS = [
@@ -204,7 +204,7 @@ export const PROJECTS: ProjectItem[] = [
 export const TECHNICAL_WRITING: ProjectItem[] = [
   {
     id: "jetson-slam-ebook",
-    title: "[E-book] Understanding and Implementing SLAM with NVIDIA Jetson Nano",
+    title: "[E-Book] Understanding and Implementing SLAM with NVIDIA Jetson Nano",
     subtitle: "Comprehensive guide to understanding and implementing SLAM with NVIDIA Jetson Nano",
     organization: "Educational Content",
     period: "2024",
@@ -223,10 +223,10 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
   },
   {
     id: "orb-slam3-imu-part1",
-    title: "ORB-SLAM3 IMU preintegration code review (1)",
+    title: "[Blog] ORB-SLAM3 IMU preintegration code review (1)",
     subtitle: "In-depth technical analysis of ORB-SLAM3 IMU preintegration implementation",
     organization: "Technical Blog",
-    period: "2024",
+    period: "2025",
     thumbnail: "/images/projects/orb-slam3-imu-1.webp",
     details: {
       overview: "A comprehensive technical code review analyzing the IMU preintegration implementation in ORB-SLAM3, one of the most widely used visual-inertial SLAM systems. This article provides detailed insights into the mathematical foundations and practical implementation details.",
@@ -242,10 +242,10 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
   },
   {
     id: "orb-slam3-imu-part2",
-    title: "ORB-SLAM3 IMU preintegration code review (2)",
+    title: "[Blog] ORB-SLAM3 IMU preintegration code review (2)",
     subtitle: "Advanced implementation details and optimization techniques for IMU integration",
     organization: "Technical Blog",
-    period: "2024",
+    period: "2025",
     thumbnail: "/images/projects/orb-slam3-imu-2.webp",
     details: {
       overview: "The second part of the ORB-SLAM3 IMU preintegration code review series, focusing on advanced topics including error propagation, bias correction, and optimization techniques for robust visual-inertial odometry.",
@@ -358,39 +358,39 @@ export const MEDIA: MediaItem[] = [
 ];
 
 export const LECTURES: LectureItem[] = [
-  { title: "SLAM Invited Lecture 2023", tags: ["Education"], date: "Sep. 2023", organization: "Korea University" },
-  { title: "NeRF Invited Lecture 2023", tags: ["Education", "Video"], date: "Aug. 2023", organization: "Sogang University" },
-  { title: "2022 PseudoCon Conference", tags: ["Advance"], date: "Nov. 2022", organization: "PseudoLab" },
-  { title: "RGBD SLAM Lecture (Fall 2022)", tags: [], date: "Sep. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency" },
-  { title: "Visual SLAM Lecture (Fall 2022)", tags: [], date: "Aug. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency" },
-  { title: "SLAM Technology for AR/VR Special Lecture", tags: ["Education", "Poster"], date: "July. 2022", organization: "KAIST UVR Lab" },
-  { title: "Visual SLAM Lecture (Spring 2022)", tags: ["Advance", "Education"], date: "Apr. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency" },
-  { title: "RGB-D SLAM Lecture (Spring 2022)", tags: ["Advance", "Education"], date: "May. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency" },
-  { title: "Development of LiDAR Data Labeling Guidelines for AI Training", tags: ["Advance", "Education"], date: "Oct. - Dec. 2021", organization: "National Information Society Agency" },
-  { title: "Visual SLAM Workshop", tags: ["Poster", "Advance", "Review"], date: "April 2021 - May 2021", organization: "Daejeon Information & Culture Industry Promotion Agency" },
-  { title: "RGBD SLAM Workshop", tags: ["Poster", "Review"], date: "May 2021 - June 2021", organization: "Daejeon Information & Culture Industry Promotion Agency" },
-  { title: "ModuCon 2019", tags: ["Video", "Advance"], date: "Dec. 2019", organization: "MODULABS" },
-  { title: "LiDAR Institute", tags: ["Advance"], date: "Nov. 2019", organization: "WizGene" },
-  { title: "Introduction to SLAM Technology and Applications", tags: ["Poster", "Advance"], date: "June 2019", organization: "KAIST UVR Lab" },
-  { title: "Science SLAM D", tags: ["Video", "Advance"], date: "May. 2019", organization: "Institute for Basic Science" },
-  { title: "2019 SLAM KR Offline Seminar", tags: ["Advance", "Playlist"], date: "Apr. 2019", organization: "SLAM KR" },
-  { title: "ROS, SLAM Workshop", tags: [], date: "Apr. 2019", organization: "FastCampus" },
-  { title: "LiDAR SLAM Seminar", tags: [], date: "Mar. 2019", organization: "Korea Electric Power Research Institute" },
-  { title: "Introductory Level of SLAM Seminar", tags: ["Advance"], date: "Jan. 2019", organization: "PCL Research Group KR" },
-  { title: "SLAM Seminar", tags: [], date: "Oct. 2018", organization: "VIRNECT" },
-  { title: "ROS, SLAM Workshop", tags: ["Education"], date: "Aug. 2018", organization: "FastCampus" }
+  { title: "SLAM Invited Lecture 2023", tags: ["Education"], date: "Sep. 2023", organization: "Korea University", hidden: true },
+  { title: "NeRF Invited Lecture 2023", tags: ["Education", "Video"], date: "Aug. 2023", organization: "Sogang University", hidden: true },
+  { title: "2022 PseudoCon Conference", tags: ["Advance"], date: "Nov. 2022", organization: "PseudoLab", images: ["/images/lectures/lecture12-1.webp", "/images/lectures/lecture12-2.webp"] },
+  { title: "RGBD SLAM Lecture (Fall 2022)", tags: [], date: "Sep. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency", hidden: true },
+  { title: "Visual SLAM Lecture (Fall 2022)", tags: [], date: "Aug. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency", hidden: true },
+  { title: "SLAM Technology for AR/VR Special Lecture", tags: ["Education", "Poster"], date: "July. 2022", organization: "KAIST UVR Lab", images: ["/images/lectures/lecture1.webp"] },
+  { title: "Visual SLAM Lecture (Spring 2022)", tags: ["Advance", "Education"], date: "Apr. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency", images: ["/images/lectures/lecture2-1.webp", "/images/lectures/lecture2-2.webp"] },
+  { title: "RGB-D SLAM Lecture (Spring 2022)", tags: ["Advance", "Education"], date: "May. 2022", organization: "Daejeon Information & Culture Industry Promotion Agency", images: ["/images/lectures/lecture3-1.webp", "/images/lectures/lecture3-2.webp"] },
+  { title: "Development of LiDAR Data Labeling Guidelines for AI Training", tags: ["Advance", "Education"], date: "Oct. - Dec. 2021", organization: "National Information Society Agency", images: ["/images/lectures/lecture4-1.webp"] },
+  { title: "Visual SLAM Workshop", tags: ["Poster", "Advance", "Review"], date: "April 2021 - May 2021", organization: "Daejeon Information & Culture Industry Promotion Agency", images: ["/images/lectures/lecture5-1.webp"] },
+  { title: "RGBD SLAM Workshop", tags: ["Poster", "Review"], date: "May 2021 - June 2021", organization: "Daejeon Information & Culture Industry Promotion Agency", hidden: true },
+  { title: "ModuCon 2019", tags: ["Video", "Advance"], date: "Dec. 2019", organization: "MODULABS", images: ["/images/lectures/lecture6-1.webp", "/images/lectures/lecture6-2.webp"] },
+  { title: "LiDAR Institute", tags: ["Advance"], date: "Nov. 2019", organization: "WizGene", images: ["/images/lectures/lecture7-1.webp"] },
+  { title: "Introduction to SLAM Technology and Applications", tags: ["Poster", "Advance"], date: "June 2019", organization: "KAIST UVR Lab", images: ["/images/lectures/lecture8-1.webp"] },
+  { title: "Science SLAM D", tags: ["Video", "Advance"], date: "May. 2019", organization: "Institute for Basic Science", images: ["/images/lectures/lecture9-1.webp", "/images/lectures/lecture9-2.webp"] },
+  { title: "2019 SLAM KR Offline Seminar", tags: ["Advance", "Playlist"], date: "Apr. 2019", organization: "SLAM KR", images: ["/images/lectures/lecture10-1.webp"] },
+  { title: "ROS, SLAM Workshop", tags: [], date: "Apr. 2019", organization: "FastCampus", hidden: true },
+  { title: "LiDAR SLAM Seminar", tags: [], date: "Mar. 2019", organization: "Korea Electric Power Research Institute", hidden: true },
+  { title: "Introductory Level of SLAM Seminar", tags: ["Advance"], date: "Jan. 2019", organization: "PCL Research Group KR", images: ["/images/lectures/lecture11-1.webp", "/images/lectures/lecture11-2.webp"] },
+  { title: "SLAM Seminar", tags: [], date: "Oct. 2018", organization: "VIRNECT", hidden: true },
+  { title: "ROS, SLAM Workshop", tags: ["Education"], date: "Aug. 2018", organization: "FastCampus", hidden: true }
 ];
 
 export const STUDY_CLUBS: StudyClubItem[] = [
-  { title: "2023 SLAM KR Offline Event", tags: ["Playlist", "Conference"] },
-  { title: "2022 NeRF Study: Nerd's NeRF", tags: ["Playlist", "Study"] },
-  { title: "2021 SLAM Study Club", tags: ["Playlist", "Study"] },
-  { title: "2021 SLAM DUNK Season 2", tags: ["Playlist", "Study"] },
-  { title: "2020 SLAM DUNK Season 1", tags: ["Playlist", "Study"] },
-  { title: "SLAM Night Live! (SNL) Season 2", tags: ["Playlist", "Live"] },
-  { title: "2019 Autonomous Driving Online Study", tags: ["Playlist", "Study"] },
-  { title: "SLAM Night Live! (SNL) Season 1", tags: ["Playlist", "Live"] },
-  { title: "2019 SLAM Online Study", tags: ["Playlist", "Study"] }
+  { title: "2023 SLAM KR Offline Event", tags: ["Playlist", "Conference"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdODe64vgj_fDdRpMbt0ZGKD" },
+  { title: "2022 NeRF Study: Nerd's NeRF", tags: ["Playlist", "Study"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdO7eIb80HLWgiPSqvETQn8B" },
+  { title: "2021 SLAM Study Club", tags: ["Playlist", "Study"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdNNoTrIrjE0nPs7LZEzjYb0" },
+  { title: "2021 SLAM DUNK Season 2", tags: ["Playlist", "Study"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdP_H6uUmU-9f0y_LheA3Hil" },
+  { title: "2020 SLAM DUNK Season 1", tags: ["Playlist", "Study"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdOR8YNksFPcVuziVjP4Uxkq" },
+  { title: "SLAM Night Live! (SNL) Season 2", tags: ["Playlist", "Live"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdOMR0tVzVFO-0UPaXbwPYvL" },
+  { title: "2019 Autonomous Driving Online Study", tags: ["Playlist", "Study"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdOYYUqJF1YeAcDqFJ0sryUF" },
+  { title: "SLAM Night Live! (SNL) Season 1", tags: ["Playlist", "Live"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdPBa2tHNDyEfdek6G9lb-O9" },
+  { title: "2019 SLAM Online Study", tags: ["Playlist", "Study"], url: "https://www.youtube.com/playlist?list=PLubUquiqNQdOTNocmWCSWk9ZaWhV7ubCD" }
 ];
 
 export const PUBLICATIONS: PublicationItem[] = [

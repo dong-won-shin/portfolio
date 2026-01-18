@@ -33,7 +33,7 @@ import {
   PATENTS,
   COMMUNITY
 } from './data';
-import { ProjectItem, MediaItem } from './types';
+import { ProjectItem, MediaItem, LectureItem } from './types';
 
 const Section: React.FC<{ title: string; id: string; children: React.ReactNode }> = ({ title, id, children }) => (
   <section id={id} className="scroll-mt-20 py-10 border-b border-slate-100 last:border-0">
@@ -67,6 +67,88 @@ const ImageLightbox: React.FC<{ imageUrl: string; onClose: () => void }> = ({ im
         onClick={(e) => e.stopPropagation()}
       />
     </div>
+  );
+};
+
+const LectureModal: React.FC<{ lecture: LectureItem; onClose: () => void }> = ({ lecture, onClose }) => {
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (lightboxImage) {
+          event.stopPropagation();
+          setLightboxImage(null);
+        } else {
+          onClose();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleEsc, true);
+    return () => window.removeEventListener('keydown', handleEsc, true);
+  }, [lightboxImage, onClose]);
+
+  if (!lecture.images || lecture.images.length === 0) return null;
+
+  return (
+    <>
+      {lightboxImage && <ImageLightbox imageUrl={lightboxImage} onClose={() => setLightboxImage(null)} />}
+      <div
+        className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200"
+        onClick={onClose}
+      >
+        <div
+          className="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-300 slide-in-from-bottom-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="relative bg-gradient-to-br from-blue-600 to-blue-800 p-8">
+            <button
+              onClick={onClose}
+              className="absolute top-6 left-6 p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <div className="mt-8">
+              <span className="px-2 py-0.5 bg-white/20 text-[10px] font-black text-white rounded uppercase tracking-widest">
+                Lecture
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mt-3">
+                {lecture.title}
+              </h2>
+              <div className="flex flex-wrap gap-4 mt-4 text-white/80 text-sm font-medium">
+                <div className="flex items-center gap-2">
+                  <Building2 className="w-4 h-4" />
+                  {lecture.organization}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  {lecture.date}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-8 sm:p-12">
+            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-6">Gallery</h4>
+            <div className={lecture.images.length === 1 ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 gap-6"}>
+              {lecture.images.map((image: string, i: number) => (
+                <div
+                  key={i}
+                  className="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all cursor-pointer group"
+                  onClick={() => setLightboxImage(image)}
+                >
+                  <img
+                    src={image}
+                    alt={`${lecture.title} - ${i + 1}`}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -329,6 +411,7 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | MediaItem | null>(null);
+  const [selectedLecture, setSelectedLecture] = useState<LectureItem | null>(null);
   const [showAllLectures, setShowAllLectures] = useState(false);
   const [showAllStudyClubs, setShowAllStudyClubs] = useState(false);
   const [showAllPublications, setShowAllPublications] = useState(false);
@@ -380,6 +463,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
+      {selectedLecture && <LectureModal lecture={selectedLecture} onClose={() => setSelectedLecture(null)} />}
 
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -762,9 +846,14 @@ const App: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {(showAllLectures ? LECTURES : LECTURES.slice(0, 5)).map((item, idx) => (
+                {LECTURES.filter(item => !item.hidden).slice(0, showAllLectures ? undefined : 5).map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                    <td className="py-2 px-3 text-slate-800 text-xs">{item.title}</td>
+                    <td
+                      className={`py-2 px-3 text-slate-800 text-xs ${item.images && item.images.length > 0 ? 'cursor-pointer text-blue-600 hover:text-blue-800 hover:underline' : ''}`}
+                      onClick={() => item.images && item.images.length > 0 && setSelectedLecture(item)}
+                    >
+                      {item.title}
+                    </td>
                     <td className="py-2 px-3">
                       <div className="flex flex-wrap gap-1">
                         {item.tags.map((tag, i) => (
@@ -781,7 +870,7 @@ const App: React.FC = () => {
               </tbody>
             </table>
           </div>
-          {LECTURES.length > 5 && (
+          {LECTURES.filter(item => !item.hidden).length > 5 && (
             <div className="mt-4 text-center">
               <button
                 onClick={() => setShowAllLectures(!showAllLectures)}
@@ -795,7 +884,7 @@ const App: React.FC = () => {
                 ) : (
                   <>
                     <ChevronRight className="w-3 h-3 -rotate-90" />
-                    Show More ({LECTURES.length - 5} more)
+                    Show More ({LECTURES.filter(item => !item.hidden).length - 5} more)
                   </>
                 )}
               </button>
@@ -815,7 +904,20 @@ const App: React.FC = () => {
               <tbody>
                 {(showAllStudyClubs ? STUDY_CLUBS : STUDY_CLUBS.slice(0, 5)).map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                    <td className="py-2 px-3 text-slate-800 text-xs">{item.title}</td>
+                    <td className="py-2 px-3 text-slate-800 text-xs">
+                      {item.url ? (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-800 hover:text-slate-900 hover:underline"
+                        >
+                          {item.title}
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </td>
                     <td className="py-2 px-3">
                       <div className="flex flex-wrap gap-1">
                         {item.tags.map((tag, i) => (

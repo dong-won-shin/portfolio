@@ -57,11 +57,14 @@ export interface LectureItem {
   tags: string[];
   date: string;
   organization: string;
+  images?: string[];
+  hidden?: boolean;
 }
 
 export interface StudyClubItem {
   title: string;
   tags: string[];
+  url?: string;
 }
 
 export interface PublicationItem {
