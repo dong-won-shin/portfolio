@@ -220,6 +220,44 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
       techStack: ["SLAM", "NVIDIA Jetson Nano", "ROS", "Computer Vision", "Embedded Systems"],
       pdfUrl: "/pdfs/slam-understanding-implementation.pdf"
     }
+  },
+  {
+    id: "orb-slam3-imu-part1",
+    title: "ORB-SLAM3 IMU preintegration code review (1)",
+    subtitle: "In-depth technical analysis of ORB-SLAM3 IMU preintegration implementation",
+    organization: "Technical Blog",
+    period: "2024",
+    thumbnail: "/images/projects/orb-slam3-imu-1.webp",
+    details: {
+      overview: "A comprehensive technical code review analyzing the IMU preintegration implementation in ORB-SLAM3, one of the most widely used visual-inertial SLAM systems. This article provides detailed insights into the mathematical foundations and practical implementation details.",
+      contributions: [
+        "Detailed explanation of IMU preintegration theory",
+        "Code-level analysis of ORB-SLAM3 implementation",
+        "Mathematical derivations and practical insights",
+        "Best practices for visual-inertial SLAM development"
+      ],
+      techStack: ["ORB-SLAM3", "IMU", "Visual-Inertial SLAM", "C++", "Computer Vision"],
+      link: "https://concrete-bush-623.notion.site/ENG-ORB-SLAM3-IMU-preintegration-code-review-1-245cc7c3f3fb804598b1ceec8ea8a82d?pvs=73"
+    }
+  },
+  {
+    id: "orb-slam3-imu-part2",
+    title: "ORB-SLAM3 IMU preintegration code review (2)",
+    subtitle: "Advanced implementation details and optimization techniques for IMU integration",
+    organization: "Technical Blog",
+    period: "2024",
+    thumbnail: "/images/projects/orb-slam3-imu-2.webp",
+    details: {
+      overview: "The second part of the ORB-SLAM3 IMU preintegration code review series, focusing on advanced topics including error propagation, bias correction, and optimization techniques for robust visual-inertial odometry.",
+      contributions: [
+        "Advanced IMU error propagation analysis",
+        "Bias estimation and correction mechanisms",
+        "Optimization strategies for real-time performance",
+        "Practical tips for debugging and tuning"
+      ],
+      techStack: ["ORB-SLAM3", "IMU", "Visual-Inertial SLAM", "C++", "Optimization"],
+      link: "https://concrete-bush-623.notion.site/ENG-ORB-SLAM3-IMU-preintegration-code-review-2-245cc7c3f3fb80d2b59fdf504ab861e2"
+    }
   }
 ];
 

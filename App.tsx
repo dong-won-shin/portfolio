@@ -576,8 +576,14 @@ const App: React.FC = () => {
             {TECHNICAL_WRITING.map((project, idx) => (
               <div
                 key={idx}
-                onClick={() => project.details && setSelectedProject(project)}
-                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
+                onClick={() => {
+                  if (project.details?.link) {
+                    window.open(project.details.link, '_blank');
+                  } else if (project.details) {
+                    setSelectedProject(project);
+                  }
+                }}
+                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${(project.details?.link || project.details) ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
@@ -589,31 +595,6 @@ const App: React.FC = () => {
                     <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
                     <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section title="Community & Leadership" id="community">
-          <div className="space-y-6">
-            {COMMUNITY.map((item, idx) => (
-              <div key={idx} className="border border-slate-100 rounded-xl p-6 bg-white hover:shadow-lg transition-all">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
-                    <p className="text-sm font-semibold text-blue-600">{item.role}</p>
-                  </div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{item.period}</span>
-                </div>
-                <p className="text-sm text-slate-600 mb-4 leading-relaxed">{item.description}</p>
-                <div className="space-y-2">
-                  {item.achievements.map((achievement, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                      <span className="text-xs text-slate-700">{achievement}</span>
-                    </div>
-                  ))}
                 </div>
               </div>
             ))}
@@ -651,6 +632,30 @@ const App: React.FC = () => {
           </div>
         </Section>
 
+        <Section title="Community & Leadership" id="community">
+          <div className="space-y-6">
+            {COMMUNITY.map((item, idx) => (
+              <div key={idx} className="border border-slate-100 rounded-xl p-6 bg-white hover:shadow-lg transition-all">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
+                    <p className="text-sm font-semibold text-blue-600">{item.role}</p>
+                  </div>
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{item.period}</span>
+                </div>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">{item.description}</p>
+                <div className="space-y-2">
+                  {item.achievements.map((achievement, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                      <span className="text-xs text-slate-700">{achievement}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
 
         <Section title="Publications" id="publications">
           <div className="overflow-x-auto">
