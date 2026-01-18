@@ -153,7 +153,7 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
               {project.details.images && project.details.images.length > 0 && (
                 <section>
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-4">Gallery</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className={project.details.images.length === 1 ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 gap-4"}>
                     {project.details.images.map((image: string, i: number) => (
                       <div
                         key={i}
