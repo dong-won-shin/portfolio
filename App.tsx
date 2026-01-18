@@ -12,7 +12,6 @@ import {
   ExternalLink,
   CheckCircle2,
   ArrowLeft,
-  FileText,
   Globe,
   Play,
   GraduationCap,
@@ -26,7 +25,7 @@ import {
   INTERESTS,
   TECHNICAL_SKILLS,
   PROJECTS,
-  SIDE_PROJECTS,
+  TECHNICAL_WRITING,
   MEDIA,
   LECTURES,
   STUDY_CLUBS
@@ -359,6 +358,7 @@ const App: React.FC = () => {
     { name: 'Interests', id: 'interests' },
     { name: 'Skills', id: 'skills' },
     { name: 'Projects', id: 'projects' },
+    { name: 'Technical Writing', id: 'technical-writing' },
     { name: 'Media', id: 'media' },
     { name: 'Lectures', id: 'lectures' },
     { name: 'Study Club', id: 'study-club' },
@@ -546,66 +546,50 @@ const App: React.FC = () => {
         </Section>
 
         <Section title="Projects" id="projects">
-          <div className="space-y-12">
-            {/* Main Projects */}
-            <div>
-              <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
-                <span className="w-1 h-5 bg-blue-500 rounded-full"></span>
-                Main Projects
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {PROJECTS.filter(p => !p.hidden).map((project, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => project.details && setSelectedProject(project)}
-                    className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
-                  >
-                    <div className="relative aspect-video overflow-hidden">
-                      <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                    </div>
-                    <div className="p-5 flex flex-col flex-1">
-                      <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
-                      <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
-                      <div className="mt-auto flex flex-col gap-1">
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PROJECTS.filter(p => !p.hidden).map((project, idx) => (
+              <div
+                key={idx}
+                onClick={() => project.details && setSelectedProject(project)}
+                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
+                  <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
+                  <div className="mt-auto flex flex-col gap-1">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
+        </Section>
 
-            {/* Side Projects */}
-            <div>
-              <h3 className="text-base font-bold text-slate-600 mb-4 flex items-center gap-2">
-                <span className="w-0.5 h-4 bg-slate-400 rounded-full"></span>
-                Side Projects
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {SIDE_PROJECTS.map((project, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => project.details && setSelectedProject(project)}
-                    className={`flex flex-col h-full border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-90'}`}
-                  >
-                    <div className="relative aspect-video overflow-hidden bg-slate-100">
-                      {project.thumbnail ? (
-                        <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-slate-300">
-                          <FileText className="w-10 h-10" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4 flex flex-col flex-1">
-                      <h4 className="text-sm font-bold text-slate-900 mb-1 leading-tight group-hover:text-blue-600">{project.title}</h4>
-                      <p className="text-slate-600 text-xs leading-relaxed line-clamp-2">{project.subtitle}</p>
-                    </div>
+        <Section title="Technical Writing" id="technical-writing">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TECHNICAL_WRITING.map((project, idx) => (
+              <div
+                key={idx}
+                onClick={() => project.details && setSelectedProject(project)}
+                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
+                  <p className="text-slate-600 text-xs mb-6 leading-relaxed line-clamp-2">{project.subtitle}</p>
+                  <div className="mt-auto flex flex-col gap-1">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Building2 className="w-3 h-3" />{project.organization}</div>
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400"><Calendar className="w-3 h-3" />{project.period}</div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </Section>
 

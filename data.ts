@@ -199,10 +199,10 @@ export const PROJECTS: ProjectItem[] = [
   }
 ];
 
-export const SIDE_PROJECTS: ProjectItem[] = [
+export const TECHNICAL_WRITING: ProjectItem[] = [
   {
     id: "jetson-slam-ebook",
-    title: "[E-book] NVIDIA Jetson Nano와 함께하는 SLAM의 이해와 구현",
+    title: "[E-book] Understanding and Implementing SLAM with NVIDIA Jetson Nano",
     subtitle: "Comprehensive guide to understanding and implementing SLAM with NVIDIA Jetson Nano",
     organization: "Educational Content",
     period: "2024",
@@ -217,32 +217,6 @@ export const SIDE_PROJECTS: ProjectItem[] = [
       ],
       techStack: ["SLAM", "NVIDIA Jetson Nano", "ROS", "Computer Vision", "Embedded Systems"],
       pdfUrl: "/pdfs/slam-understanding-implementation.pdf"
-    }
-  },
-  {
-    id: "naverlabs-challenge",
-    title: "NaverLabs Visual Localization Challenge",
-    subtitle: "Participating in long-term visual localization competition",
-    organization: "Challenge Participation",
-    period: "April 2020 - June 2020",
-    thumbnail: "/images/projects/visual-loc.png",
-    details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      contributions: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
-    }
-  },
-  {
-    id: "slam-book",
-    title: "Translating the Visual SLAM book",
-    subtitle: "Korean translation for the community of the famous SLAM textbook",
-    organization: "Community Contribution",
-    period: "Oct. 2018 - Feb. 2019",
-    thumbnail: "/images/projects/slam-book.jpg",
-    details: {
-      overview: "Applying MLOps principles to SLAM to ensure continuous integration and deployment of robot intelligence.",
-      contributions: ["CI/CD for ROS 2 nodes", "Automated regression testing", "Model versioning"],
-      techStack: ["Docker", "Github Actions", "ROS 2"]
     }
   }
 ];
