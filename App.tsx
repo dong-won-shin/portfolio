@@ -437,11 +437,10 @@ const App: React.FC = () => {
             </div>
             <div className="flex-1">
               <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">Dong-Won Shin</h1>
-              <p className="text-xl md:text-2xl text-slate-600 mb-6 font-medium leading-snug max-w-2xl">
-                SLAM & Perception Software Engineer specializing in 3D mapping, autonomous navigation, and LiDAR application development.
+              <p className="text-base md:text-base text-slate-600 mb-6 font-medium leading-snug max-w-2xl">
+                Computer Vision & Deep Learning Engineer | Autonomous Driving | Mobile Robotics
               </p>
               <div className="flex flex-wrap gap-x-8 gap-y-4 items-center text-sm text-slate-600">
-                <a href="/resume.pdf" download="Resume_DongWonShin.pdf" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Gift className="w-4 h-4" /> Resume</a>
                 <a href="mailto:celinachild@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Mail className="w-4 h-4" /> celinachild@gmail.com</a>
                 <a href="https://www.linkedin.com/in/dong-won-shin-7a11b2240/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors"><Linkedin className="w-4 h-4" /> LinkedIn</a>
               </div>
@@ -636,21 +635,39 @@ const App: React.FC = () => {
           <div className="space-y-6">
             {COMMUNITY.map((item, idx) => (
               <div key={idx} className="border border-slate-100 rounded-xl p-6 bg-white hover:shadow-lg transition-all">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
-                    <p className="text-sm font-semibold text-blue-600">{item.role}</p>
-                  </div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{item.period}</span>
-                </div>
-                <p className="text-sm text-slate-600 mb-4 leading-relaxed">{item.description}</p>
-                <div className="space-y-2">
-                  {item.achievements.map((achievement, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                      <span className="text-xs text-slate-700">{achievement}</span>
+                <div className="flex items-start gap-6">
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
+                        <p className="text-sm font-semibold text-blue-600">{item.role}</p>
+                      </div>
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{item.period}</span>
                     </div>
-                  ))}
+                    <p className="text-sm text-slate-600 mb-4 leading-relaxed">{item.description}</p>
+                    <div className="space-y-2">
+                      {item.achievements.map((achievement, i) => (
+                        <div key={i} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                          <span className="text-xs text-slate-700">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {item.title === "Physical AI KR (formerly SLAM KR)" && (
+                    <a
+                      href="https://open.kakao.com/o/g8T5kxLb"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 hover:opacity-80 transition-opacity"
+                    >
+                      <img
+                        src="/images/qr-code-physical-ai-kr.jpeg"
+                        alt="Physical AI KR KakaoTalk QR Code"
+                        className="w-32 h-32 object-contain"
+                      />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -838,12 +855,12 @@ const App: React.FC = () => {
         <footer className="mt-32 py-16 border-t border-slate-100 text-center">
           <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-xl mx-auto mb-8 shadow-xl shadow-blue-200">D</div>
           <p className="text-slate-500 font-bold text-lg mb-2">Dong-Won Shin</p>
-          <p className="text-slate-400 text-sm mb-8 font-medium">SLAM & Perception Software Engineer</p>
+          <p className="text-slate-400 text-sm mb-8 font-medium">Computer Vision & Deep Learning Engineer</p>
           <div className="flex justify-center gap-10">
             <a href="https://www.linkedin.com/in/dong-won-shin-7a11b2240/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Linkedin className="w-6 h-6" /></a>
             <a href="mailto:celinachild@gmail.com" className="text-slate-400 hover:text-blue-600 transition-all hover:scale-110"><Mail className="w-6 h-6" /></a>
           </div>
-          <p className="mt-12 text-[10px] text-slate-300 font-bold uppercase tracking-[0.3em]">© 2024 Dong-Won Shin Portfolio</p>
+          <p className="mt-12 text-[10px] text-slate-300 font-bold uppercase tracking-[0.3em]">© 2026 Dong-Won Shin Portfolio</p>
         </footer>
       </main>
 
