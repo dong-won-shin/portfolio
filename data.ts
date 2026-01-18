@@ -66,18 +66,17 @@ export const TECHNICAL_SKILLS = [
 export const PROJECTS: ProjectItem[] = [
   {
     id: "amd-vek385-multivision",
-    title: "[CES 2026] Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge",
+    title: "Neural Network Optimization and Porting for VSLAM on AMD Versal AI Edge",
     subtitle: "Converting and optimizing VSLAM neural networks for AMD's automotive SoC platform",
     organization: "StradVision",
     period: "2025",
     thumbnail: "/images/projects/amd-vek385.png",
     details: {
-      overview: "Contributed to the neural network conversion, optimization, and porting effort for StradVision's VSLAM perception software on AMD Versal™ AI Edge Gen 2 VEK385 platform. Focused on adapting deep learning models for AMD's AIE-ML v2 architecture, applying quantization techniques, and ensuring real-time performance for automotive applications. The collaboration resulted in a successful demonstration at CES 2026, showcasing scalable AI perception from Level 2 to Level 3 autonomy.",
+      overview: "Optimized StradVision's VSLAM for AMD Versal™ AI Edge Gen 2 VEK385. Adapted deep learning for AMD AIE-ML v2. Applied quantization for realtime automotive use. Demonstrated scalable AI from Level 2 to Level 3 autonomy at CES 2026.",
       contributions: [
-        "Neural network model conversion and adaptation for AMD Versal AI Edge Gen 2 VEK385 SoC",
-        "Applied Quantization for AIE-ML v2 engines achieving accuracy with reduced power",
-        "Performance optimization for real-time VSLAM applications on automotive embedded platform",
-        "Integration and validation of neural network components within SurroundVision perception pipeline"
+        "Successfully demonstrated the system at CES 2026 with positive industry feedback.",
+        "Contributed neural network model conversion and adaptation for AMD Versal AI Edge Gen 2 (VEK385) SoC.",
+        "Applied quantization for AIE-ML v2 engines achieving accuracy with reduced power.",
       ],
       techStack: ["AMD Versal AI Edge Gen 2", "VEK385", "AIE-ML v2", "Neural Network Quantization", "Model Conversion", "VSLAM", "C++"],
       achievements: [
@@ -94,28 +93,6 @@ export const PROJECTS: ProjectItem[] = [
     }
   },
   {
-    id: "visual-inertial-odometry",
-    title: "Visual-Inertial Odometry for Robust Localization",
-    subtitle: "Tightly-coupled VIO system for accurate pose estimation in dynamic environments",
-    organization: "StradVision",
-    period: "2025",
-    details: {
-      overview: "Developing a visual-inertial odometry system that fuses camera and IMU data for robust and accurate pose estimation. The system uses tightly-coupled optimization to achieve high-precision localization even in challenging scenarios with rapid motion and varying lighting conditions.",
-      contributions: [
-        "Tightly-coupled fusion of visual and inertial measurements",
-        "Real-time pose estimation with sub-centimeter accuracy",
-        "Robust feature tracking and outlier rejection",
-        "Efficient sliding-window optimization for computational efficiency"
-      ],
-      techStack: ["C++", "OpenCV", "Ceres Solver", "IMU Calibration", "Nonlinear Optimization", "SLAM"],
-      achievements: [
-        "Implemented tightly-coupled VIO with sliding-window optimization",
-        "Achieved real-time performance on embedded platforms",
-        "Demonstrated robustness in challenging lighting and motion conditions"
-      ]
-    }
-  },
-  {
     id: "visual-loc",
     title: "Deep learning based visual localization for automotive embedded platform",
     subtitle: "Embedded visual positioning for autonomous parking with real-time pose estimation",
@@ -123,12 +100,12 @@ export const PROJECTS: ProjectItem[] = [
     period: "Jan. 2024 – Dec. 2024",
     thumbnail: "/images/projects/visual-loc-new.png",
     details: {
-      overview: "Developed a robust method for learning environment maps and accurately estimating vehicle location for autonomous parking scenarios. The project emphasizes deployment on resource-constrained automotive embedded platforms.",
-      videoUrl: "/videos/visual-localization.mp4",
+      overview: "Developed a deep learning–based visual localization system for autonomous parking, enabling environment map learning and precise vehicle pose estimation under automotive constraints.",
+      videoUrl: "https://youtu.be/nWGenYwT_M0",
       contributions: [
-        "Environment map training mode for autonomous parking readiness",
-        "High-accuracy localization mode based on pre-trained environmental maps",
-        "Real-time operation on embedded automotive SoCs"
+        "Implemented deep neural network–based modules within a VSLAM pipeline.",
+        "Achieved real-time operation on embedded automotive SoCs.",
+        "Improved visual localization robustness, achieving ~3–4× more successful pose estimates compared to a non–deep learning baseline."
       ],
       techStack: ["C++", "PyTorch", "Quantization", "Embedded SoC", "TensorRT", "OpenCV"],
       achievements: [
@@ -146,14 +123,14 @@ export const PROJECTS: ProjectItem[] = [
     period: "Jan. 2023 – Dec. 2023",
     thumbnail: "/images/projects/semantic-parking-map.png",
     details: {
-      overview: "Developed a system to create global parking lot maps by fusing vehicle location information from Visual SLAM with semantic parking slot detection. This ensures robust positioning and mapping in dynamic environments like supermarket and airport parking lots.",
+      overview: "Developed a system to create global parking lot maps by fusing vehicle location information from Visual SLAM with semantic parking slot detection.",
       videoUrl: "https://youtu.be/p5tfm--gxg4",
       techStack: ["C++", "Visual SLAM", "Factor Graphs", "Nonlinear Optimization", "OpenCV"],
       contributions: [
-        "Developed the overall algorithm for semantic parking slot mapping",
-        "Implemented custom factor formulas for backend nonlinear optimization",
-        "Created a loop closure detection algorithm specifically for semantic parking features",
-        "Developed a map metric formula to quantitatively measure optimized map quality"
+        "Designed the overall algorithm for semantic parking slot mapping.",
+        "Implemented custom factor formulations for backend nonlinear optimization.",
+        "Developed a loop closure detection algorithm leveraging semantic parking slot features.",
+        "Defined a quantitative map quality metric to evaluate and validate optimized maps."
       ]
     }
   },
@@ -165,13 +142,13 @@ export const PROJECTS: ProjectItem[] = [
     period: "Feb. 2022 – Dec. 2022",
     thumbnail: "/images/projects/ultra-lightweight-vslam.png",
     details: {
-      overview: "Developed an ultra-lightweight visual SLAM algorithm for autonomous parking software, designed to provide accurate position estimation and mapping while running in real-time on automotive embedded platforms with limited computational resources.",
-      videoUrl: "/videos/auto-valet-parking.mp4",
+      overview: "Created a lightweight visual SLAM for autonomous parking, enabling real-time positioning and mapping on limited-resource automotive platforms.",
+      videoUrl: "https://youtu.be/dE0R-Ow4QAc",
       techStack: ["C++", "Non-linear Optimization", "Embedded SoC", "LiDAR", "Visual Odometry"],
       contributions: [
-        "Lightweighted non-linear optimization for both frontend and backend and ported to embedded platforms",
-        "Developed a LiDAR-based Ground Truth (GT) data generation algorithm for precise VSLAM evaluation",
-        "Built an automated pipeline for VSLAM algorithm evaluation and created analytical tools for result mapping"
+        "Implemented lightweight nonlinear optimization in the backend, reducing runtime by up to 25% and enabling real-time performance.",
+        "Developed a LiDAR-based ground truth (GT) data generation algorithm for precise VSLAM evaluation.",
+        "Built an automated pipeline for VSLAM algorithm evaluation and created analytical tools for result mapping."
       ]
     }
   },
@@ -187,34 +164,9 @@ export const PROJECTS: ProjectItem[] = [
       videoUrl: "https://youtu.be/gy468T0mFZs",
       techStack: ["C++", "Solid-state LiDAR", "SLAM", "Flask", "Docker", "Embedded Linux"],
       contributions: [
-        "Researched and experimented with open-source SLAM software optimized for 3D fixed LiDAR characteristics",
-        "Tuned SLAM hyper-parameters to achieve high-quality mapping results",
+        "Researched and experimented with open-source SLAM software optimized for 3D solid-state LiDAR characteristics",
         "Developed a simple 3D point cloud viewer using Flask on an embedded board",
         "Managed development and experimental environments using Docker for consistency",
-        "Created a user manual and demo video for potential stakeholders"
-      ]
-    }
-  },
-  {
-    id: "solid-state-lidar-object-detection",
-    title: "Development of object detection algorithm for automotive using 3D solid-state lidar sensor",
-    subtitle: "Real-time object recognition for automotive 3D solid-state LiDAR in embedded environments",
-    organization: "SOSLAB",
-    period: "Feb. 2021 – Aug. 2021",
-    thumbnail: "/images/projects/solid-state-lidar-object-detection.png",
-    hidden: true,
-    details: {
-      overview: "Focused on developing an object recognition model tailored for fixed 3D LiDAR sensors for mobility applications. The project aimed to establish real-time operation in embedded environments while building a perception software pipeline for future commercialization.",
-      contributions: [
-        "Developed object recognition models suitable for fixed 3D solid-state LiDAR",
-        "Optimized for real-time performance on embedded hardware (Raspberry Pi 4)",
-        "Established a perception software pathway for future 3D solid-state LiDAR products"
-      ],
-      techStack: ["C++", "Python", "Raspberry Pi 4", "Solid-state LiDAR", "Deep Learning", "Point Cloud Data"],
-      achievements: [
-        "Collected, cleaned, processed, and trained 3D LiDAR datasets from diverse driving environments",
-        "Successfully developed and deployed LiDAR object recognition modules on Raspberry Pi 4",
-        "Conducted extensive evaluation of algorithm performance and inference speed for real-time validation"
       ]
     }
   },
@@ -225,7 +177,6 @@ export const PROJECTS: ProjectItem[] = [
     organization: "SOSLAB",
     period: "Mar. 2020 – Feb. 2022",
     thumbnail: "/images/projects/robust-3d-slam-harsh.png",
-    hidden: true,
     details: {
       overview: "Developed real-time position estimation and 3D map generation algorithms for unmanned vehicles traveling in wilderness environments. The system integrates LiDAR, camera, and IMU sensor data to ensure robustness in challenging conditions.",
       contributions: [
@@ -240,6 +191,9 @@ export const PROJECTS: ProjectItem[] = [
         "Developed an obstacle occupancy grid mapping module for autonomous navigation",
         "Achieved high-accuracy localization in unstructured wilderness environments",
         "Conducted extensive comparative analysis of LiDAR vs. Camera-based estimation algorithms"
+      ],
+      images: [
+        "/images/projects/robust-3d-slam-harsh.webp",
       ]
     }
   }
@@ -263,19 +217,6 @@ export const SIDE_PROJECTS: ProjectItem[] = [
       ],
       techStack: ["SLAM", "NVIDIA Jetson Nano", "ROS", "Computer Vision", "Embedded Systems"],
       pdfUrl: "/pdfs/slam-understanding-implementation.pdf"
-    }
-  },
-  {
-    id: "nerf-art",
-    title: "NeRF Art Gallery",
-    subtitle: "Visualizing neural radiance fields as interactive art",
-    organization: "Personal Project",
-    period: "2022",
-    thumbnail: "/images/projects/nerf-art.jpg",
-    details: {
-      overview: "Experimenting with NeRF architectures to generate high-fidelity 3D representations of artistic scenes.",
-      contributions: ["Instant-NGP implementation", "Custom scene dataset creation", "Interactive web viewer"],
-      techStack: ["PyTorch", "CUDA", "WebGL"]
     }
   },
   {
