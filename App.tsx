@@ -416,6 +416,33 @@ const App: React.FC = () => {
   const [showAllStudyClubs, setShowAllStudyClubs] = useState(false);
   const [showAllPublications, setShowAllPublications] = useState(false);
 
+  // Handle URL-based project opening
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#project/')) {
+        const projectId = hash.replace('#project/', '');
+        const project = [...PROJECTS, ...TECHNICAL_WRITING, ...MEDIA].find(p => p.id === projectId);
+        if (project) {
+          setSelectedProject(project);
+        }
+      } else if (hash.startsWith('#lecture/')) {
+        const lectureId = hash.replace('#lecture/', '');
+        const lecture = LECTURES.find(l => l.id === lectureId);
+        if (lecture) {
+          setSelectedLecture(lecture);
+        }
+      }
+    };
+
+    // Check on initial load
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -460,10 +487,26 @@ const App: React.FC = () => {
   const RESEARCH_IMAGE_URL = "/images/research.png";
   const SKILLS_IMAGE_URL = "/images/skills.png";
 
+  const handleCloseProject = () => {
+    setSelectedProject(null);
+    // Remove hash from URL
+    if (window.location.hash.startsWith('#project/') || window.location.hash.startsWith('#lecture/')) {
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+  };
+
+  const handleCloseLecture = () => {
+    setSelectedLecture(null);
+    // Remove hash from URL
+    if (window.location.hash.startsWith('#lecture/')) {
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
-      {selectedLecture && <LectureModal lecture={selectedLecture} onClose={() => setSelectedLecture(null)} />}
+      {selectedProject && <ProjectModal project={selectedProject} onClose={handleCloseProject} />}
+      {selectedLecture && <LectureModal lecture={selectedLecture} onClose={handleCloseLecture} />}
 
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -636,7 +679,12 @@ const App: React.FC = () => {
             {PROJECTS.filter(p => !p.hidden).map((project, idx) => (
               <div
                 key={idx}
-                onClick={() => project.details && setSelectedProject(project)}
+                onClick={() => {
+                  if (project.details) {
+                    setSelectedProject(project);
+                    window.location.hash = `project/${project.id}`;
+                  }
+                }}
                 className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${project.details ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
               >
                 <div className="relative aspect-video overflow-hidden">
@@ -665,6 +713,7 @@ const App: React.FC = () => {
                     window.open(project.details.link, '_blank');
                   } else if (project.details) {
                     setSelectedProject(project);
+                    window.location.hash = `project/${project.id}`;
                   }
                 }}
                 className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${(project.details?.link || project.details) ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
@@ -690,7 +739,12 @@ const App: React.FC = () => {
             {MEDIA.map((item, idx) => (
               <div
                 key={idx}
-                onClick={() => item.details && setSelectedProject(item)}
+                onClick={() => {
+                  if (item.details) {
+                    setSelectedProject(item);
+                    window.location.hash = `project/${item.id}`;
+                  }
+                }}
                 className={`flex flex-col border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all group bg-white ${item.details ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 <div className="relative aspect-video overflow-hidden">
@@ -851,7 +905,12 @@ const App: React.FC = () => {
                   <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                     <td
                       className={`py-2 px-3 text-slate-800 text-xs ${item.images && item.images.length > 0 ? 'cursor-pointer text-blue-600 hover:text-blue-800 hover:underline' : ''}`}
-                      onClick={() => item.images && item.images.length > 0 && setSelectedLecture(item)}
+                      onClick={() => {
+                        if (item.images && item.images.length > 0) {
+                          setSelectedLecture(item);
+                          window.location.hash = `lecture/${item.id}`;
+                        }
+                      }}
                     >
                       {item.title}
                     </td>
