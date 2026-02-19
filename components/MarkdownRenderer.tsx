@@ -1,0 +1,105 @@
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
+import rehypeKatex from 'rehype-katex';
+import rehypeHighlight from 'rehype-highlight';
+
+interface MarkdownRendererProps {
+  content: string;
+}
+
+const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkMath, remarkGfm]}
+      rehypePlugins={[rehypeKatex, rehypeHighlight]}
+      components={{
+        h1: ({ children }) => (
+          <h1 className="text-3xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">
+            {children}
+          </h1>
+        ),
+        h2: ({ children }) => (
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3 pb-2 border-b border-slate-100">
+            {children}
+          </h2>
+        ),
+        h3: ({ children }) => (
+          <h3 className="text-xl font-semibold text-slate-900 mt-6 mb-2">
+            {children}
+          </h3>
+        ),
+        p: ({ children }) => (
+          <p className="text-slate-700 leading-relaxed mb-4">{children}</p>
+        ),
+        ul: ({ children }) => (
+          <ul className="list-disc list-outside pl-6 space-y-1 mb-4 text-slate-700">{children}</ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="list-decimal list-outside pl-6 space-y-1 mb-4 text-slate-700">{children}</ol>
+        ),
+        li: ({ children }) => (
+          <li className="leading-relaxed">{children}</li>
+        ),
+        blockquote: ({ children }) => (
+          <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50/50 text-slate-600 italic">
+            {children}
+          </blockquote>
+        ),
+        hr: () => (
+          <hr className="my-8 border-slate-200" />
+        ),
+        table: ({ children }) => (
+          <div className="overflow-x-auto my-4">
+            <table className="min-w-full border-collapse border border-slate-200">
+              {children}
+            </table>
+          </div>
+        ),
+        th: ({ children }) => (
+          <th className="border border-slate-200 bg-slate-50 px-4 py-2 text-left font-semibold text-slate-900">
+            {children}
+          </th>
+        ),
+        td: ({ children }) => (
+          <td className="border border-slate-200 px-4 py-2 text-slate-700">{children}</td>
+        ),
+        code: ({ className, children, ...props }) => {
+          const isInline = !className;
+          if (isInline) {
+            return (
+              <code className="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                {children}
+              </code>
+            );
+          }
+          return (
+            <code className={`${className} block`} {...props}>
+              {children}
+            </code>
+          );
+        },
+        pre: ({ children }) => (
+          <pre className="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto my-4 text-sm">
+            {children}
+          </pre>
+        ),
+        img: ({ src, alt }) => (
+          <img
+            src={src}
+            alt={alt || ''}
+            className="rounded-xl shadow-md my-6 max-w-full h-auto"
+          />
+        ),
+        strong: ({ children }) => (
+          <strong className="font-bold text-slate-900">{children}</strong>
+        ),
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  );
+};
+
+export default MarkdownRenderer;
