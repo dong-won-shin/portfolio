@@ -30,6 +30,11 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             {children}
           </h3>
         ),
+        h4: ({ children }) => (
+          <h4 className="text-lg font-semibold text-blue-900 mt-6 mb-2 pl-3 border-l-[3px] border-blue-400">
+            {children}
+          </h4>
+        ),
         p: ({ children }) => (
           <p className="text-slate-700 leading-relaxed mb-4">{children}</p>
         ),
@@ -42,11 +47,44 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         li: ({ children }) => (
           <li className="leading-relaxed">{children}</li>
         ),
-        blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50/50 text-slate-600 italic">
-            {children}
-          </blockquote>
-        ),
+        blockquote: ({ children }) => {
+          // Detect lightbulb callout: check if first child text starts with 💡
+          const childArray = React.Children.toArray(children);
+          const firstText = childArray
+            .map((child: any) => {
+              if (typeof child === 'string') return child;
+              if (child?.props?.children) {
+                const nested = React.Children.toArray(child.props.children);
+                return nested.map((n: any) => {
+                  if (typeof n === 'string') return n;
+                  if (n?.props?.children) {
+                    const deep = React.Children.toArray(n.props.children);
+                    return deep.map((d: any) => (typeof d === 'string' ? d : '')).join('');
+                  }
+                  return '';
+                }).join('');
+              }
+              return '';
+            })
+            .join('');
+          const isCallout = firstText.includes('\u{1F4A1}');
+
+          if (isCallout) {
+            return (
+              <blockquote
+                className="not-italic my-7 rounded-xl border border-amber-300 px-6 py-5"
+                style={{ background: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)' }}
+              >
+                {children}
+              </blockquote>
+            );
+          }
+          return (
+            <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50/50 text-slate-600 italic">
+              {children}
+            </blockquote>
+          );
+        },
         hr: () => (
           <hr className="my-8 border-slate-200" />
         ),
@@ -91,6 +129,16 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             alt={alt || ''}
             className="rounded-xl shadow-md my-6 max-w-full h-auto"
           />
+        ),
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-500 transition-colors"
+          >
+            {children}
+          </a>
         ),
         strong: ({ children }) => (
           <strong className="font-bold text-slate-900">{children}</strong>

@@ -1,8 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Mail,
   Linkedin,
+  ChevronLeft,
   ChevronRight,
   Cpu,
   Menu,
@@ -408,6 +410,7 @@ const ProjectModal: React.FC<{ project: ProjectItem | MediaItem; onClose: () => 
 };
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | MediaItem | null>(null);
@@ -415,6 +418,35 @@ const App: React.FC = () => {
   const [showAllLectures, setShowAllLectures] = useState(false);
   const [showAllStudyClubs, setShowAllStudyClubs] = useState(false);
   const [showAllPublications, setShowAllPublications] = useState(false);
+  const writingScrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollArrows = useCallback(() => {
+    const el = writingScrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = writingScrollRef.current;
+    if (!el) return;
+    updateScrollArrows();
+    el.addEventListener('scroll', updateScrollArrows);
+    window.addEventListener('resize', updateScrollArrows);
+    return () => {
+      el.removeEventListener('scroll', updateScrollArrows);
+      window.removeEventListener('resize', updateScrollArrows);
+    };
+  }, [updateScrollArrows]);
+
+  const scrollWriting = (direction: 'left' | 'right') => {
+    const el = writingScrollRef.current;
+    if (!el) return;
+    const cardWidth = el.querySelector('div')?.offsetWidth ?? 320;
+    el.scrollBy({ left: direction === 'left' ? -cardWidth - 24 : cardWidth + 24, behavior: 'smooth' });
+  };
 
   // Handle URL-based project opening
   useEffect(() => {
@@ -704,22 +736,41 @@ const App: React.FC = () => {
         </Section>
 
         <Section title="Technical Writing" id="technical-writing">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="relative group/scroll">
+            {canScrollLeft && (
+              <button
+                onClick={() => scrollWriting('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:shadow-xl transition-all -ml-3"
+              >
+                <ChevronLeft className="w-5 h-5 text-slate-600" />
+              </button>
+            )}
+            {canScrollRight && (
+              <button
+                onClick={() => scrollWriting('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:shadow-xl transition-all -mr-3"
+              >
+                <ChevronRight className="w-5 h-5 text-slate-600" />
+              </button>
+            )}
+          <div ref={writingScrollRef} className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'thin' }}>
             {TECHNICAL_WRITING.map((project, idx) => (
               <div
                 key={idx}
                 onClick={() => {
-                  if (project.details?.link) {
+                  if (project.blogSlug) {
+                    navigate(`/blog/${project.blogSlug}`);
+                  } else if (project.details?.link) {
                     window.open(project.details.link, '_blank');
                   } else if (project.details) {
                     setSelectedProject(project);
                     window.location.hash = `project/${project.id}`;
                   }
                 }}
-                className={`flex flex-col h-full border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${(project.details?.link || project.details) ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
+                className={`flex-shrink-0 w-72 md:w-80 snap-start flex flex-col border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white group ${(project.blogSlug || project.details?.link || project.details) ? 'cursor-pointer' : 'cursor-default opacity-80'}`}
               >
                 <div className="relative aspect-video overflow-hidden">
-                  <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" />
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-600">{project.title}</h3>
@@ -731,6 +782,7 @@ const App: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
           </div>
         </Section>
 

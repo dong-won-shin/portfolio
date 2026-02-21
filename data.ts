@@ -203,6 +203,26 @@ export const PROJECTS: ProjectItem[] = [
 
 export const TECHNICAL_WRITING: ProjectItem[] = [
   {
+    id: "imu-preintegration-part1",
+    title: "[Blog] A Deep Dive into IMU Preintegration (Part 1)",
+    subtitle: "Why Preintegration & the Math Behind It — SO(3) Lie group, Exp/Log maps, IMU kinematics, and the change of coordinates trick",
+    organization: "Technical Blog",
+    period: "2026",
+    thumbnail: "/blog/images/imu-preintegration-part1-figure1.png",
+    blogSlug: "imu-preintegration-part1",
+    details: {
+      overview: "Part 1 of a 3-part series on IMU Preintegration in Visual-Inertial SLAM. Covers motivation for preintegration, SO(3) Lie group toolkit (Exp/Log maps, Right Jacobian, Adjoint), IMU measurement model, world-frame kinematics, and the change of coordinates from world to body frame.",
+      contributions: [
+        "Motivation for IMU preintegration in Visual-Inertial SLAM",
+        "SO(3) Lie group and Lie algebra fundamentals (Exp/Log, Right Jacobian, Adjoint)",
+        "IMU measurement model and discrete-time world-frame kinematics",
+        "Change of coordinates trick to derive state-independent preintegrated measurements"
+      ],
+      techStack: ["IMU", "Visual-Inertial SLAM", "SO(3)", "Lie Group", "Preintegration"],
+      link: "https://concrete-bush-623.notion.site/ENG-ORB-SLAM3-IMU-preintegration-code-review-1-245cc7c3f3fb804598b1ceec8ea8a82d?pvs=73"
+    }
+  },
+  {
     id: "jetson-slam-ebook",
     title: "[E-Book] Understanding and Implementing SLAM with NVIDIA Jetson Nano",
     subtitle: "Comprehensive guide to understanding and implementing SLAM with NVIDIA Jetson Nano",
@@ -258,7 +278,7 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
       techStack: ["ORB-SLAM3", "IMU", "Visual-Inertial SLAM", "C++", "Optimization"],
       link: "https://concrete-bush-623.notion.site/ENG-ORB-SLAM3-IMU-preintegration-code-review-2-245cc7c3f3fb80d2b59fdf504ab861e2"
     }
-  }
+  },
 ];
 
 export const PATENTS: PatentItem[] = [

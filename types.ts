@@ -34,6 +34,7 @@ export interface ProjectItem {
   thumbnail?: string;
   details?: ProjectDetail;
   hidden?: boolean;
+  blogSlug?: string;
 }
 
 export interface PatentItem {
