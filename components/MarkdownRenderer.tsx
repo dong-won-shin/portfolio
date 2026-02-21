@@ -5,6 +5,28 @@ import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
 import rehypeHighlight from 'rehype-highlight';
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
+function extractText(children: React.ReactNode): string {
+  return React.Children.toArray(children)
+    .map((child: any) => {
+      if (typeof child === 'string') return child;
+      // Skip KaTeX MathML (duplicate accessibility text) to avoid double-counting
+      const cn = child?.props?.className;
+      if (typeof cn === 'string' && cn.includes('katex-mathml')) return '';
+      if (child?.props?.children) return extractText(child.props.children);
+      return '';
+    })
+    .join('');
+}
+
 interface MarkdownRendererProps {
   content: string;
 }
@@ -15,26 +37,38 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
       remarkPlugins={[remarkMath, remarkGfm]}
       rehypePlugins={[rehypeKatex, rehypeHighlight]}
       components={{
-        h1: ({ children }) => (
-          <h1 className="text-3xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200">
-            {children}
-          </h1>
-        ),
-        h2: ({ children }) => (
-          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3 pb-2 border-b border-slate-100">
-            {children}
-          </h2>
-        ),
-        h3: ({ children }) => (
-          <h3 className="text-xl font-semibold text-slate-900 mt-6 mb-2">
-            {children}
-          </h3>
-        ),
-        h4: ({ children }) => (
-          <h4 className="text-lg font-semibold text-blue-900 mt-6 mb-2 pl-3 border-l-[3px] border-blue-400">
-            {children}
-          </h4>
-        ),
+        h1: ({ children }) => {
+          const id = slugify(extractText(children));
+          return (
+            <h1 id={id} className="text-3xl font-bold text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-200 scroll-mt-20">
+              {children}
+            </h1>
+          );
+        },
+        h2: ({ children }) => {
+          const id = slugify(extractText(children));
+          return (
+            <h2 id={id} className="text-2xl font-bold text-slate-900 mt-8 mb-3 pb-2 border-b border-slate-100 scroll-mt-20">
+              {children}
+            </h2>
+          );
+        },
+        h3: ({ children }) => {
+          const id = slugify(extractText(children));
+          return (
+            <h3 id={id} className="text-xl font-semibold text-slate-900 mt-6 mb-2 scroll-mt-20">
+              {children}
+            </h3>
+          );
+        },
+        h4: ({ children }) => {
+          const id = slugify(extractText(children));
+          return (
+            <h4 id={id} className="text-lg font-semibold text-blue-900 mt-6 mb-2 pl-3 border-l-[3px] border-blue-400 scroll-mt-20">
+              {children}
+            </h4>
+          );
+        },
         p: ({ children }) => (
           <p className="text-slate-700 leading-relaxed mb-4">{children}</p>
         ),
