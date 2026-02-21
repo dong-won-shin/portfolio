@@ -124,20 +124,32 @@ $$
 \boldsymbol{\phi}^\wedge = \begin{bmatrix} 0 & -\phi_3 & \phi_2 \\ \phi_3 & 0 & -\phi_1 \\ -\phi_2 & \phi_1 & 0 \end{bmatrix}
 $$
 
-This matrix has a useful property: $\boldsymbol{\phi}^\wedge \mathbf{v} = \boldsymbol{\phi} \times \mathbf{v}$ (cross product).
+This matrix has a useful property: $\boldsymbol{\phi}^\wedge \mathbf{v} = \boldsymbol{\phi} \times \mathbf{v}$ (cross product). Another identity that will be important later is the **skew-symmetric anticommutativity**:
+
+$$
+\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}, \quad \forall \; \mathbf{a}, \mathbf{b} \in \mathbb{R}^3
+$$
+
+This follows directly from the cross product: $\mathbf{a} \times \mathbf{b} = -\mathbf{b} \times \mathbf{a}$. We will use this in Part 2 to rearrange the noise terms when isolating velocity and position noise.
 
 #### 2.1.3 Exponential and Logarithmic Maps
 
 The **exponential map** connects the Lie algebra to the Lie group:
 
 $$
-\text{Exp}: \mathbb{R}^3 \to SO(3), \quad \boldsymbol{\phi} \mapsto \exp(\boldsymbol{\phi}^\wedge)
+\text{Exp}: \mathbb{R}^3 \to SO(3), \quad \boldsymbol{\phi} \mapsto \text{Exp}(\boldsymbol{\phi})
 $$
 
 Its closed-form expression is given by the **Rodrigues' formula**:
 
 $$
 \text{Exp}(\boldsymbol{\phi}) = \mathbf{I} + \frac{\sin\|\boldsymbol{\phi}\|}{\|\boldsymbol{\phi}\|} \boldsymbol{\phi}^\wedge + \frac{1 - \cos\|\boldsymbol{\phi}\|}{\|\boldsymbol{\phi}\|^2} (\boldsymbol{\phi}^\wedge)^2
+$$
+
+A useful **first-order approximation** of the exponential map, valid when $\boldsymbol{\phi}$ is small, is:
+
+$$
+\text{Exp}(\boldsymbol{\phi}) \approx \mathbf{I} + \boldsymbol{\phi}^\wedge
 $$
 
 The inverse is the **logarithmic map**:
