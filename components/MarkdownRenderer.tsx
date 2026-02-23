@@ -4,6 +4,7 @@ import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
 import rehypeHighlight from 'rehype-highlight';
+import AdjointSwapAnimation from './AdjointSwapAnimation';
 
 function slugify(text: string): string {
   return text
@@ -70,9 +71,15 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             </h4>
           );
         },
-        p: ({ children }) => (
-          <p className="text-slate-700 leading-relaxed mb-4">{children}</p>
-        ),
+        p: ({ children }) => {
+          const text = extractText(children).trim();
+          if (text === '::adjoint-swap-animation::') {
+            return <AdjointSwapAnimation />;
+          }
+          return (
+            <p className="text-slate-700 leading-relaxed mb-4">{children}</p>
+          );
+        },
         ul: ({ children }) => (
           <ul className="list-disc list-outside pl-6 space-y-1 mb-4 text-slate-700">{children}</ul>
         ),

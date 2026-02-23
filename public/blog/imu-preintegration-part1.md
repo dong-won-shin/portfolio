@@ -174,6 +174,8 @@ $$
 \mathbf{J}_r(\boldsymbol{\phi}) = \mathbf{I} - \frac{1 - \cos\|\boldsymbol{\phi}\|}{\|\boldsymbol{\phi}\|^2} \boldsymbol{\phi}^\wedge + \frac{\|\boldsymbol{\phi}\| - \sin\|\boldsymbol{\phi}\|}{\|\boldsymbol{\phi}\|^3} (\boldsymbol{\phi}^\wedge)^2
 $$
 
+Reading the equation above from left to right: if you want to know the effect of adding a small vector $\delta\boldsymbol{\phi}$ to the argument of Exp, you can instead **factor** it as the original rotation times a small rotation, where $\mathbf{J}_r$ converts the additive perturbation into a multiplicative one. This **first-order approximation** will be the main tool in Part 2 for separating noise from the signal inside each IMU factor.
+
 This Jacobian will play a critical role in Part 3 when we derive the optimization Jacobians. For now, remember this key identity that follows from the **Baker-Campbell-Hausdorff (BCH) approximation**:
 
 $$

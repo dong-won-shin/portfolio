@@ -61,10 +61,10 @@ $$
 
 #### Step 1: First-order approximation
 
-By the first-order approximation $\text{Exp}(\boldsymbol{\phi} + \delta\boldsymbol{\phi}) \approx \text{Exp}(\boldsymbol{\phi})\,\text{Exp}(\mathbf{J}_r(\boldsymbol{\phi})\,\delta\boldsymbol{\phi})$, we separate the noise inside each factor:
+By the first-order approximation from Part 1 (Section 2.1.4), $\text{Exp}(\boldsymbol{\phi} + \delta\boldsymbol{\phi}) \approx \text{Exp}(\boldsymbol{\phi})\,\text{Exp}(\mathbf{J}_r(\boldsymbol{\phi})\,\delta\boldsymbol{\phi})$, we separate the noise inside each factor:
 
 $$
-= \prod_{k=i}^{j-1} \left[ \text{Exp}((\tilde{\boldsymbol{\omega}}_k - \mathbf{b}_i^g)\Delta t) \;\cdot\; \underbrace{\text{Exp}(-\mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t)}_{\text{noise term}} \right]
+= \prod_{k=i}^{j-1} \left[ \underbrace{\text{Exp}((\tilde{\boldsymbol{\omega}}_k - \mathbf{b}_i^g)\Delta t)}_{\text{signal term}} \;\cdot\; \underbrace{\text{Exp}(-\mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t)}_{\text{noise term}} \right]
 $$
 
 where $\mathbf{J}_r^k \doteq \mathbf{J}_r^k((\tilde{\boldsymbol{\omega}}_k - \mathbf{b}_i^g)\Delta t)$. Now let us write $\Delta \tilde{\mathbf{R}}_k \triangleq \text{Exp}((\tilde{\boldsymbol{\omega}}_k - \mathbf{b}_i^g)\Delta t)$ for brevity. Expanding the product:
@@ -77,7 +77,7 @@ The signal and noise terms are interleaved. We want to collect all noise terms t
 
 #### Step 2: Moving one signal rotation to the left via the Adjoint identity
 
-Using the **Adjoint identity** $\text{Exp}(\boldsymbol{\phi})\,\mathbf{R} = \mathbf{R}\,\text{Exp}(\mathbf{R}^T \boldsymbol{\phi})$, we can swap the order of a noise exponential and a rotation matrix. Let us focus on the **first noise term** $\text{Exp}(-\mathbf{J}_r^i \boldsymbol{\eta}_i^{gd}\Delta t)$ and push it past the adjacent signal rotation $\Delta \tilde{\mathbf{R}}_{i+1}$:
+Using the **Adjoint identity** from Part 1 (Section 2.1.5), $\text{Exp}(\boldsymbol{\phi})\,\mathbf{R} = \mathbf{R}\,\text{Exp}(\mathbf{R}^T \boldsymbol{\phi})$, we can swap the order of a noise exponential and a rotation matrix. Let us focus on the **first noise term** $\text{Exp}(-\mathbf{J}_r^i \boldsymbol{\eta}_i^{gd}\Delta t)$ and push it past the adjacent signal rotation $\Delta \tilde{\mathbf{R}}_{i+1}$:
 
 $$
 \text{Exp}(-\mathbf{J}_r^i \boldsymbol{\eta}_i^{gd}\Delta t) \cdot \Delta \tilde{\mathbf{R}}_{i+1} = \Delta \tilde{\mathbf{R}}_{i+1} \cdot \text{Exp}(-\Delta \tilde{\mathbf{R}}_{i+1}^T \mathbf{J}_r^i \, \boldsymbol{\eta}_i^{gd}\Delta t)
@@ -86,7 +86,7 @@ $$
 After this single swap, the signal rotation $\Delta \tilde{\mathbf{R}}_{i+1}$ has moved to the left, joining $\Delta \tilde{\mathbf{R}}_i$:
 
 $$
-= \Delta \tilde{\mathbf{R}}_i \cdot \Delta \tilde{\mathbf{R}}_{i+1} \cdot \text{Exp}(-\Delta \tilde{\mathbf{R}}_{i+1}^T \mathbf{J}_r^i \, \boldsymbol{\eta}_i^{gd}\Delta t) \cdot \text{Exp}(-\mathbf{J}_r^{i+1} \boldsymbol{\eta}_{i+1}^{gd}\Delta t) \cdot \Delta \tilde{\mathbf{R}}_{i+2} \cdot \text{Exp}(-\mathbf{J}_r^{i+2} \boldsymbol{\eta}_{i+2}^{gd}\Delta t) \cdot \; \cdots
+= \Delta \tilde{\mathbf{R}}_i \cdot \overbrace{\Delta \tilde{\mathbf{R}}_{i+1} \cdot \text{Exp}(-\Delta \tilde{\mathbf{R}}_{i+1}^T \mathbf{J}_r^i \, \boldsymbol{\eta}_i^{gd}\Delta t)}^{\text{swapped via Adjoint identity}} \cdot \text{Exp}(-\mathbf{J}_r^{i+1} \boldsymbol{\eta}_{i+1}^{gd}\Delta t) \cdot \Delta \tilde{\mathbf{R}}_{i+2} \cdot \text{Exp}(-\mathbf{J}_r^{i+2} \boldsymbol{\eta}_{i+2}^{gd}\Delta t) \cdot \; \cdots
 $$
 
 Now apply the same trick again — push the two noise exponentials past $\Delta \tilde{\mathbf{R}}_{i+2}$. Each noise term picks up a factor of $\Delta \tilde{\mathbf{R}}_{i+2}^T$:
@@ -96,6 +96,8 @@ $$
 $$
 
 The pattern is now clear: after two rounds of swaps, three signal rotations have collected on the left, and three noise exponentials sit on the right — each carrying the accumulated $\Delta \tilde{\mathbf{R}}^T$ factors from every signal rotation it passed through.
+
+::adjoint-swap-animation::
 
 #### Step 3: Repeating for all remaining terms
 
@@ -109,16 +111,10 @@ where $\Delta \tilde{\mathbf{R}}_{k+1,j} = \Delta \tilde{\mathbf{R}}_{k+1} \cdot
 
 #### Step 4: Collapsing into a single Exp via BCH approximation
 
-Since $\boldsymbol{\eta}_k^{gd}$ is small, each noise argument is a small vector. Recall the BCH first-order approximation from Part 1: $\text{Exp}(\boldsymbol{\phi}) \cdot \text{Exp}(\delta\boldsymbol{\phi}) \approx \text{Exp}(\boldsymbol{\phi} + \mathbf{J}_r^{-1}(\boldsymbol{\phi})\,\delta\boldsymbol{\phi})$. When **both** arguments are small, $\mathbf{J}_r^{-1} \approx \mathbf{I}$, so this simplifies to $\text{Exp}(\boldsymbol{\phi}_1)\,\text{Exp}(\boldsymbol{\phi}_2) \approx \text{Exp}(\boldsymbol{\phi}_1 + \boldsymbol{\phi}_2)$. Applying this repeatedly to collapse the product of noise exponentials:
+Since $\boldsymbol{\eta}_k^{gd}$ is small, each noise argument is a small vector. Recall the BCH first-order approximation from Part 1 (Section 2.1.4): $\text{Exp}(\boldsymbol{\phi}) \cdot \text{Exp}(\delta\boldsymbol{\phi}) \approx \text{Exp}(\boldsymbol{\phi} + \mathbf{J}_r^{-1}(\boldsymbol{\phi})\,\delta\boldsymbol{\phi})$. When **both** arguments are small, $\mathbf{J}_r^{-1} \approx \mathbf{I}$, so this simplifies to $\text{Exp}(\boldsymbol{\phi}_1)\,\text{Exp}(\boldsymbol{\phi}_2) \approx \text{Exp}(\boldsymbol{\phi}_1 + \boldsymbol{\phi}_2)$. Applying this repeatedly to collapse the product of noise exponentials:
 
 $$
-\approx \Delta \tilde{\mathbf{R}}_{ij} \, \text{Exp}\left(-\sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{k+1,j}^T \, \mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t\right) = \Delta \tilde{\mathbf{R}}_{ij} \, \text{Exp}\left(-\delta \boldsymbol{\phi}_{ij}\right) \hspace{4em} \text{(35)}
-$$
-
-where we defined:
-
-$$
-\delta \boldsymbol{\phi}_{ij} \triangleq \sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{k+1,j}^T \mathbf{J}_r^k \boldsymbol{\eta}_k^{gd} \Delta t
+\approx \Delta \tilde{\mathbf{R}}_{ij} \prod_{k=i}^{j-1} \text{Exp}\!\left(-\Delta \tilde{\mathbf{R}}_{k+1,j}^T \, \mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t\right) = \Delta \tilde{\mathbf{R}}_{ij} \, \text{Exp}\!\left(-\underbrace{\sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{k+1,j}^T \, \mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t}_{\delta \boldsymbol{\phi}_{ij}}\right)
 $$
 
 #### Summary: preintegrated rotation measurement model
@@ -149,7 +145,7 @@ $$
 
 #### Step 2: First-order approximation of Exp
 
-Since $\delta\boldsymbol{\phi}_{ik}$ is small, we use the first-order approximation of the exponential map $\text{Exp}(-\delta\boldsymbol{\phi}_{ik}) \approx \mathbf{I} - \delta\boldsymbol{\phi}_{ik}^\wedge$:
+Since $\delta\boldsymbol{\phi}_{ik}$ is small, we use the first-order approximation of the exponential map from Part 1 (Section 2.1.3) $\text{Exp}(-\delta\boldsymbol{\phi}_{ik}) \approx \mathbf{I} - \delta\boldsymbol{\phi}_{ik}^\wedge$:
 
 $$
 = \sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{ik} \, (\mathbf{I} - \delta\boldsymbol{\phi}_{ik}^\wedge) \, (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a - \boldsymbol{\eta}_k^{ad}) \, \Delta t
@@ -177,10 +173,10 @@ $$
 = \sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t + \sum_{k=i}^{j-1} \left[ \Delta \tilde{\mathbf{R}}_{ik} \, (-\delta\boldsymbol{\phi}_{ik}^\wedge) \, (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t - \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t \right]
 $$
 
-Using the skew-symmetric identity $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$ for all $\mathbf{a}, \mathbf{b} \in \mathbb{R}^3$:
+Using the skew-symmetric identity from Part 1 (Section 2.1.2), $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$ for all $\mathbf{a}, \mathbf{b} \in \mathbb{R}^3$:
 
 $$
-= \underbrace{\sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t}_{\Delta \tilde{\mathbf{v}}_{ij}} + \sum_{k=i}^{j-1} \left[ \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a)^\wedge \, \delta\boldsymbol{\phi}_{ik} \, \Delta t - \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t \right]
+= \underbrace{\sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t}_{\Delta \tilde{\mathbf{v}}_{ij}} - \underbrace{\sum_{k=i}^{j-1} \left[ -\Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a)^\wedge \, \delta\boldsymbol{\phi}_{ik} \, \Delta t + \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t \right]}_{\delta \mathbf{v}_{ij}}
 $$
 
 #### Summary: preintegrated velocity measurement model
@@ -217,7 +213,7 @@ $$
 
 #### Step 2: First-order approximation and expand
 
-Applying $\text{Exp}(-\delta\boldsymbol{\phi}_{ik}) \approx \mathbf{I} - \delta\boldsymbol{\phi}_{ik}^\wedge$ and expanding:
+Applying the first-order exponential map approximation from Part 1 (Section 2.1.3), $\text{Exp}(-\delta\boldsymbol{\phi}_{ik}) \approx \mathbf{I} - \delta\boldsymbol{\phi}_{ik}^\wedge$, and expanding:
 
 $$
 = \sum_{k=i}^{j-1} \left[ (\Delta \tilde{\mathbf{v}}_{ik} - \delta \mathbf{v}_{ik}) \Delta t + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (\mathbf{I} - \delta\boldsymbol{\phi}_{ik}^\wedge)(\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t^2 - \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t^2 \right]
@@ -233,10 +229,10 @@ $$
 = \sum_{k=i}^{j-1} \left[ \Delta \tilde{\mathbf{v}}_{ik} \Delta t + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t^2 \right] + \sum_{k=i}^{j-1} \left[ -\delta \mathbf{v}_{ik} \Delta t + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (-\delta\boldsymbol{\phi}_{ik}^\wedge)(\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t^2 - \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t^2 \right]
 $$
 
-Applying $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$ to the skew-symmetric term:
+Applying the skew-symmetric identity from Part 1 (Section 2.1.2), $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$, to the skew-symmetric term:
 
 $$
-= \underbrace{\sum_{k=i}^{j-1} \left[ \Delta \tilde{\mathbf{v}}_{ik} \Delta t + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t^2 \right]}_{\Delta \tilde{\mathbf{p}}_{ij}} + \sum_{k=i}^{j-1} \left[ -\delta \mathbf{v}_{ik} \Delta t + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a)^\wedge \, \delta\boldsymbol{\phi}_{ik} \, \Delta t^2 - \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t^2 \right]
+= \underbrace{\sum_{k=i}^{j-1} \left[ \Delta \tilde{\mathbf{v}}_{ik} \Delta t + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a) \Delta t^2 \right]}_{\Delta \tilde{\mathbf{p}}_{ij}} - \underbrace{\sum_{k=i}^{j-1} \left[ \delta \mathbf{v}_{ik} \Delta t - \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \mathbf{b}_i^a)^\wedge \, \delta\boldsymbol{\phi}_{ik} \, \Delta t^2 + \tfrac{1}{2} \Delta \tilde{\mathbf{R}}_{ik} \, \boldsymbol{\eta}_k^{ad} \, \Delta t^2 \right]}_{\delta \mathbf{p}_{ij}}
 $$
 
 #### Summary: preintegrated position measurement model
@@ -365,7 +361,7 @@ $$
 
 The position error depends on the previous position error, previous velocity error, previous rotation error, and new accelerometer noise — reflecting the cascading coupling structure.
 
-### 4.3 The $\mathbf{A}_{j-1}$ and $\mathbf{B}_{j-1}$ Matrices (**Eq. 62**)
+### 4.3 Error-State Propagation in Matrix Form (**Eq. 62**)
 
 Recalling that $\boldsymbol{\eta}_{ik}^{\Delta} \doteq [\delta\boldsymbol{\phi}_{ik},\; \delta\mathbf{v}_{ik},\; \delta\mathbf{p}_{ik}]$ and defining the IMU measurement noise $\boldsymbol{\eta}_k^d \doteq [\boldsymbol{\eta}_k^{gd} \quad \boldsymbol{\eta}_k^{ad}]$, we can write the three propagation equations (Eqs. 59–61) in compact matrix form:
 
@@ -433,7 +429,7 @@ where $\mathbf{r}_{ij}$ is the residual (to be defined in Part 3). This naturall
 
 The preintegrated measurements depend on the bias estimate $\bar{\mathbf{b}}$ at which they were computed. During optimization, the bias is updated. Must we re-integrate?
 
-**No.** Let $\bar{\mathbf{b}}$ be the bias at preintegration time, and $\delta \mathbf{b}$ the small update from the optimizer. The paper uses a **first-order correction**.
+The answer is **No.** Let $\bar{\mathbf{b}}$ be the bias at preintegration time, and $\delta \mathbf{b}$ the small update from the optimizer. The paper uses a **first-order correction**.
 
 #### Rotation bias correction (**Eq. 65–68**)
 
@@ -449,19 +445,19 @@ $$
 = \prod_{k=i}^{j-1} \text{Exp}\left((\tilde{\boldsymbol{\omega}}_k - \bar{\mathbf{b}}_i^g - \delta \mathbf{b}_i^g)\Delta t\right)
 $$
 
-Since $\delta \mathbf{b}_i^g$ is small, apply the BCH first-order approximation to each factor:
+Since $\delta \mathbf{b}_i^g$ is small, apply the BCH first-order approximation from Part 1 (Section 2.1.4) to each factor:
 
 $$
 \simeq \prod_{k=i}^{j-1} \text{Exp}\left((\tilde{\boldsymbol{\omega}}_k - \bar{\mathbf{b}}_i^g)\Delta t\right) \cdot \text{Exp}\left(-\mathbf{J}_r^k \, \delta \mathbf{b}_i^g \, \Delta t\right)
 $$
 
-This has the same structure as the noise isolation in Section 3.2 — signal and perturbation terms are interleaved. Using the **Adjoint identity** repeatedly to push all perturbation exponentials to the right (exactly as in Steps 2–3 of Section 3.2):
+This has the same structure as the noise isolation in Section 3.2 — signal and perturbation terms are interleaved. Using the **Adjoint identity** from Part 1 (Section 2.1.5) repeatedly to push all perturbation exponentials to the right (exactly as in Steps 2–3 of Section 3.2):
 
 $$
 = \Delta \bar{\mathbf{R}}_{ij} \prod_{k=i}^{j-1} \text{Exp}\left(-\Delta \tilde{\mathbf{R}}_{k+1,j}^T(\bar{\mathbf{b}}_i) \, \mathbf{J}_r^k \, \delta \mathbf{b}_i^g \, \Delta t\right)
 $$
 
-Since $\delta \mathbf{b}_i^g$ is small, collapse the product of exponentials via BCH:
+Since $\delta \mathbf{b}_i^g$ is small, collapse the product of exponentials via BCH (Part 1, Section 2.1.4):
 
 $$
 \approx \Delta \bar{\mathbf{R}}_{ij} \cdot \text{Exp}\left(\sum_{k=i}^{j-1} -\Delta \tilde{\mathbf{R}}_{k+1,j}^T(\bar{\mathbf{b}}_i) \, \mathbf{J}_r^k \, \delta \mathbf{b}_i^g \, \Delta t\right)
@@ -495,7 +491,7 @@ $$
 = \sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \, \text{Exp}\left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right) (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a - \delta \mathbf{b}_i^a) \, \Delta t
 $$
 
-Since $\delta \mathbf{b}_i^g$ is small, apply the first-order exponential map approximation $\text{Exp}(\boldsymbol{\phi}) \approx \mathbf{I} + \boldsymbol{\phi}^\wedge$:
+Since $\delta \mathbf{b}_i^g$ is small, apply the first-order exponential map approximation from Part 1 (Section 2.1.3), $\text{Exp}(\boldsymbol{\phi}) \approx \mathbf{I} + \boldsymbol{\phi}^\wedge$:
 
 $$
 = \sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \left(\mathbf{I} + \left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right)^\wedge\right) (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a - \delta \mathbf{b}_i^a) \, \Delta t
@@ -513,7 +509,7 @@ $$
 \approx \underbrace{\sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \, (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a) \, \Delta t}_{\Delta \bar{\mathbf{v}}_{ij}} \;-\; \sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \, \Delta t \cdot \delta \mathbf{b}_i^a \;+\; \sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right)^\wedge (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a) \, \Delta t
 $$
 
-For the last sum, apply the skew-symmetric identity $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$:
+For the last sum, apply the skew-symmetric identity from Part 1 (Section 2.1.2), $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$:
 
 $$
 = \Delta \bar{\mathbf{v}}_{ij} \underbrace{-\sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \, \Delta t}_{\frac{\partial \Delta \bar{\mathbf{v}}_{ij}}{\partial \mathbf{b}^a}} \cdot\, \delta \mathbf{b}_i^a \;\underbrace{-\sum_{k=i}^{j-1} \Delta \bar{\mathbf{R}}_{ik} \, (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a)^\wedge \frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \, \Delta t}_{\frac{\partial \Delta \bar{\mathbf{v}}_{ij}}{\partial \mathbf{b}^g}} \cdot\, \delta \mathbf{b}_i^g
@@ -541,7 +537,7 @@ $$
 \simeq \sum_{k=i}^{j-1} \left[ \Delta \tilde{\mathbf{v}}_{ik}(\hat{\mathbf{b}}_i) \, \Delta t + \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \, \text{Exp}\left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right) (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a - \delta \mathbf{b}_i^a) \, \Delta t^2 \right]
 $$
 
-Apply the first-order Exp approximation to the rotation term, and substitute the velocity bias correction result $\Delta \tilde{\mathbf{v}}_{ik}(\hat{\mathbf{b}}_i) \approx \Delta \bar{\mathbf{v}}_{ik} + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g$:
+Apply the first-order Exp approximation (Part 1, Section 2.1.3) to the rotation term, and substitute the velocity bias correction result $\Delta \tilde{\mathbf{v}}_{ik}(\hat{\mathbf{b}}_i) \approx \Delta \bar{\mathbf{v}}_{ik} + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g$:
 
 $$
 = \sum_{k=i}^{j-1} \left[ \left(\Delta \bar{\mathbf{v}}_{ik} + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right) \Delta t + \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \left(\mathbf{I} + \left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right)^\wedge\right) (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a - \delta \mathbf{b}_i^a) \, \Delta t^2 \right]
@@ -559,7 +555,7 @@ $$
 = \underbrace{\sum_{k=i}^{j-1} \left[ \Delta \bar{\mathbf{v}}_{ik} \, \Delta t + \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a) \, \Delta t^2 \right]}_{\Delta \bar{\mathbf{p}}_{ij}} + \sum_{k=i}^{j-1} \left[ \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a \, \Delta t - \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \, \delta \mathbf{b}_i^a \, \Delta t^2 + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g \, \Delta t + \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right)^\wedge (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a) \, \Delta t^2 \right]
 $$
 
-Applying the skew-symmetric identity $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$ to the last term, then grouping by $\delta \mathbf{b}_i^a$ and $\delta \mathbf{b}_i^g$:
+Applying the skew-symmetric identity from Part 1 (Section 2.1.2), $\mathbf{a}^\wedge \mathbf{b} = -\mathbf{b}^\wedge \mathbf{a}$, to the last term, then grouping by $\delta \mathbf{b}_i^a$ and $\delta \mathbf{b}_i^g$:
 
 $$
 = \Delta \bar{\mathbf{p}}_{ij} + \sum_{k=i}^{j-1} \left[ \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \Delta t - \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \, \Delta t^2 \right] \delta \mathbf{b}_i^a + \sum_{k=i}^{j-1} \left[ \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \Delta t - \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \, (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a)^\wedge \frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \, \Delta t^2 \right] \delta \mathbf{b}_i^g
