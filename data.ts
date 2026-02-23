@@ -203,6 +203,26 @@ export const PROJECTS: ProjectItem[] = [
 
 export const TECHNICAL_WRITING: ProjectItem[] = [
   {
+    id: "imu-preintegration-part2",
+    title: "[Blog] A Deep Dive into IMU Preintegration (Part 2)",
+    subtitle: "Noise Isolation, Covariance Propagation & Bias Correction — from entangled measurements to a proper probabilistic model",
+    organization: "Technical Blog",
+    period: "2026",
+    thumbnail: "/blog/images/imu-preintegration-part2-figure1.png",
+    blogSlug: "imu-preintegration-part2",
+    details: {
+      overview: "Part 2 of a 3-part series on IMU Preintegration in Visual-Inertial SLAM. Covers noise isolation on SO(3) via the Adjoint identity, iterative error-state propagation (Eqs. 59–63), covariance matrix construction, and first-order bias correction (Eqs. 64–68) with full intermediate derivations.",
+      contributions: [
+        "Noise isolation for rotation, velocity, and position using Adjoint identity and BCH approximation",
+        "Iterative error-state recursion and 9×9 covariance propagation",
+        "First-order bias correction derivation for rotation (multiplicative), velocity, and position (additive)",
+        "Full intermediate derivation steps that the original paper skips"
+      ],
+      techStack: ["IMU", "Visual-Inertial SLAM", "SO(3)", "Covariance Propagation", "Bias Correction"],
+      link: "https://concrete-bush-623.notion.site/ENG-ORB-SLAM3-IMU-preintegration-code-review-1-245cc7c3f3fb804598b1ceec8ea8a82d?pvs=73"
+    }
+  },
+  {
     id: "imu-preintegration-part1",
     title: "[Blog] A Deep Dive into IMU Preintegration (Part 1)",
     subtitle: "Why Preintegration & the Math Behind It — SO(3) Lie group, Exp/Log maps, IMU kinematics, and the change of coordinates trick",

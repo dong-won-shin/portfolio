@@ -162,7 +162,7 @@ Together, these maps allow us to move between the manifold $SO(3)$ (where rotati
 
 #### 2.1.4 The Right Jacobian of $SO(3)$
 
-When we compose a small perturbation with a rotation, we need the **right Jacobian** $\mathbf{J}_r$. It relates a small change in the Lie algebra to a change on the group:
+When we compose a small perturbation with a rotation, we need the **right Jacobian** $\mathbf{J}_r$. The right Jacobian maps a small additive perturbation $\delta\boldsymbol{\phi}$ in the Lie algebra to a multiplicative perturbation on the group.:
 
 $$
 \text{Exp}(\boldsymbol{\phi} + \delta \boldsymbol{\phi}) \approx \text{Exp}(\boldsymbol{\phi}) \cdot \text{Exp}(\mathbf{J}_r(\boldsymbol{\phi}) \, \delta \boldsymbol{\phi})

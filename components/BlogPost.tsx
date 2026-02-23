@@ -11,6 +11,7 @@ interface TocItem {
 
 function slugify(text: string): string {
   return text
+    .replace(/\u2212/g, '-')
     .toLowerCase()
     .replace(/[^a-z0-9가-힣\s-]/g, '')
     .replace(/\s+/g, '-')
