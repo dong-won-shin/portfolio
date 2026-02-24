@@ -282,7 +282,7 @@ The noise vectors $\delta\boldsymbol{\phi}_{ij}$, $\delta\mathbf{v}_{ij}$, $\del
 Starting from the rotation noise (derived in Section 3.2):
 
 $$
-\delta\boldsymbol{\phi}_{ij} = \sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{k+1,j}^T \, \mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t
+\delta\boldsymbol{\phi}_{ij} \simeq \sum_{k=i}^{j-1} \Delta \tilde{\mathbf{R}}_{k+1,j}^T \, \mathbf{J}_r^k \, \boldsymbol{\eta}_k^{gd} \, \Delta t
 $$
 
 Separate the last term ($k = j-1$) from the sum. Note that $\Delta \tilde{\mathbf{R}}_{j,j}^T = \mathbf{I}_{3 \times 3}$:
@@ -306,7 +306,7 @@ $$
 This gives the recursion (**Eq. 59**):
 
 $$
-\boxed{\delta\boldsymbol{\phi}_{ij} = \Delta \tilde{\mathbf{R}}_{j-1,j}^T \, \delta\boldsymbol{\phi}_{i,j-1} + \mathbf{J}_r^{j-1} \, \boldsymbol{\eta}_{j-1}^{gd} \, \Delta t}
+\boxed{\delta\boldsymbol{\phi}_{ij} \simeq \Delta \tilde{\mathbf{R}}_{j-1,j}^T \, \delta\boldsymbol{\phi}_{i,j-1} + \mathbf{J}_r^{j-1} \, \boldsymbol{\eta}_{j-1}^{gd} \, \Delta t}
 $$
 
 The rotation error propagates **independently** — it depends only on the previous rotation error (via $\Delta \tilde{\mathbf{R}}_{j-1,j}^T$) and the new gyroscope noise.
@@ -540,7 +540,7 @@ $$
 Apply the first-order Exp approximation (Part 1, Section 2.1.3) to the rotation term, and substitute the velocity bias correction result $\Delta \tilde{\mathbf{v}}_{ik}(\hat{\mathbf{b}}_i) \approx \Delta \bar{\mathbf{v}}_{ik} + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g$:
 
 $$
-= \sum_{k=i}^{j-1} \left[ \left(\Delta \bar{\mathbf{v}}_{ik} + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right) \Delta t + \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \left(\mathbf{I} + \left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right)^\wedge\right) (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a - \delta \mathbf{b}_i^a) \, \Delta t^2 \right]
+\simeq \sum_{k=i}^{j-1} \left[ \left(\Delta \bar{\mathbf{v}}_{ik} + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^a} \delta \mathbf{b}_i^a + \frac{\partial \Delta \bar{\mathbf{v}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right) \Delta t + \tfrac{1}{2} \Delta \bar{\mathbf{R}}_{ik} \left(\mathbf{I} + \left(\frac{\partial \Delta \bar{\mathbf{R}}_{ik}}{\partial \mathbf{b}^g} \delta \mathbf{b}_i^g\right)^\wedge\right) (\tilde{\mathbf{a}}_k - \bar{\mathbf{b}}_i^a - \delta \mathbf{b}_i^a) \, \Delta t^2 \right]
 $$
 
 Expanding all products:
@@ -605,7 +605,7 @@ After processing all IMU measurements between keyframes $i$ and $j$, the preinte
 | $\Delta \tilde{\mathbf{R}}_{ij}$ | $3 \times 3$ | Preintegrated rotation measurement |
 | $\Delta \tilde{\mathbf{v}}_{ij}$ | $3 \times 1$ | Preintegrated velocity measurement |
 | $\Delta \tilde{\mathbf{p}}_{ij}$ | $3 \times 1$ | Preintegrated position measurement |
-| $\boldsymbol{\Sigma}_{ij}$ | $9 \times 9$ | Measurement covariance (from $\mathbf{A}_k, \mathbf{B}_k$ propagation) |
+| $\boldsymbol{\Sigma}_{ij}$ | $9 \times 9$ | Measurement covariance (from $\mathbf{A}_{j-1}, \mathbf{B}_{j-1}$ propagation) |
 | $\frac{\partial \Delta \bar{\mathbf{R}}_{ij}}{\partial \mathbf{b}^g}$ | $3 \times 3$ | Rotation-gyro bias Jacobian |
 | $\frac{\partial \Delta \bar{\mathbf{v}}_{ij}}{\partial \mathbf{b}^g}$, $\frac{\partial \Delta \bar{\mathbf{v}}_{ij}}{\partial \mathbf{b}^a}$ | $3 \times 3$ each | Velocity-bias Jacobians |
 | $\frac{\partial \Delta \bar{\mathbf{p}}_{ij}}{\partial \mathbf{b}^g}$, $\frac{\partial \Delta \bar{\mathbf{p}}_{ij}}{\partial \mathbf{b}^a}$ | $3 \times 3$ each | Position-bias Jacobians |
