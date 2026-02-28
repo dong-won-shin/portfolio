@@ -268,6 +268,7 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
     organization: "Technical Blog",
     period: "2025",
     thumbnail: "/images/projects/orb-slam3-imu-1.webp",
+    blogSlug: "orb-slam3-imu-part1",
     details: {
       overview: "A comprehensive technical code review analyzing the IMU preintegration implementation in ORB-SLAM3, one of the most widely used visual-inertial SLAM systems. This article provides detailed insights into the mathematical foundations and practical implementation details.",
       contributions: [
@@ -287,6 +288,7 @@ export const TECHNICAL_WRITING: ProjectItem[] = [
     organization: "Technical Blog",
     period: "2025",
     thumbnail: "/images/projects/orb-slam3-imu-2.webp",
+    blogSlug: "orb-slam3-imu-part2",
     details: {
       overview: "The second part of the ORB-SLAM3 IMU preintegration code review series, focusing on advanced topics including error propagation, bias correction, and optimization techniques for robust visual-inertial odometry.",
       contributions: [
