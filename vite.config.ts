@@ -18,6 +18,12 @@ const BLOG_META = [
     description: 'Noise Isolation, Covariance Propagation & Bias Correction — from entangled measurements to a proper probabilistic model',
     image: '/blog/images/imu-preintegration-part2-og.png',
   },
+  {
+    slug: 'imu-preintegration-part3',
+    title: 'A Deep Dive into IMU Preintegration (Part 3)',
+    description: 'Residuals, Jacobians & the Gauss-Newton System — from manifold residuals to the normal equation for Visual-Inertial SLAM',
+    image: '/blog/images/imu-preintegration-part3-og.png',
+  },
 ];
 
 function blogOgPlugin(): Plugin {

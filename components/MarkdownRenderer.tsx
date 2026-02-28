@@ -160,11 +160,29 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             </code>
           );
         },
-        pre: ({ children }) => (
-          <pre className="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto my-4 text-sm">
-            {children}
-          </pre>
-        ),
+        pre: ({ children }) => {
+          const child = React.Children.toArray(children)[0] as any;
+          const className = child?.props?.className || '';
+          const match = className.match(/language-(\w+)/);
+          const lang = match ? match[1].toUpperCase() : '';
+          return (
+            <div className="my-6 rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
+              {lang && (
+                <div className="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700/50">
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-red-500/80"></span>
+                    <span className="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                    <span className="w-3 h-3 rounded-full bg-green-500/80"></span>
+                  </div>
+                  <span className="text-xs font-medium text-slate-400 ml-2">{lang}</span>
+                </div>
+              )}
+              <pre className="bg-[#0d1117] text-slate-100 p-4 overflow-x-auto text-sm leading-relaxed">
+                {children}
+              </pre>
+            </div>
+          );
+        },
         img: ({ src, alt }) => (
           <img
             src={src}

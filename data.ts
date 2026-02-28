@@ -203,6 +203,26 @@ export const PROJECTS: ProjectItem[] = [
 
 export const TECHNICAL_WRITING: ProjectItem[] = [
   {
+    id: "imu-preintegration-part3",
+    title: "[Blog] A Deep Dive into IMU Preintegration (Part 3)",
+    subtitle: "Residuals, Jacobians & the Gauss-Newton System — from manifold residuals to the normal equation",
+    organization: "Technical Blog",
+    period: "2026",
+    thumbnail: "/blog/images/imu-preintegration-part3-figure1.png",
+    blogSlug: "imu-preintegration-part3",
+    details: {
+      overview: "Part 3 of a 3-part series on IMU Preintegration in Visual-Inertial SLAM. Defines the IMU residual functions (Eq. 45 of Forster et al.) on the SO(3) manifold, derives all Jacobians step by step using the Adjoint identity, Right Jacobian, and BCH linearization, and assembles them into the Gauss-Newton normal equation.",
+      contributions: [
+        "IMU residual functions on SO(3) with rotation Log map, velocity, and position components",
+        "Full Jacobian derivations using Adjoint swap, BCH linearization, and skew-symmetric identity",
+        "Complete Jacobian summary table for the 9×24 IMU factor",
+        "Gauss-Newton system assembly with manifold-aware state updates (retraction)"
+      ],
+      techStack: ["IMU", "Visual-Inertial SLAM", "SO(3)", "Gauss-Newton", "Factor Graph"],
+      link: "https://concrete-bush-623.notion.site/ENG-ORB-SLAM3-IMU-preintegration-code-review-1-245cc7c3f3fb804598b1ceec8ea8a82d?pvs=73"
+    }
+  },
+  {
     id: "imu-preintegration-part2",
     title: "[Blog] A Deep Dive into IMU Preintegration (Part 2)",
     subtitle: "Noise Isolation, Covariance Propagation & Bias Correction — from entangled measurements to a proper probabilistic model",
