@@ -2,8 +2,8 @@
 
 > **Series Overview:** This is Part 1 of a 3-part series on IMU Preintegration in Visual-Inertial SLAM.
 > - **Part 1 (this post):** Motivation & Mathematical Foundations
-> - Part 2: The Preintegrated Measurement Model & Covariance Propagation
-> - Part 3: Optimization on $SO(3)$ — Residuals, Jacobians & Conclusion
+> - [Part 2](/blog/imu-preintegration-part2): The Preintegrated Measurement Model & Covariance Propagation
+> - [Part 3](/blog/imu-preintegration-part3): Optimization on $SO(3)$ — Residuals, Jacobians & the Gauss-Newton System
 
 > **Note:** Throughout this series, we follow the notation and equations of **Forster et al., "On-Manifold Preintegration for Real-Time Visual-Inertial Odometry," IEEE Transactions on Robotics, 2017** [1]. This analysis aims to provide a step-by-step walkthrough of the paper's mathematical framework, making it accessible to engineers and researchers working on Visual-Inertial SLAM systems.
 
@@ -283,7 +283,7 @@ The **left-hand sides** express the predicted relative motion in terms of the st
 
 ## What's Next?
 
-In **Part 2**, we will:
+In **[Part 2](/blog/imu-preintegration-part2)**, we will:
 - **Isolate the noise** from the preintegrated measurements by factoring out zero-mean noise terms, obtaining the measurement model $\Delta \tilde{\mathbf{R}}_{ij}$, $\Delta \tilde{\mathbf{v}}_{ij}$, $\Delta \tilde{\mathbf{p}}_{ij}$ with explicit noise separation
 - Show how to handle **bias updates** via first-order Taylor expansion (avoiding re-integration)
 - Derive the **error-state propagation** and the covariance matrix $\boldsymbol{\Sigma}_{ij}$ that quantifies the uncertainty of the preintegrated measurements

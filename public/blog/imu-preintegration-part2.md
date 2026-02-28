@@ -1,9 +1,9 @@
 # A Deep Dive into IMU Preintegration (Part 2): Measurement Model & Covariance Propagation
 
 > **Series Overview:** This is Part 2 of a 3-part series on IMU Preintegration in Visual-Inertial SLAM.
-> - Part 1: Motivation & Mathematical Foundations
+> - [Part 1](/blog/imu-preintegration-part1): Motivation & Mathematical Foundations
 > - **Part 2 (this post):** The Preintegrated Measurement Model & Covariance Propagation
-> - Part 3: Optimization on $SO(3)$ — Residuals, Jacobians & Conclusion
+> - [Part 3](/blog/imu-preintegration-part3): Optimization on $SO(3)$ — Residuals, Jacobians & the Gauss-Newton System
 
 > **Note:** Throughout this series, we follow the notation and equations of **Forster et al., "On-Manifold Preintegration for Real-Time Visual-Inertial Odometry," IEEE Transactions on Robotics, 2017** [1]. This analysis aims to provide a step-by-step walkthrough of the paper's mathematical framework, making it accessible to engineers and researchers working on Visual-Inertial SLAM systems.
 
@@ -617,7 +617,7 @@ Everything above is computed in a **single pass** over the IMU data — the meas
 
 ## What's Next?
 
-In **Part 3**, we will:
+In **[Part 3](/blog/imu-preintegration-part3)**, we will:
 - Define the **residual functions** (**Eq. 45** of Forster et al.) that measure the discrepancy between the optimized states and the preintegrated measurements on the $SO(3)$ manifold
 - Derive the **Jacobians of the residuals** step by step — the most mathematically involved part of the entire framework, using the Adjoint map, Right Jacobian, and BCH linearization
 - Show how these are assembled into the Gauss-Newton system $\Delta \mathbf{x}^* = -(\mathbf{J}^T \boldsymbol{\Sigma}^{-1} \mathbf{J})^{-1} \mathbf{J}^T \boldsymbol{\Sigma}^{-1} \mathbf{r}$
