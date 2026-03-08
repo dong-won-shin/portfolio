@@ -148,7 +148,7 @@ export const PROJECTS: ProjectItem[] = [
       videoUrl: "https://youtu.be/dE0R-Ow4QAc",
       techStack: ["C++", "Non-linear Optimization", "Embedded SoC", "LiDAR", "Visual Odometry"],
       contributions: [
-        "Implemented lightweight nonlinear optimization in the backend, reducing runtime by up to 25% and enabling real-time performance.",
+        "Implemented lightweight nonlinear optimization in the backend, reducing runtime by up to 75% and enabling real-time performance.",
         "Developed a LiDAR-based ground truth (GT) data generation algorithm for precise VSLAM evaluation.",
         "Built an automated pipeline for VSLAM algorithm evaluation and created analytical tools for result mapping."
       ]
