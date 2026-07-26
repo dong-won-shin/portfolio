@@ -58,6 +58,34 @@ function replaceMeta(html: string, post: BlogPost): string {
   return out;
 }
 
+/**
+ * api/views.ts inlines its own slug allowlist (it can't import from outside
+ * api/ — Vercel's function bundler fails to resolve it). Fail the build rather
+ * than let a new post silently ship without a view counter.
+ */
+function slugSyncPlugin(): Plugin {
+  return {
+    name: 'blog-slug-sync',
+    buildStart() {
+      const source = fs.readFileSync(path.resolve(__dirname, 'api/views.ts'), 'utf-8');
+      const block = source.match(/PUBLISHED_SLUGS[^=]*=\s*new Set\(\[([\s\S]*?)\]\)/);
+      if (!block) {
+        this.error('Could not find PUBLISHED_SLUGS in api/views.ts');
+        return;
+      }
+      const apiSlugs = [...block[1].matchAll(/'([^']+)'/g)].map((m) => m[1]).sort();
+      const metaSlugs = BLOG_META.map((post) => post.slug).sort();
+      if (apiSlugs.join(',') !== metaSlugs.join(',')) {
+        this.error(
+          `PUBLISHED_SLUGS in api/views.ts is out of sync with BLOG_META in blog-posts.ts.\n` +
+            `  blog-posts.ts: ${metaSlugs.join(', ')}\n` +
+            `  api/views.ts:  ${apiSlugs.join(', ')}`
+        );
+      }
+    },
+  };
+}
+
 function seoPlugin(): Plugin {
   return {
     name: 'seo-tags',
@@ -120,7 +148,7 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
       },
-      plugins: [react(), seoPlugin()],
+      plugins: [react(), slugSyncPlugin(), seoPlugin()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)

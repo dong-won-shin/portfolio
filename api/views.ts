@@ -1,7 +1,21 @@
 import { createHash } from 'node:crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Redis } from '@upstash/redis';
-import { BLOG_SLUGS } from '../blog-posts';
+
+/**
+ * Slugs allowed to have a counter. Deliberately inlined rather than imported
+ * from blog-posts.ts: Vercel's function bundler failed to resolve an import
+ * from outside api/, and the function crashed at module load. The build
+ * asserts this stays in sync with BLOG_META (see vite.config.ts), so adding a
+ * post to blog-posts.ts without listing it here fails the build.
+ */
+export const PUBLISHED_SLUGS: ReadonlySet<string> = new Set([
+  'imu-preintegration-part1',
+  'imu-preintegration-part2',
+  'imu-preintegration-part3',
+  'orb-slam3-imu-part1',
+  'orb-slam3-imu-part2',
+]);
 
 const MAX_SLUGS_PER_READ = 50;
 const DEDUP_TTL_SECONDS = 60 * 60 * 24; // one counted view per visitor per post per day
@@ -52,7 +66,7 @@ async function read(redis: Redis, req: VercelRequest, res: VercelResponse) {
 }
 
 async function increment(redis: Redis, req: VercelRequest, res: VercelResponse) {
-  // parseSlugs drops anything not in BLOG_SLUGS, so a crafted slug can never
+  // parseSlugs drops anything not in PUBLISHED_SLUGS, so a crafted slug can never
   // create a counter key.
   const [slug] = parseSlugs(readBody(req).slug ?? req.query.slug);
   if (!slug) {
@@ -76,7 +90,7 @@ function parseSlugs(raw: unknown): string[] {
   if (typeof value !== 'string') return [];
   return [...new Set(value.split(','))]
     .map((slug) => slug.trim())
-    .filter((slug) => BLOG_SLUGS.has(slug))
+    .filter((slug) => PUBLISHED_SLUGS.has(slug))
     .slice(0, MAX_SLUGS_PER_READ);
 }
 
