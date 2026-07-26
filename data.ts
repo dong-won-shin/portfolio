@@ -7,15 +7,15 @@ import {
   MediaItem,
   LectureItem,
   StudyClubItem,
-  PublicationItem,
-  CommunityItem
+  PublicationItem
 } from './types';
 
 export const CAREER_DATA: CareerItem[] = [
   {
     period: "Mar. 2022 – present",
     company: "StradVision",
-    role: "VSLAM Algorithm Engineer"
+    role: "VSLAM Algorithm Engineer",
+    badge: "IPO approved"
   },
   {
     period: "Aug. 2019 – Feb. 2022",
@@ -686,16 +686,3 @@ export const PUBLICATIONS: PublicationItem[] = [
   }
 ];
 
-export const COMMUNITY: CommunityItem[] = [
-  {
-    title: "Physical AI KR (formerly SLAM KR)",
-    role: "Community Leader",
-    period: "2019 - Present",
-    description: "Physical AI KR is a technical community bringing together practitioners and researchers to share knowledge on Physical AI, engage in constructive discussions, and grow through real-world problem solving.",
-    achievements: [
-      "Led and grew a KakaoTalk-based technical community with over 2,000 active members",
-      "Organized and hosted large-scale offline technical meetups with up to 140 attendees",
-      "Facilitated in-depth discussions on SLAM, robotics, and physical AI systems"
-    ]
-  }
-];

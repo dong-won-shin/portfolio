@@ -32,8 +32,7 @@ import {
   LECTURES,
   STUDY_CLUBS,
   PUBLICATIONS,
-  PATENTS,
-  COMMUNITY
+  PATENTS
 } from './data';
 import { ProjectItem, MediaItem, LectureItem } from './types';
 
@@ -816,49 +815,6 @@ const App: React.FC = () => {
                     <span>{item.source}</span>
                     <span>{item.date}</span>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section title="Community & Leadership" id="community">
-          <div className="space-y-6">
-            {COMMUNITY.map((item, idx) => (
-              <div key={idx} className="border border-slate-100 rounded-xl p-6 bg-white hover:shadow-lg transition-all">
-                <div className="flex items-start gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
-                        <p className="text-sm font-semibold text-blue-600">{item.role}</p>
-                      </div>
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{item.period}</span>
-                    </div>
-                    <p className="text-sm text-slate-600 mb-4 leading-relaxed">{item.description}</p>
-                    <div className="space-y-2">
-                      {item.achievements.map((achievement, i) => (
-                        <div key={i} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                          <span className="text-xs text-slate-700">{achievement}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {item.title === "Physical AI KR (formerly SLAM KR)" && (
-                    <a
-                      href="https://open.kakao.com/o/g8T5kxLb"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 hover:opacity-80 transition-opacity"
-                    >
-                      <img
-                        src="/images/qr-code-physical-ai-kr.jpeg"
-                        alt="Physical AI KR KakaoTalk QR Code"
-                        className="w-32 h-32 object-contain"
-                      />
-                    </a>
-                  )}
                 </div>
               </div>
             ))}
