@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, List } from 'lucide-react';
 import MarkdownRenderer from './MarkdownRenderer';
+import ViewCounter from './ViewCounter';
 
 interface TocItem {
   id: string;
@@ -148,7 +149,7 @@ const BlogPost: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center">
+        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
             to="/"
             className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-medium"
@@ -156,6 +157,7 @@ const BlogPost: React.FC = () => {
             <ArrowLeft className="w-5 h-5" />
             <span className="hidden sm:inline">Back to Portfolio</span>
           </Link>
+          {slug && <ViewCounter slug={slug} />}
         </div>
       </nav>
 
