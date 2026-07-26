@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Redis } from '@upstash/redis';
+import { BLOG_SLUGS } from '../blog-posts';
 
-const SLUG_PATTERN = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const MAX_SLUGS_PER_READ = 50;
 const DEDUP_TTL_SECONDS = 60 * 60 * 24; // one counted view per visitor per post per day
 
@@ -38,7 +38,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 async function read(redis: Redis, req: VercelRequest, res: VercelResponse) {
   const slugs = parseSlugs(req.query.slugs ?? req.query.slug);
   if (slugs.length === 0) {
-    return res.status(400).json({ error: 'Provide ?slug=<slug> or ?slugs=<a,b,c>' });
+    return res.status(400).json({ error: 'Provide ?slug=<slug> or ?slugs=<a,b,c> naming published posts' });
   }
 
   const counts = await redis.mget<(number | null)[]>(...slugs.map(viewKey));
@@ -52,14 +52,10 @@ async function read(redis: Redis, req: VercelRequest, res: VercelResponse) {
 }
 
 async function increment(redis: Redis, req: VercelRequest, res: VercelResponse) {
+  // parseSlugs drops anything not in BLOG_SLUGS, so a crafted slug can never
+  // create a counter key.
   const [slug] = parseSlugs(readBody(req).slug ?? req.query.slug);
   if (!slug) {
-    return res.status(400).json({ error: 'Provide a slug' });
-  }
-
-  // Only ever create keys for posts that actually exist, so a crafted slug
-  // can't fill the store with junk counters.
-  if (!(await postExists(req, slug))) {
     return res.status(404).json({ error: 'Unknown post' });
   }
 
@@ -80,7 +76,7 @@ function parseSlugs(raw: unknown): string[] {
   if (typeof value !== 'string') return [];
   return [...new Set(value.split(','))]
     .map((slug) => slug.trim())
-    .filter((slug) => SLUG_PATTERN.test(slug))
+    .filter((slug) => BLOG_SLUGS.has(slug))
     .slice(0, MAX_SLUGS_PER_READ);
 }
 
@@ -102,18 +98,6 @@ function dedupKey(req: VercelRequest, slug: string): string {
     .digest('hex')
     .slice(0, 32);
   return `views:dedup:${fingerprint}`;
-}
-
-async function postExists(req: VercelRequest, slug: string): Promise<boolean> {
-  const host = header(req, 'x-forwarded-host') || header(req, 'host');
-  if (!host) return true;
-  const proto = header(req, 'x-forwarded-proto') || 'https';
-  try {
-    const response = await fetch(`${proto}://${host}/blog/${slug}.md`, { method: 'HEAD' });
-    return response.ok;
-  } catch {
-    return true; // never drop a real view over a transient self-fetch failure
-  }
 }
 
 function header(req: VercelRequest, name: string): string {

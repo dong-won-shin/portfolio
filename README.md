@@ -24,6 +24,10 @@ View your app in AI Studio: https://ai.studio/apps/drive/1wgt3VhEC_Fnn0-0mOvwNMR
 Blog posts show a public view count, served by [api/views.ts](api/views.ts) backed by
 Upstash Redis. A view is counted at most once per visitor per post per day.
 
+Only slugs listed in [blog-posts.ts](blog-posts.ts) get a counter — that file is the
+single source of truth shared by the build (OG tags, sitemap) and the API, so a new post
+needs an entry there alongside its `public/blog/<slug>.md`.
+
 To enable it on Vercel:
 
 1. Vercel dashboard → **Storage** → **Create Database** → **Upstash for Redis** (free tier).
